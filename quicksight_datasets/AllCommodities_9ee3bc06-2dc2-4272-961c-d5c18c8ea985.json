@@ -1,0 +1,85 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9ee3bc06-2dc2-4272-961c-d5c18c8ea985",
+    "DataSetId": "9ee3bc06-2dc2-4272-961c-d5c18c8ea985",
+    "Name": "AllCommodities",
+    "CreatedTime": "2025-05-21 18:23:38.145000+03:00",
+    "LastUpdatedTime": "2025-10-31 00:05:35.458000+02:00",
+    "PhysicalTableMap": {
+      "ffc75172-e30c-406a-8356-46d4e072b916": {}
+    },
+    "LogicalTableMap": {
+      "742732ab-7f44-4ac2-9c02-021f02c9fccf": {
+        "Alias": "AllCommodities.csv",
+        "DataTransforms": [
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "comtrade hs codes",
+              "NewColumnType": "INTEGER"
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "Sub-Commodity",
+                "Mapped Commodity Name",
+                "comtrade hs names",
+                "comtrade hs codes",
+                "te news commodity",
+                "te commodity history",
+                "usda psd commodity",
+                "usda psd sub-commodity"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "ffc75172-e30c-406a-8356-46d4e072b916"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Sub-Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Mapped Commodity Name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "comtrade hs names",
+        "Type": "STRING"
+      },
+      {
+        "Name": "comtrade hs codes",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "te news commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "te commodity history",
+        "Type": "STRING"
+      },
+      {
+        "Name": "usda psd commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "usda psd sub-commodity",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 11378,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "09e7db13-78f1-4b87-82bd-0199cdeec1a2"
+}

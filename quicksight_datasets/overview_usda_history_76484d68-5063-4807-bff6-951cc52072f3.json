@@ -1,0 +1,111 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/76484d68-5063-4807-bff6-951cc52072f3",
+    "DataSetId": "76484d68-5063-4807-bff6-951cc52072f3",
+    "Name": "overview_usda_history",
+    "CreatedTime": "2025-08-14 09:12:57.186000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:14.597000+02:00",
+    "PhysicalTableMap": {
+      "2df55c8c-4a3b-4277-86b7-5cde1f5a7f03": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/df6d2b9c-2b20-4244-9853-70e7196f245a",
+          "Name": "New custom SQL",
+          "SqlQuery": "select *,\r\ndate_parse(report_date, '%d/%m/%Y') as Date\r\nfrom shippingbi.overview_usda_history",
+          "Columns": [
+            {
+              "Name": "report_date",
+              "Type": "STRING"
+            },
+            {
+              "Name": "countries",
+              "Type": "STRING"
+            },
+            {
+              "Name": "change_type",
+              "Type": "STRING"
+            },
+            {
+              "Name": "outlook",
+              "Type": "STRING"
+            },
+            {
+              "Name": "commodity",
+              "Type": "STRING"
+            },
+            {
+              "Name": "Date",
+              "Type": "DATETIME"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "5ac10ca5-9ced-439b-91bb-559d66591c25": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "TagColumnOperation": {
+              "ColumnName": "countries",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "report_date",
+                "countries",
+                "change_type",
+                "outlook",
+                "commodity",
+                "Date"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "2df55c8c-4a3b-4277-86b7-5cde1f5a7f03"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "report_date",
+        "Type": "STRING"
+      },
+      {
+        "Name": "countries",
+        "Type": "STRING"
+      },
+      {
+        "Name": "change_type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "outlook",
+        "Type": "STRING"
+      },
+      {
+        "Name": "commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Date",
+        "Type": "DATETIME"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 335661,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "83503413-7464-4c9e-a811-6c0fa3526a13"
+}

@@ -1,0 +1,167 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/7a2f7c52-1d90-4f73-8d06-d76d1b36d46d",
+    "DataSetId": "7a2f7c52-1d90-4f73-8d06-d76d1b36d46d",
+    "Name": "te_news",
+    "CreatedTime": "2025-03-06 10:21:49.502000+02:00",
+    "LastUpdatedTime": "2025-11-03 08:01:34.166000+02:00",
+    "PhysicalTableMap": {
+      "c0787841-96ad-4f9b-a881-9c76be55c04f": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/ce41d5c6-e326-4188-bd1e-e4b9d687f5e0",
+          "Name": "New custom SQL",
+          "SqlQuery": "-- Select all data from the historic news table, parsing its date format\r\nSELECT\r\n    id,\r\n    title,\r\n    -- Parse the 'dd/mm/yyyy' string and cast to a DATE\r\n    CAST(date_parse(date, '%d/%m/%Y') AS DATE) AS date,\r\n    description,\r\n    country,\r\n    category,\r\n    symbol,\r\n    url,\r\n    importance,\r\n    tag,\r\n    tag_confidence,\r\n    -- Transform commodity with an exception for LPG\r\n    CASE\r\n        WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'\r\n        WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'brent crude oil' THEN 'Brent'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(commodity, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS commodity\r\nFROM\r\n    shippingbi.historic_te_news\r\nWHERE date IS NOT NULL AND date != '' -- Added filter to prevent parsing empty strings\r\n\r\nUNION ALL\r\n\r\n-- Select and transform data from the new history table, parsing its date format\r\nSELECT\r\n    -- Generate a unique ID starting from 900,000,000 to avoid collision\r\n    CAST(900000000 + ROW_NUMBER() OVER () AS BIGINT) AS id,\r\n    title,\r\n    -- Use COALESCE and TRY to handle mixed date/datetime formats\r\n    CAST(\r\n        COALESCE(\r\n            TRY(date_parse(date, '%d/%m/%Y %H:%i:%s')), -- First, try parsing the full datetime format\r\n            TRY(date_parse(date, '%d/%m/%Y'))           -- If that fails, try parsing the date-only format\r\n        )\r\n    AS DATE) AS date,\r\n    description,\r\n    country,\r\n    'Commodity' AS category,\r\n    CAST(NULL AS VARCHAR) AS symbol, -- Use NULL as the symbol column does not exist in this table\r\n    url,\r\n    importance, \r\n    tag,\r\n    confidence AS tag_confidence,\r\n    -- Transform the original 'id' (aliased as commodity) with an exception for LPG\r\n    CASE\r\n        WHEN LOWER(REPLACE(id, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        WHEN LOWER(REPLACE(id, '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'\r\n        WHEN LOWER(REPLACE(id, '-', ' ')) = 'brent crude oil' THEN 'Brent'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(id, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS commodity\r\nFROM\r\n    shippingbi.energy_news_items_history\r\n-- Add all filtering conditions to the WHERE clause\r\nWHERE\r\n    id NOT IN ('BAID', 'BCTI')\r\n    AND title IS NOT NULL\r\n    -- Added to prevent errors from rows with no date\r\n    AND date IS NOT NULL AND date != ''\r\n\r\nUNION ALL\r\n\r\n-- Select and transform data from the construction news history table\r\nSELECT\r\n    -- Generate a unique ID starting from 1,000,000,000 to avoid collision\r\n    CAST(1000000000 + ROW_NUMBER() OVER () AS BIGINT) AS id,\r\n    title,\r\n    -- Parse the 'dd/mm/yyyy' string and cast to a DATE\r\n    CAST(date_parse(date, '%d/%m/%Y') AS DATE) AS date,\r\n    description,\r\n    CAST(NULL AS VARCHAR) AS country, -- country column does not exist in this table\r\n    'Commodity' AS category,\r\n    CAST(NULL AS VARCHAR) AS symbol, -- symbol column does not exist in this table\r\n    url,\r\n    importance,\r\n    tag,\r\n    confidence AS tag_confidence,\r\n    -- Transform the original 'id' (aliased as commodity) with exceptions\r\n    CASE\r\n        WHEN LOWER(REPLACE(id, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        WHEN LOWER(REPLACE(id, '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'\r\n        WHEN LOWER(REPLACE(id, '-', ' ')) = 'brent crude oil' THEN 'Brent'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(id, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS commodity\r\nFROM\r\n    shippingbi.construction_news_items_history\r\nWHERE\r\n    -- Added to prevent errors from rows with no date\r\n    date IS NOT NULL AND date != ''",
+          "Columns": [
+            {
+              "Name": "id",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "title",
+              "Type": "STRING"
+            },
+            {
+              "Name": "date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "description",
+              "Type": "STRING"
+            },
+            {
+              "Name": "country",
+              "Type": "STRING"
+            },
+            {
+              "Name": "category",
+              "Type": "STRING"
+            },
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "url",
+              "Type": "STRING"
+            },
+            {
+              "Name": "importance",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "tag",
+              "Type": "STRING"
+            },
+            {
+              "Name": "tag_confidence",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "commodity",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "8f6905c0-8b1b-48fb-8e1d-4a46a16a0496": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "TagColumnOperation": {
+              "ColumnName": "country",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "id",
+                "title",
+                "date",
+                "description",
+                "country",
+                "category",
+                "symbol",
+                "url",
+                "importance",
+                "tag",
+                "tag_confidence",
+                "commodity"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "c0787841-96ad-4f9b-a881-9c76be55c04f"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "id",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "title",
+        "Type": "STRING"
+      },
+      {
+        "Name": "date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "description",
+        "Type": "STRING"
+      },
+      {
+        "Name": "country",
+        "Type": "STRING"
+      },
+      {
+        "Name": "category",
+        "Type": "STRING"
+      },
+      {
+        "Name": "symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "url",
+        "Type": "STRING"
+      },
+      {
+        "Name": "importance",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "tag",
+        "Type": "STRING"
+      },
+      {
+        "Name": "tag_confidence",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "commodity",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 1850576,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "b504bd0b-23bf-4fe9-9173-856a78aab70f"
+}

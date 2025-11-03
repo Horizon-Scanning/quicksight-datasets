@@ -1,0 +1,110 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/f12282db-199b-4d37-ba3f-1300f6f6fa51",
+    "DataSetId": "f12282db-199b-4d37-ba3f-1300f6f6fa51",
+    "Name": "commodity_history",
+    "CreatedTime": "2025-06-25 21:47:05.517000+03:00",
+    "LastUpdatedTime": "2025-08-10 16:57:58.236000+03:00",
+    "PhysicalTableMap": {
+      "d8000608-dd93-4012-8e46-fd8f8b8e8dc3": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/c91b000b-68e6-44a2-a84e-1c1862ce88d4",
+          "Name": "New custom SQL",
+          "SqlQuery": "-- Union EIA spot prices with TE commodity history\r\n-- Format: te_commodity_history structure (symbol, date, open, high, low, close, commodity)\r\n\r\nSELECT \r\n    product as symbol,\r\n    DATE_PARSE(CONCAT('01/', SUBSTRING(period, 6, 2), '/', SUBSTRING(period, 1, 4)), '%d/%m/%Y') as date,\r\n    value as open,\r\n    value as high, \r\n    value as low,\r\n    value as close,\r\n    product_name as commodity\r\nFROM shippingbi.eia_spt_spot_prices_history\r\nWHERE duoarea = 'RGC'\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    DATE_PARSE(date, '%d/%m/%Y') as date,\r\n    open,\r\n    high,\r\n    low,\r\n    close,\r\n    commodity\r\nFROM shippingbi.te_commodity_history\r\n\r\nORDER BY date DESC, symbol",
+          "Columns": [
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "open",
+              "Type": "DECIMAL"
+            },
+            {
+              "Name": "high",
+              "Type": "DECIMAL"
+            },
+            {
+              "Name": "low",
+              "Type": "DECIMAL"
+            },
+            {
+              "Name": "close",
+              "Type": "DECIMAL"
+            },
+            {
+              "Name": "commodity",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "815a15eb-aac4-4b06-a50b-b1daa10b03bf": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "symbol",
+                "date",
+                "open",
+                "high",
+                "low",
+                "close",
+                "commodity"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "d8000608-dd93-4012-8e46-fd8f8b8e8dc3"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "open",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "high",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "low",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "close",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "commodity",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "DIRECT_QUERY",
+    "ConsumedSpiceCapacityInBytes": 0,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "87e787c3-1676-467e-8309-4088a38a7d82"
+}

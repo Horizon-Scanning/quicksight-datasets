@@ -1,0 +1,112 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/ccacda0a-5e36-4a64-9ffb-81f27c941dcd",
+    "DataSetId": "ccacda0a-5e36-4a64-9ffb-81f27c941dcd",
+    "Name": "israel_imports_score",
+    "CreatedTime": "2025-07-23 11:23:31.160000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:17.592000+02:00",
+    "PhysicalTableMap": {
+      "0f001d7b-13c6-4ca0-89ca-dda5411c12f3": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/46c6b9df-61aa-4f45-ada5-7c0886fd0646",
+          "Name": "New custom SQL",
+          "SqlQuery": "-- This CTE maps the 8-digit customs item codes to a clean, English commodity name.\r\nWITH hs_code_commodity_mapping AS (\r\n    -- Grains & Feeds\r\n    SELECT '10019910' as hs_code, 'Wheat' as Commodity\r\n    UNION ALL SELECT '10039000', 'Barley'\r\n    UNION ALL SELECT '10041000', 'Oats'\r\n    UNION ALL SELECT '10049000', 'Oats'\r\n    UNION ALL SELECT '10051000', 'Corn'\r\n    UNION ALL SELECT '10059010', 'Corn'\r\n    UNION ALL SELECT '11010020', 'Wheat'\r\n    UNION ALL SELECT '11010090', 'Wheat'\r\n    UNION ALL SELECT '11022000', 'Corn'\r\n    UNION ALL SELECT '11031100', 'Wheat'\r\n    UNION ALL SELECT '11031300', 'Corn'\r\n    UNION ALL SELECT '12011000', 'Soybeans'\r\n    UNION ALL SELECT '12019000', 'Soybeans'\r\n    UNION ALL SELECT '12081000', 'Soybeans'\r\n    UNION ALL SELECT '23023000', 'Wheat'\r\n    UNION ALL SELECT '23031000', 'Corn'\r\n    UNION ALL SELECT '23033000', 'DDG/DDGS'\r\n    UNION ALL SELECT '23040000', 'Soybeans'\r\n    UNION ALL SELECT '23063000', 'Sunflower Oil'\r\n    UNION ALL SELECT '23064900', 'Rapeseed'\r\n\r\n    -- Oils, Sugar, Pasta\r\n    UNION ALL SELECT '15079010', 'Soybeans'\r\n    UNION ALL SELECT '15121111', 'Sunflower Oil'\r\n    UNION ALL SELECT '15121990', 'Sunflower Oil'\r\n    UNION ALL SELECT '15121922', 'Sunflower Oil'\r\n    UNION ALL SELECT '15121929', 'Sunflower Oil'\r\n    UNION ALL SELECT '15141910', 'Canola'\r\n    UNION ALL SELECT '15149911', 'Canola'\r\n    UNION ALL SELECT '15149990', 'Canola'\r\n    UNION ALL SELECT '15141900', 'Canola'\r\n    UNION ALL SELECT '12051090', 'Rapeseed'\r\n    UNION ALL SELECT '17019910', 'Sugar'\r\n    UNION ALL SELECT '17011400', 'Sugar'\r\n    UNION ALL SELECT '19021900', 'Pasta'\r\n    UNION ALL SELECT '19023000', 'Pasta'\r\n    UNION ALL SELECT '19043000', 'Bulgur'\r\n\r\n    -- Energy Products\r\n    UNION ALL SELECT '27090090', 'Crude Oil (WTI)'\r\n    UNION ALL SELECT '27090000', 'Brent'\r\n    UNION ALL SELECT '27101210', 'Gasoline'\r\n    UNION ALL SELECT '27101211', 'Gasoline'\r\n    UNION ALL SELECT '27101219', 'Gasoline'\r\n    UNION ALL SELECT '27101960', 'Diesel'\r\n    UNION ALL SELECT '27101963', 'Diesel'\r\n    UNION ALL SELECT '27101964', 'Diesel'\r\n    UNION ALL SELECT '27101965', 'Diesel'\r\n    UNION ALL SELECT '27101979', 'Diesel'\r\n    UNION ALL SELECT '27101930', 'Jet Fuel'\r\n    UNION ALL SELECT '27101939', 'Jet Fuel'\r\n    UNION ALL SELECT '27101931', 'Jet Fuel'\r\n    UNION ALL SELECT '27111200', 'LPG'\r\n    UNION ALL SELECT '27111300', 'LPG'\r\n    UNION ALL SELECT '27111900', 'LPG'\r\n    -- Legumes\r\n    UNION ALL SELECT '07131000', 'Peas'\r\n    UNION ALL SELECT '07132000', 'Chickpeas'\r\n    UNION ALL SELECT '07134000', 'Lentils'\r\n    UNION ALL SELECT '07135000', 'Broad beans'\r\n),\r\n\r\n-- Step 1: Create a definitive list of ALL commodities.\r\nAllCommodities AS (\r\n    SELECT 'Sunflower Oil' as Commodity\r\n    UNION SELECT 'Other Vegetable Oils'\r\n    UNION SELECT 'Barley'\r\n    UNION SELECT 'Buckwheat'\r\n    UNION SELECT 'Cereals'\r\n    UNION SELECT 'Corn'\r\n    UNION SELECT 'Oats'\r\n    UNION SELECT 'Pasta'\r\n    UNION SELECT 'Potato'\r\n    UNION SELECT 'Rapeseed'\r\n    UNION SELECT 'Rice'\r\n    UNION SELECT 'Sugar'\r\n    UNION SELECT 'Tuna'\r\n    UNION SELECT 'Wheat'\r\n    UNION SELECT 'Brent'\r\n    UNION SELECT 'Crude Oil (WTI)'\r\n    UNION SELECT 'Gasoline'\r\n    UNION SELECT Commodity FROM hs_code_commodity_mapping\r\n),\r\n\r\n-- Step 2: Get all unique year/month periods from the data.\r\nAllMonths AS (\r\n    SELECT DISTINCT year, month\r\n    FROM shippingbi.israel_customs_data\r\n),\r\n\r\n-- Step 3: Create a scaffold: a row for every commodity for every month.\r\nCommodityMonthScaffold AS (\r\n    SELECT c.Commodity, m.year, m.month\r\n    FROM AllCommodities c\r\n    CROSS JOIN AllMonths m\r\n),\r\n\r\n-- Step 4 (Original): Calculate the actual import quantities by month.\r\nAggregatedImports AS (\r\n    SELECT\r\n        d.year,\r\n        d.month,\r\n        COALESCE(\r\n            CASE\r\n                WHEN d.category = 'sunflower' THEN 'Sunflower Oil'\r\n                WHEN d.category = 'other vegetable oils' THEN 'Other Vegetable Oils'\r\n                WHEN d.category = 'barley' THEN 'Barley'\r\n                WHEN d.category = 'buckwheat' THEN 'Buckwheat'\r\n                WHEN d.category = 'cereals' THEN 'Cereals'\r\n                WHEN d.category = 'corn' THEN 'Corn'\r\n                WHEN d.category = 'oats' THEN 'Oats'\r\n                WHEN d.category = 'pasta' THEN 'Pasta'\r\n                WHEN d.category = 'potato' THEN 'Potato'\r\n                WHEN d.category = 'rapeseed' THEN 'Rapeseed'\r\n                WHEN d.category = 'rice' THEN 'Rice'\r\n                WHEN d.category = 'sugar' THEN 'Sugar'\r\n                WHEN d.category = 'tuna' THEN 'Tuna'\r\n                WHEN d.category = 'wheat' THEN 'Wheat'\r\n                WHEN d.category = 'crude_oil_wti' THEN 'Crude Oil (WTI)'\r\n                WHEN d.category = 'baby formula' THEN 'Baby Formula'\r\n                ELSE NULL\r\n            END,\r\n            hsm.Commodity\r\n        ) AS Commodity,\r\n        SUM(CAST(d.quantity AS DOUBLE)) as total_quantity\r\n    FROM\r\n        shippingbi.israel_customs_data AS d\r\n    LEFT JOIN\r\n        hs_code_commodity_mapping AS hsm ON CAST(d.customsitem_8_digits AS VARCHAR) = hsm.hs_code\r\n    WHERE COALESCE(\r\n            CASE\r\n                WHEN d.category = 'sunflower' THEN 'Sunflower Oil'\r\n                WHEN d.category = 'other vegetable oils' THEN 'Other Vegetable Oils'\r\n                WHEN d.category = 'barley' THEN 'Barley'\r\n                WHEN d.category = 'buckwheat' THEN 'Buckwheat'\r\n                WHEN d.category = 'cereals' THEN 'Cereals'\r\n                WHEN d.category = 'corn' THEN 'Corn'\r\n                WHEN d.category = 'oats' THEN 'Oats'\r\n                WHEN d.category = 'pasta' THEN 'Pasta'\r\n                WHEN d.category = 'potato' THEN 'Potato'\r\n                WHEN d.category = 'rapeseed' THEN 'Rapeseed'\r\n                WHEN d.category = 'rice' THEN 'Rice'\r\n                WHEN d.category = 'sugar' THEN 'Sugar'\r\n                WHEN d.category = 'tuna' THEN 'Tuna'\r\n                WHEN d.category = 'wheat' THEN 'Wheat'\r\n                WHEN d.category = 'crude_oil_wti' THEN 'Crude Oil (WTI)'\r\n                ELSE NULL\r\n            END,\r\n            hsm.Commodity\r\n        ) IS NOT NULL\r\n    GROUP BY 1, 2, 3\r\n),\r\n\r\n-- Step 4 (New): Use the aggregated data and duplicate WTI data for Brent\r\nMonthlyImports AS (\r\n    SELECT\r\n        year,\r\n        month,\r\n        Commodity,\r\n        total_quantity\r\n    FROM\r\n        AggregatedImports\r\n    UNION ALL\r\n    SELECT\r\n        year,\r\n        month,\r\n        'Brent' as Commodity,\r\n        total_quantity\r\n    FROM\r\n        AggregatedImports\r\n    WHERE\r\n        Commodity = 'Crude Oil (WTI)'\r\n),\r\n\r\n-- Step 5: Join the scaffold with the actual data and calculate the 12-month moving average.\r\nComparisonData AS (\r\n    SELECT\r\n        s.year,\r\n        s.month,\r\n        s.Commodity,\r\n        COALESCE(i.total_quantity, 0) AS current_month_quantity,\r\n        -- Calculate the average of the previous 12 months\r\n        AVG(COALESCE(i.total_quantity, 0)) OVER (\r\n            PARTITION BY s.Commodity\r\n            ORDER BY s.year, s.month\r\n            ROWS BETWEEN 12 PRECEDING AND 1 PRECEDING\r\n        ) AS avg_previous_12_months_quantity\r\n    FROM\r\n        CommodityMonthScaffold s\r\n    LEFT JOIN\r\n        MonthlyImports i ON s.Commodity = i.Commodity AND s.year = i.year AND s.month = i.month\r\n)\r\n\r\n-- Final step: Calculate the Score against the 12-month average and add the month number.\r\nSELECT\r\n    year,\r\n    month,\r\n    DENSE_RANK() OVER (ORDER BY year DESC, month DESC) as month_number,\r\n    Commodity,\r\n    CAST(current_month_quantity AS BIGINT) AS current_month_quantity,\r\n    CAST(avg_previous_12_months_quantity AS BIGINT) AS avg_previous_12_months_quantity,\r\n    CASE\r\n        -- Check if the average is not null and is large enough\r\n        WHEN avg_previous_12_months_quantity IS NOT NULL AND avg_previous_12_months_quantity >= 10000\r\n        THEN ((current_month_quantity - avg_previous_12_months_quantity) * 100.0 / avg_previous_12_months_quantity)\r\n        ELSE 0\r\n    END AS \"Israel Imports Score (vs 12m Avg %)\"\r\nFROM\r\n    ComparisonData\r\nWHERE\r\n    avg_previous_12_months_quantity IS NOT NULL -- Only include rows where an average could be calculated\r\nORDER BY\r\n    Commodity,\r\n    year DESC,\r\n    month DESC",
+          "Columns": [
+            {
+              "Name": "year",
+              "Type": "STRING"
+            },
+            {
+              "Name": "month",
+              "Type": "STRING"
+            },
+            {
+              "Name": "month_number",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "Commodity",
+              "Type": "STRING"
+            },
+            {
+              "Name": "current_month_quantity",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "avg_previous_12_months_quantity",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "Israel Imports Score (vs 12m Avg %)",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "1699d2e6-6798-47e2-9856-44bc7a21d0d0": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "year",
+                "month",
+                "month_number",
+                "Commodity",
+                "current_month_quantity",
+                "avg_previous_12_months_quantity",
+                "Israel Imports Score (vs 12m Avg %)"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "0f001d7b-13c6-4ca0-89ca-dda5411c12f3"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "year",
+        "Type": "STRING"
+      },
+      {
+        "Name": "month",
+        "Type": "STRING"
+      },
+      {
+        "Name": "month_number",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "current_month_quantity",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "avg_previous_12_months_quantity",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "Israel Imports Score (vs 12m Avg %)",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 70460,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "5e570434-58fb-44b9-9692-842bdb2ca504"
+}

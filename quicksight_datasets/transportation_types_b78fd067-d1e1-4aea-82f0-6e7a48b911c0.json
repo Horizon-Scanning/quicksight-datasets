@@ -1,0 +1,69 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/b78fd067-d1e1-4aea-82f0-6e7a48b911c0",
+    "DataSetId": "b78fd067-d1e1-4aea-82f0-6e7a48b911c0",
+    "Name": "transportation_types",
+    "CreatedTime": "2025-03-09 20:00:57.095000+02:00",
+    "LastUpdatedTime": "2025-08-28 09:01:22.998000+03:00",
+    "PhysicalTableMap": {
+      "ca896244-479d-4e4a-b562-a2082882cb76": {}
+    },
+    "LogicalTableMap": {
+      "c7351f69-3282-4a6c-ad6a-0b3844abb3f7": {
+        "Alias": "transportation_types.csv",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "Commodity",
+                "Baltic Dry ",
+                "Containerized Freight ",
+                "Baltic Clean Tanker",
+                "Baltic Dirty Tanker",
+                "Commodity Domain"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "ca896244-479d-4e4a-b562-a2082882cb76"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Baltic Dry ",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Containerized Freight ",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Baltic Clean Tanker",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Baltic Dirty Tanker",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Commodity Domain",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 3878,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "7f84fffe-2f1c-462b-a553-ad1d1ab47614"
+}

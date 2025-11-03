@@ -1,0 +1,191 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9fc8e238-3cfd-4935-9531-6c1327f8f429",
+    "DataSetId": "9fc8e238-3cfd-4935-9531-6c1327f8f429",
+    "Name": "worldwide_export_score",
+    "CreatedTime": "2025-06-05 17:18:23.052000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:10.211000+02:00",
+    "PhysicalTableMap": {
+      "868a6d21-24c9-4b1b-a085-caa8cc7a48b3": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/cc937d36-14a2-4d64-92a7-efe9dd644d65",
+          "Name": "New custom SQL",
+          "SqlQuery": "-- Custom SQL for QuickSight with Quarter-over-Quarter Export Score and Data Availability Adjustment\r\nWITH hs_codes_mapping AS (\r\n    SELECT 'Barley' as mapped_commodity_name, '100390' as hs_code\r\n    UNION ALL SELECT 'LPG', '271113'\r\n    UNION ALL SELECT 'Canola', '151419'\r\n    UNION ALL SELECT 'Corn', '100590'\r\n    UNION ALL SELECT 'Corn', '110220'\r\n    UNION ALL SELECT 'Corn', '110313'\r\n    UNION ALL SELECT 'Corn', '110423'\r\n    UNION ALL SELECT 'Corn', '230210'\r\n    UNION ALL SELECT 'Corn', '230310'\r\n    UNION ALL SELECT 'Corn', '230330'\r\n    UNION ALL SELECT 'Crude Oil', '270900'\r\n    UNION ALL SELECT 'Other Ethylene and Other Gases', '271114'\r\n    UNION ALL SELECT 'Gasoline', '271019'\r\n    UNION ALL SELECT 'Diesel', '271012'\r\n    UNION ALL SELECT 'Diesel', '271020'\r\n    UNION ALL SELECT 'LPG', '271112'\r\n    UNION ALL SELECT 'Rapeseed', '151411'\r\n    UNION ALL SELECT 'Rapeseed', '230649'\r\n    UNION ALL SELECT 'Rice', '100630'\r\n    UNION ALL SELECT 'Soybeans', '120110'\r\n    UNION ALL SELECT 'Soybeans', '120190'\r\n    UNION ALL SELECT 'Soybeans', '120810'\r\n    UNION ALL SELECT 'Soybeans', '150710'\r\n    UNION ALL SELECT 'Soybeans', '230400'\r\n    UNION ALL SELECT 'Soybeans', '230800'\r\n    UNION ALL SELECT 'Sugar', '170199'\r\n    UNION ALL SELECT 'Sunflower Oil', '151790'\r\n    UNION ALL SELECT 'Sunflower Oil', '230630'\r\n    UNION ALL SELECT 'Wheat', '100199'\r\n    UNION ALL SELECT 'Wheat', '110100'\r\n    UNION ALL SELECT 'Oats', '110290'\r\n    UNION ALL SELECT 'Wheat', '110311'\r\n    UNION ALL SELECT 'Oats', '110319'\r\n    UNION ALL SELECT 'Wheat', '110320'\r\n    UNION ALL SELECT 'Wheat', '230230'\r\n    UNION ALL SELECT 'Wheat', '230240'\r\n),\r\n\r\n-- Add commodities with null values (Brent and Oats)\r\nall_commodities AS (\r\n    SELECT DISTINCT mapped_commodity_name FROM hs_codes_mapping\r\n    UNION ALL SELECT 'Brent'\r\n    UNION ALL SELECT 'Jet Fuel'\r\n),\r\n\r\nbase_data AS (\r\n    -- Original query for all commodities\r\n    SELECT\r\n        ce.*,\r\n        hs.mapped_commodity_name,\r\n        CASE\r\n            WHEN ce.refmonth IN (1,2,3) THEN 1\r\n            WHEN ce.refmonth IN (4,5,6) THEN 2\r\n            WHEN ce.refmonth IN (7,8,9) THEN 3\r\n            WHEN ce.refmonth IN (10,11,12) THEN 4\r\n        END as quarter,\r\n        ce.refyear * 10 + CASE\r\n            WHEN ce.refmonth IN (1,2,3) THEN 1\r\n            WHEN ce.refmonth IN (4,5,6) THEN 2\r\n            WHEN ce.refmonth IN (7,8,9) THEN 3\r\n            WHEN ce.refmonth IN (10,11,12) THEN 4\r\n        END as quarter_num,\r\n        CASE\r\n            WHEN ce.refmonth IN (1,2,3) THEN (ce.refyear-1) * 10 + 4\r\n            WHEN ce.refmonth IN (4,5,6) THEN ce.refyear * 10 + 1\r\n            WHEN ce.refmonth IN (7,8,9) THEN ce.refyear * 10 + 2\r\n            WHEN ce.refmonth IN (10,11,12) THEN ce.refyear * 10 + 3\r\n        END as prev_quarter_num\r\n    FROM shippingbi.comtrade_world_exports ce\r\n    INNER JOIN hs_codes_mapping hs ON CAST(ce.cmdcode AS VARCHAR) = hs.hs_code\r\n    WHERE ce.netwgt IS NOT NULL\r\n\r\n    UNION ALL\r\n\r\n    -- Duplicate Crude Oil data and assign it to Brent\r\n    SELECT\r\n        ce.*,\r\n        'Brent' AS mapped_commodity_name, -- Re-label the commodity name as 'Brent'\r\n        CASE\r\n            WHEN ce.refmonth IN (1,2,3) THEN 1\r\n            WHEN ce.refmonth IN (4,5,6) THEN 2\r\n            WHEN ce.refmonth IN (7,8,9) THEN 3\r\n            WHEN ce.refmonth IN (10,11,12) THEN 4\r\n        END as quarter,\r\n        ce.refyear * 10 + CASE\r\n            WHEN ce.refmonth IN (1,2,3) THEN 1\r\n            WHEN ce.refmonth IN (4,5,6) THEN 2\r\n            WHEN ce.refmonth IN (7,8,9) THEN 3\r\n            WHEN ce.refmonth IN (10,11,12) THEN 4\r\n        END as quarter_num,\r\n        CASE\r\n            WHEN ce.refmonth IN (1,2,3) THEN (ce.refyear-1) * 10 + 4\r\n            WHEN ce.refmonth IN (4,5,6) THEN ce.refyear * 10 + 1\r\n            WHEN ce.refmonth IN (7,8,9) THEN ce.refyear * 10 + 2\r\n            WHEN ce.refmonth IN (10,11,12) THEN ce.refyear * 10 + 3\r\n        END as prev_quarter_num\r\n    FROM shippingbi.comtrade_world_exports ce\r\n    INNER JOIN hs_codes_mapping hs ON CAST(ce.cmdcode AS VARCHAR) = hs.hs_code\r\n    WHERE ce.netwgt IS NOT NULL AND hs.mapped_commodity_name = 'Crude Oil' -- Select only Crude Oil records to duplicate\r\n),\r\n\r\n\r\n-- Get availability data by quarter\r\navailability_data AS (\r\n    SELECT\r\n        cah.reportercode,\r\n        cah.period,\r\n        cah.totalrecords,\r\n        -- **FIX**: Cast the numeric 'period' column to VARCHAR before using SUBSTR\r\n        CASE\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (1,2,3) THEN 1\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (4,5,6) THEN 2\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (7,8,9) THEN 3\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (10,11,12) THEN 4\r\n        END as quarter,\r\n\r\n        -- **FIX**: Cast the numeric 'period' column to VARCHAR before using SUBSTR\r\n        CAST(SUBSTR(CAST(cah.period AS VARCHAR), 1, 4) AS INTEGER) as refyear,\r\n\r\n        -- **FIX**: Cast the numeric 'period' column to VARCHAR before using SUBSTR\r\n        CAST(SUBSTR(CAST(cah.period AS VARCHAR), 1, 4) AS INTEGER) * 10 +\r\n        CASE\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (1,2,3) THEN 1\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (4,5,6) THEN 2\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (7,8,9) THEN 3\r\n            WHEN CAST(SUBSTR(CAST(cah.period AS VARCHAR), 5, 2) AS INTEGER) IN (10,11,12) THEN 4\r\n        END as quarter_num\r\n    FROM shippingbi.cmt_availability_history cah\r\n),\r\n\r\n-- Aggregate availability by reporter and quarter\r\navailability_quarterly AS (\r\n    SELECT\r\n        reportercode,\r\n        refyear,\r\n        quarter,\r\n        quarter_num,\r\n        SUM(CAST(totalrecords AS DOUBLE)) as total_records_quarter\r\n    FROM availability_data\r\n    GROUP BY reportercode, refyear, quarter, quarter_num\r\n),\r\n\r\n-- Get the current quarter to exclude from scoring\r\ncurrent_quarter AS (\r\n    SELECT MAX(quarter_num) as max_quarter_num\r\n    FROM base_data\r\n),\r\n\r\n-- Aggregate by mapped commodity and quarter with availability data\r\nquarterly_aggregated AS (\r\n    SELECT\r\n        bd.mapped_commodity_name,\r\n        bd.refyear,\r\n        bd.quarter,\r\n        bd.quarter_num,\r\n        bd.prev_quarter_num,\r\n        SUM(CAST(bd.netwgt AS DOUBLE)) as total_netwgt,\r\n        COUNT(*) as record_count,\r\n        SUM(COALESCE(aq.total_records_quarter, 0)) as total_availability_records\r\n    FROM base_data bd\r\n    CROSS JOIN current_quarter cq\r\n    LEFT JOIN availability_quarterly aq ON\r\n        bd.reportercode = aq.reportercode AND\r\n        bd.quarter_num = aq.quarter_num\r\n    WHERE bd.quarter_num < cq.max_quarter_num\r\n    GROUP BY bd.mapped_commodity_name, bd.refyear, bd.quarter, bd.quarter_num, bd.prev_quarter_num\r\n),\r\n\r\n-- Calculate quarter-over-quarter comparison by mapped commodity\r\nperiod_comparison AS (\r\n    SELECT\r\n        q1.*,\r\n        q2.total_netwgt as prev_total_netwgt,\r\n        q2.total_availability_records as prev_total_availability_records,\r\n        CASE\r\n            WHEN q2.total_netwgt IS NOT NULL AND q2.total_netwgt > 0\r\n            THEN ((q1.total_netwgt - q2.total_netwgt) / q2.total_netwgt) * 100\r\n            ELSE 0.0\r\n        END as netwgt_qoq_change,\r\n        CASE\r\n            WHEN q2.total_availability_records IS NOT NULL AND q2.total_availability_records > 0\r\n            THEN ((q1.total_availability_records - q2.total_availability_records) / q2.total_availability_records) * 100\r\n            ELSE 0.0\r\n        END as totalrecords_qoq_change\r\n    FROM quarterly_aggregated q1\r\n    LEFT JOIN quarterly_aggregated q2 ON\r\n        q1.mapped_commodity_name = q2.mapped_commodity_name AND\r\n        q1.prev_quarter_num = q2.quarter_num\r\n),\r\n\r\n-- Calculate average records change (baseline)\r\ntotalrecords_avg_pop AS (\r\n    SELECT\r\n        mapped_commodity_name,\r\n        AVG(totalrecords_qoq_change) as avg_totalrecords_change\r\n    FROM period_comparison\r\n    WHERE totalrecords_qoq_change IS NOT NULL\r\n    GROUP BY mapped_commodity_name\r\n),\r\n\r\n-- Get all quarters and commodities for complete matrix\r\nquarters_commodities AS (\r\n    SELECT\r\n        ac.mapped_commodity_name,\r\n        qd.refyear,\r\n        qd.quarter,\r\n        qd.quarter_num\r\n    FROM all_commodities ac\r\n    CROSS JOIN (\r\n        SELECT DISTINCT refyear, quarter, quarter_num\r\n        FROM period_comparison\r\n    ) qd\r\n),\r\n\r\n-- Final data with null values for missing commodities\r\nfinal_data AS (\r\n    SELECT\r\n        qc.mapped_commodity_name,\r\n        qc.refyear,\r\n        qc.quarter,\r\n        qc.quarter_num,\r\n        COALESCE(pc.total_netwgt, NULL) as total_netwgt,\r\n        COALESCE(pc.prev_total_netwgt, NULL) as prev_total_netwgt,\r\n        COALESCE(pc.record_count, 0) as record_count,\r\n        COALESCE(pc.total_availability_records, NULL) as total_availability_records,\r\n        COALESCE(pc.prev_total_availability_records, NULL) as prev_total_availability_records,\r\n        COALESCE(pc.netwgt_qoq_change, NULL) as netwgt_qoq_change,\r\n        COALESCE(pc.totalrecords_qoq_change, NULL) as totalrecords_qoq_change,\r\n        COALESCE(tap.avg_totalrecords_change, 0) as avg_totalrecords_change\r\n    FROM quarters_commodities qc\r\n    LEFT JOIN period_comparison pc ON\r\n        qc.mapped_commodity_name = pc.mapped_commodity_name AND\r\n        qc.quarter_num = pc.quarter_num\r\n    LEFT JOIN totalrecords_avg_pop tap ON\r\n        qc.mapped_commodity_name = tap.mapped_commodity_name\r\n)\r\n\r\n-- Final SELECT with calculated QoQ scores by mapped commodity\r\nSELECT\r\n    mapped_commodity_name,\r\n    refyear,\r\n    quarter,\r\n    quarter_num,\r\n    total_netwgt,\r\n    prev_total_netwgt,\r\n    record_count,\r\n    total_availability_records,\r\n    netwgt_qoq_change,\r\n    totalrecords_qoq_change,\r\n    avg_totalrecords_change,\r\n    netwgt_qoq_change as worldwide_exports_score_continuous,\r\n    CASE\r\n        WHEN netwgt_qoq_change IS NOT NULL AND totalrecords_qoq_change IS NOT NULL\r\n        THEN netwgt_qoq_change - (totalrecords_qoq_change - avg_totalrecords_change)\r\n        ELSE NULL\r\n    END as availability_adjusted_score,\r\n    CASE\r\n        WHEN netwgt_qoq_change IS NOT NULL AND totalrecords_qoq_change IS NOT NULL\r\n        THEN\r\n            CASE\r\n                WHEN (netwgt_qoq_change - (totalrecords_qoq_change - avg_totalrecords_change)) > 100 THEN 100\r\n                WHEN (netwgt_qoq_change - (totalrecords_qoq_change - avg_totalrecords_change)) < -100 THEN -100\r\n                ELSE (netwgt_qoq_change - (totalrecords_qoq_change - avg_totalrecords_change))\r\n            END\r\n        ELSE NULL\r\n    END as availability_adjusted_score_normalized\r\nFROM final_data\r\nORDER BY mapped_commodity_name, refyear DESC, quarter DESC",
+          "Columns": [
+            {
+              "Name": "mapped_commodity_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "refyear",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "quarter",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "quarter_num",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "total_netwgt",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "prev_total_netwgt",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "record_count",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "total_availability_records",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "netwgt_qoq_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "totalrecords_qoq_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "avg_totalrecords_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "worldwide_exports_score_continuous",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "availability_adjusted_score",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "availability_adjusted_score_normalized",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "3753e6d7-f702-4b40-8cd5-2d0cf16e4fa7": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "mapped_commodity_name",
+                "refyear",
+                "quarter",
+                "quarter_num",
+                "total_netwgt",
+                "prev_total_netwgt",
+                "record_count",
+                "total_availability_records",
+                "netwgt_qoq_change",
+                "totalrecords_qoq_change",
+                "avg_totalrecords_change",
+                "worldwide_exports_score_continuous",
+                "availability_adjusted_score",
+                "availability_adjusted_score_normalized"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "868a6d21-24c9-4b1b-a085-caa8cc7a48b3"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "mapped_commodity_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "refyear",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "quarter",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "quarter_num",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "total_netwgt",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "prev_total_netwgt",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "record_count",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "total_availability_records",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "netwgt_qoq_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "totalrecords_qoq_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "avg_totalrecords_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "worldwide_exports_score_continuous",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "availability_adjusted_score",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "availability_adjusted_score_normalized",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 19152,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "8efa8ade-e379-49d4-bf22-3af3529c7e29"
+}

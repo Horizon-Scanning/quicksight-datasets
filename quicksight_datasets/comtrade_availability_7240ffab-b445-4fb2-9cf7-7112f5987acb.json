@@ -1,0 +1,283 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/7240ffab-b445-4fb2-9cf7-7112f5987acb",
+    "DataSetId": "7240ffab-b445-4fb2-9cf7-7112f5987acb",
+    "Name": "comtrade_availability",
+    "CreatedTime": "2025-04-10 14:43:46.734000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:05.591000+02:00",
+    "PhysicalTableMap": {
+      "9a38f914-5727-468c-8ad9-8dc49fc5aea6": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/70d4a49a-614e-47d9-b11a-95591f578a7b",
+          "Name": "New custom SQL",
+          "SqlQuery": "SELECT\r\n    t.*,\r\n    -- Assuming period like 202506 (YYYYMM)\r\n    date_parse(CAST(period AS varchar) || '01', '%Y%m%d')       AS period_date,\r\n    -- Assuming prev_periods same pattern\r\n    date_parse(CAST(prev_periods AS varchar) || '01', '%Y%m%d') AS prev_periods_date,\r\n    -- Robust parse for lastreleased (handles ISO, d/m/Y, Y-m-d)\r\n    CAST(\r\n        COALESCE(\r\n            TRY(from_iso8601_timestamp(lastreleased)),\r\n            TRY(date_parse(lastreleased, '%d/%m/%Y')),\r\n            TRY(date_parse(lastreleased, '%Y-%m-%d'))\r\n        ) AS timestamp\r\n    )                                                           AS lastreleased_ts\r\nFROM shippingbi.cmt_availability_history AS t",
+          "Columns": [
+            {
+              "Name": "datasetcode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "typecode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "freqcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "period",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "reportercode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "reporteriso",
+              "Type": "STRING"
+            },
+            {
+              "Name": "reporterdesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "classificationcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "classificationsearchcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "isoriginalclassification",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedflowcode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedpartnercode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedpartner2code",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedcmdcode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedcustomscode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedmotcode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "totalrecords",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "datasetchecksum",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "firstreleased",
+              "Type": "STRING"
+            },
+            {
+              "Name": "lastreleased",
+              "Type": "STRING"
+            },
+            {
+              "Name": "totalrecords_prev",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "prev_periods",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "totalrecords_normalized",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "period_date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "prev_periods_date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "lastreleased_ts",
+              "Type": "DATETIME"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "57c4dbba-dea2-4ee8-a0ec-05e43f98ec36": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "datasetcode",
+                "typecode",
+                "freqcode",
+                "period",
+                "reportercode",
+                "reporteriso",
+                "reporterdesc",
+                "classificationcode",
+                "classificationsearchcode",
+                "isoriginalclassification",
+                "isextendedflowcode",
+                "isextendedpartnercode",
+                "isextendedpartner2code",
+                "isextendedcmdcode",
+                "isextendedcustomscode",
+                "isextendedmotcode",
+                "totalrecords",
+                "datasetchecksum",
+                "firstreleased",
+                "lastreleased",
+                "totalrecords_prev",
+                "prev_periods",
+                "totalrecords_normalized",
+                "period_date",
+                "prev_periods_date",
+                "lastreleased_ts"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "9a38f914-5727-468c-8ad9-8dc49fc5aea6"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "datasetcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "typecode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "freqcode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "period",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "reportercode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "reporteriso",
+        "Type": "STRING"
+      },
+      {
+        "Name": "reporterdesc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "classificationcode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "classificationsearchcode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "isoriginalclassification",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedflowcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedpartnercode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedpartner2code",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedcmdcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedcustomscode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedmotcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "totalrecords",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "datasetchecksum",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "firstreleased",
+        "Type": "STRING"
+      },
+      {
+        "Name": "lastreleased",
+        "Type": "STRING"
+      },
+      {
+        "Name": "totalrecords_prev",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "prev_periods",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "totalrecords_normalized",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "period_date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "prev_periods_date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "lastreleased_ts",
+        "Type": "DATETIME"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 964719,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "7fac02e2-9de9-4434-946a-269de34f5e22"
+}

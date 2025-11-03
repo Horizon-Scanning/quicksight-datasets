@@ -1,0 +1,147 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/72b60e55-4046-44d3-b490-ad71871061a2",
+    "DataSetId": "72b60e55-4046-44d3-b490-ad71871061a2",
+    "Name": "digital_news_score",
+    "CreatedTime": "2025-08-27 11:49:55.433000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:32.718000+02:00",
+    "PhysicalTableMap": {
+      "61765867-94f8-4c2d-bd34-e70eceea3aea": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/fd22a955-61b5-4eff-ba26-57bb7bb4daf9",
+          "Name": "New custom SQL",
+          "SqlQuery": "WITH \r\ncombined_news AS (\r\n    -- This section has been replaced with your new UNION ALL logic\r\n    -- Select all data from the historic news table, parsing its date format\r\n    SELECT\r\n        ROW_NUMBER() OVER (ORDER BY pub_date DESC) AS id,\r\n        title,\r\n        -- Parse the 'dd-mm-yyyy' string and cast to a DATE\r\n        CAST(date_parse(pub_date, '%d/%m/%Y') AS DATE) AS date,\r\n        description,\r\n        NULL AS country, -- Country not available in mining_news_history\r\n        'Commodity' AS category, -- Default category for mining news\r\n        NULL AS symbol, -- Symbol not available\r\n        link AS url, -- Use 'link' as 'url'\r\n        NULL AS importance, -- Importance not available\r\n        tag,\r\n        confidence as tag_confidence,\r\n        ARRAY_JOIN(\r\n                TRANSFORM(\r\n                    SPLIT(REPLACE(commodity, '-', ' '), ' '),\r\n                    word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n                ),\r\n                ' '\r\n            )\r\n        AS commodity\r\n    FROM\r\n        shippingbi.mining_news_history\r\n    WHERE\r\n        title IS NOT NULL -- Ensure title is not null for valid news items\r\n),\r\nbase_data AS (\r\n    SELECT\r\n        *,\r\n        -- The date is already parsed in the 'combined_news' CTE.\r\n        -- We no longer need to parse it again. We just pass it through.\r\n        date AS parsed_date,\r\n        CASE WHEN tag = 'NEUTRAL' THEN 0 ELSE 1 END AS is_bad_news\r\n    FROM \r\n        combined_news\r\n),\r\ncleaned_data AS (\r\n    SELECT\r\n        *,\r\n        -- Use the 'commodity' field directly as commodity1. No URL parsing needed.\r\n        commodity AS commodity1\r\n    FROM\r\n        base_data\r\n    -- Only include records where date parsing succeeded\r\n    WHERE parsed_date IS NOT NULL\r\n),\r\nlast_30_days AS (\r\n    SELECT \r\n        commodity1,\r\n        COUNT(*) AS total_news,\r\n        SUM(is_bad_news) AS bad_news_count,\r\n        CAST(SUM(is_bad_news) AS DOUBLE) / NULLIF(COUNT(*), 0) * 100 AS bad_news_percent\r\n    FROM \r\n        cleaned_data\r\n    WHERE \r\n        parsed_date >= CURRENT_DATE - INTERVAL '30' DAY\r\n    GROUP BY\r\n        commodity1\r\n),\r\nprior_30_days AS (\r\n    SELECT \r\n        commodity1,\r\n        COUNT(*) AS total_news,\r\n        SUM(is_bad_news) AS bad_news_count,\r\n        CAST(SUM(is_bad_news) AS DOUBLE) / NULLIF(COUNT(*), 0) * 100 AS bad_news_percent\r\n    FROM \r\n        cleaned_data\r\n    WHERE \r\n        parsed_date >= CURRENT_DATE - INTERVAL '60' DAY\r\n        AND parsed_date < CURRENT_DATE - INTERVAL '30' DAY\r\n    GROUP BY\r\n        commodity1\r\n),\r\nscore_data AS (\r\n    SELECT \r\n        COALESCE(l.commodity1, p.commodity1) AS commodity1,\r\n        COALESCE(l.total_news, 0) AS last_30_days_total,\r\n        COALESCE(l.bad_news_count, 0) AS last_30_days_bad_news,\r\n        COALESCE(l.bad_news_percent, 0) AS last_30_days_bad_percent,\r\n        COALESCE(p.total_news, 0) AS prior_30_days_total,\r\n        COALESCE(p.bad_news_count, 0) AS prior_30_days_bad_news,\r\n        COALESCE(p.bad_news_percent, 0) AS prior_30_days_bad_percent,\r\n        -- Calculate percent change in bad news percentage\r\n        CASE \r\n            WHEN COALESCE(p.bad_news_percent, 0) = 0 THEN \r\n                CASE WHEN COALESCE(l.bad_news_percent, 0) > 0 THEN 100 ELSE 0 END\r\n            ELSE\r\n                (COALESCE(l.bad_news_percent, 0) - COALESCE(p.bad_news_percent, 0)) / \r\n                COALESCE(p.bad_news_percent, 1) * 100\r\n        END AS bad_news_percent_change\r\n    FROM \r\n        last_30_days l\r\n    FULL OUTER JOIN\r\n        prior_30_days p\r\n    ON\r\n        l.commodity1 = p.commodity1\r\n    WHERE\r\n        COALESCE(l.total_news, 0) > 0 OR COALESCE(p.total_news, 0) > 0\r\n),\r\nnews_frequency_stats AS (\r\n    SELECT \r\n        MAX(last_30_days_total) AS max_news_count\r\n    FROM \r\n        score_data\r\n)\r\nSELECT \r\n    s.commodity1 as Commodity,\r\n    s.last_30_days_total,\r\n    s.last_30_days_bad_news,\r\n    ROUND(s.last_30_days_bad_percent, 1) AS last_30_days_bad_percent,\r\n    s.prior_30_days_total,\r\n    s.prior_30_days_bad_news,\r\n    ROUND(s.prior_30_days_bad_percent, 1) AS prior_30_days_bad_percent,\r\n    ROUND(s.bad_news_percent_change, 1) AS bad_news_percent_change,\r\n    -- News frequency factor - better distribution across the range\r\n    -- Using a logarithmic scale to better distribute values between min and max\r\n    ROUND(0.1 + 0.9 * (LN(s.last_30_days_total + 1) / NULLIF(LN(nfs.max_news_count + 1), 1)), 2) AS news_frequency_factor,\r\n    -- New score incorporating news frequency with updated weights: 0.3, 0.3, 0.4\r\n    -- Apply final calibration to penalize low news counts in the total score\r\n    ROUND(\r\n        -- Calculate raw score with standard 0.3/0.3/0.4 weights\r\n        (\r\n            (s.last_30_days_bad_percent * 0.6) + \r\n            (CASE \r\n                WHEN s.bad_news_percent_change > 0 THEN s.bad_news_percent_change\r\n                ELSE 0\r\n             END * 0.2) +\r\n            (100 * (0.1 + 0.9 * (LN(s.last_30_days_total + 1) / NULLIF(LN(nfs.max_news_count + 1), 1))) * 0.2)\r\n        ) *\r\n        -- Apply multiplier to final score based on news count\r\n        CASE\r\n            WHEN s.last_30_days_total = 1 THEN 0.3  -- 30% of score for 1 story\r\n            WHEN s.last_30_days_total = 2 THEN 0.5  -- 50% of score for 2 stories\r\n            -- For 3+ stories: gradual progression from 60% to 100%\r\n            ELSE 0.6 + (0.4 * POWER((s.last_30_days_total - 3) / NULLIF((nfs.max_news_count - 3), 1), 0.5))\r\n        END,\r\n        1\r\n    ) AS score\r\nFROM \r\n    score_data s\r\nCROSS JOIN\r\n    news_frequency_stats nfs\r\nORDER BY\r\n    score DESC",
+          "Columns": [
+            {
+              "Name": "Commodity",
+              "Type": "STRING"
+            },
+            {
+              "Name": "last_30_days_total",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "last_30_days_bad_news",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "last_30_days_bad_percent",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "prior_30_days_total",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "prior_30_days_bad_news",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "prior_30_days_bad_percent",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "bad_news_percent_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "news_frequency_factor",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "score",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "bbeb71db-c610-42a0-ab40-b28259d6e016": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "Commodity",
+                "last_30_days_total",
+                "last_30_days_bad_news",
+                "last_30_days_bad_percent",
+                "prior_30_days_total",
+                "prior_30_days_bad_news",
+                "prior_30_days_bad_percent",
+                "bad_news_percent_change",
+                "news_frequency_factor",
+                "score"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "61765867-94f8-4c2d-bd34-e70eceea3aea"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "last_30_days_total",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "last_30_days_bad_news",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "last_30_days_bad_percent",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "prior_30_days_total",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "prior_30_days_bad_news",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "prior_30_days_bad_percent",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "bad_news_percent_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "news_frequency_factor",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "score",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 708,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "176d7dc5-361d-409d-a4a8-cf4aa8c68d21"
+}

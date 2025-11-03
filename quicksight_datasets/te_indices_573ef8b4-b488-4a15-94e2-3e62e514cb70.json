@@ -1,0 +1,284 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/573ef8b4-b488-4a15-94e2-3e62e514cb70",
+    "DataSetId": "573ef8b4-b488-4a15-94e2-3e62e514cb70",
+    "Name": "te_indices",
+    "CreatedTime": "2025-02-21 14:48:08.609000+02:00",
+    "LastUpdatedTime": "2025-11-02 20:01:00.132000+02:00",
+    "PhysicalTableMap": {
+      "65bed39b-bcb1-4c8b-af39-3f6968b86c13": {
+        "RelationalTable": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/3c6447c9-d19c-41fa-a4f4-2f5393e4162c",
+          "Catalog": "AwsDataCatalog",
+          "Schema": "shippingbi",
+          "Name": "te_shipping_index",
+          "InputColumns": [
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "last",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "unit",
+              "Type": "STRING"
+            },
+            {
+              "Name": "url",
+              "Type": "STRING"
+            },
+            {
+              "Name": "importance",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "forecast1",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecastdate1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "forecast2",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecastdate2",
+              "Type": "STRING"
+            },
+            {
+              "Name": "forecast3",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecastdate3",
+              "Type": "STRING"
+            },
+            {
+              "Name": "forecast4",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecastdate4",
+              "Type": "STRING"
+            },
+            {
+              "Name": "forecast1_perc_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecast2_perc_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecast3_perc_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecast4_perc_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "21e82a3d-5b8e-4887-b513-7ec050b006fa": {
+        "Alias": "te_shipping_indexes_summary (2)",
+        "DataTransforms": [
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "forecast_extracted",
+              "NewColumnType": "DATETIME",
+              "Format": "yyyy-MM-dd"
+            }
+          }
+        ],
+        "Source": {
+          "DataSetArn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/b1ff77ff-0cd7-4238-adf0-9d3fae98ce82"
+        }
+      },
+      "87673e77-9bd1-49f7-9f51-6d518ba3b0b0": {
+        "Alias": "te_shipping_index",
+        "Source": {
+          "PhysicalTableId": "65bed39b-bcb1-4c8b-af39-3f6968b86c13"
+        }
+      },
+      "c52ae475-5bb3-461c-b698-a264978ff21d": {
+        "Alias": "Intermediate Table",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "symbol",
+                "name",
+                "last",
+                "unit",
+                "url",
+                "importance",
+                "forecast1",
+                "forecastdate1",
+                "forecast2",
+                "forecastdate2",
+                "forecast3",
+                "forecastdate3",
+                "forecast4",
+                "forecastdate4",
+                "forecast1_perc_change",
+                "forecast2_perc_change",
+                "forecast3_perc_change",
+                "forecast4_perc_change",
+                "forecast_extracted",
+                "commodities",
+                "summaries",
+                "prompts",
+                "claude_answer",
+                "Index"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "JoinInstruction": {
+            "LeftOperand": "87673e77-9bd1-49f7-9f51-6d518ba3b0b0",
+            "RightOperand": "21e82a3d-5b8e-4887-b513-7ec050b006fa",
+            "Type": "OUTER",
+            "OnClause": "name = Index"
+          }
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "last",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "unit",
+        "Type": "STRING"
+      },
+      {
+        "Name": "url",
+        "Type": "STRING"
+      },
+      {
+        "Name": "importance",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "forecast1",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecastdate1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "forecast2",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecastdate2",
+        "Type": "STRING"
+      },
+      {
+        "Name": "forecast3",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecastdate3",
+        "Type": "STRING"
+      },
+      {
+        "Name": "forecast4",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecastdate4",
+        "Type": "STRING"
+      },
+      {
+        "Name": "forecast1_perc_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecast2_perc_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecast3_perc_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecast4_perc_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecast_extracted",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "commodities",
+        "Type": "STRING"
+      },
+      {
+        "Name": "summaries",
+        "Type": "STRING"
+      },
+      {
+        "Name": "prompts",
+        "Type": "STRING"
+      },
+      {
+        "Name": "claude_answer",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Index",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 19535,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "4f4e66c7-5a3a-4669-b3e6-cfc6f467bb3c"
+}

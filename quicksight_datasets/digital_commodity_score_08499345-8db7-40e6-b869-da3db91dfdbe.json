@@ -1,0 +1,169 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/08499345-8db7-40e6-b869-da3db91dfdbe",
+    "DataSetId": "08499345-8db7-40e6-b869-da3db91dfdbe",
+    "Name": "digital_commodity_score",
+    "CreatedTime": "2025-08-28 11:03:34.229000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:00:49.486000+02:00",
+    "PhysicalTableMap": {
+      "c8cfefe2-527f-4207-9ff0-e41a686648b4": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/f85936a0-2ec5-4ebf-ad0a-67cbfa3b3c62",
+          "Name": "New custom SQL",
+          "SqlQuery": "WITH daily_data AS (\r\n    SELECT \r\n        symbol,\r\n        COALESCE(\r\n            TRY(DATE_PARSE(date, '%d/%m/%Y')),\r\n            TRY(DATE_PARSE(date, '%Y-%m-%d'))\r\n        ) as parsed_date,\r\n        date as original_date,\r\n        open,\r\n        high,\r\n        low,\r\n        close,\r\n        commodity\r\n    FROM shippingbi.te_digital_history\r\n),\r\nweekly_aggregated AS (\r\n    SELECT \r\n        symbol,\r\n        commodity,\r\n        DATE_TRUNC('week', parsed_date) as week_start,\r\n        MAX(original_date) as latest_date_in_week,\r\n        MAX(parsed_date) as latest_parsed_date,\r\n        MAX_BY(open, parsed_date) as week_open,\r\n        MAX(high) as week_high,\r\n        MIN(low) as week_low,\r\n        MAX_BY(close, parsed_date) as week_close\r\n    FROM daily_data\r\n    GROUP BY symbol, commodity, DATE_TRUNC('week', parsed_date)\r\n),\r\nweekly_ranked AS (\r\n    SELECT \r\n        symbol,\r\n        commodity,\r\n        week_start,\r\n        latest_date_in_week as date,\r\n        latest_parsed_date as parsed_date,\r\n        week_open as open,\r\n        week_high as high,\r\n        week_low as low,\r\n        week_close as close,\r\n        DENSE_RANK() OVER (\r\n            PARTITION BY symbol, commodity \r\n            ORDER BY week_start DESC\r\n        ) as LatestWeekRank\r\n    FROM weekly_aggregated\r\n),\r\nweek_over_week_data AS (\r\n    SELECT \r\n        current_week.symbol,\r\n        current_week.date,\r\n        current_week.parsed_date,\r\n        current_week.open,\r\n        current_week.high,\r\n        current_week.low,\r\n        current_week.close,\r\n        current_week.commodity,\r\n        current_week.LatestWeekRank,\r\n        previous_week.close as previous_week_close,\r\n        CASE \r\n            WHEN previous_week.close IS NOT NULL AND previous_week.close != 0 \r\n            THEN ((current_week.close - previous_week.close) / previous_week.close) * 100\r\n            ELSE 0 \r\n        END as week_over_week_percent_change,\r\n        CASE \r\n            WHEN previous_week.close IS NOT NULL \r\n            THEN current_week.close - previous_week.close\r\n            ELSE 0 \r\n        END as week_over_week_difference\r\n    FROM weekly_ranked current_week\r\n    LEFT JOIN weekly_ranked previous_week \r\n        ON current_week.symbol = previous_week.symbol \r\n        AND current_week.commodity = previous_week.commodity\r\n        AND current_week.LatestWeekRank = previous_week.LatestWeekRank - 1\r\n)\r\nSELECT \r\n    w.symbol,\r\n    w.date,\r\n    w.parsed_date,\r\n    w.open,\r\n    w.high,\r\n    w.low,\r\n    w.close,\r\n    w.commodity,\r\n    w.LatestWeekRank,\r\n    w.week_over_week_percent_change,\r\n    w.week_over_week_difference,\r\n    w.week_over_week_percent_change as score\r\nFROM week_over_week_data w\r\nORDER BY w.commodity, w.symbol, w.LatestWeekRank, w.parsed_date",
+          "Columns": [
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "date",
+              "Type": "STRING"
+            },
+            {
+              "Name": "parsed_date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "open",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "high",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "low",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "close",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "commodity",
+              "Type": "STRING"
+            },
+            {
+              "Name": "LatestWeekRank",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "week_over_week_percent_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "week_over_week_difference",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "score",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "e420c3ca-ab59-472b-ab3e-260567a3aefa": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "symbol",
+                "date",
+                "parsed_date",
+                "open",
+                "high",
+                "low",
+                "close",
+                "commodity",
+                "LatestWeekRank",
+                "week_over_week_percent_change",
+                "week_over_week_difference",
+                "score"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "c8cfefe2-527f-4207-9ff0-e41a686648b4"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "date",
+        "Type": "STRING"
+      },
+      {
+        "Name": "parsed_date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "open",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "high",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "low",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "close",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "LatestWeekRank",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "week_over_week_percent_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "week_over_week_difference",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "score",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 214695,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "75ec852e-67b8-442c-a7bd-80339174274b"
+}

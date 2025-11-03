@@ -1,0 +1,863 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/f0cdce8f-50fd-49f4-8673-b4e85ec76197",
+    "DataSetId": "f0cdce8f-50fd-49f4-8673-b4e85ec76197",
+    "Name": "comtrade_world_exports",
+    "CreatedTime": "2025-03-13 10:26:44.237000+02:00",
+    "LastUpdatedTime": "2025-10-08 18:53:18.001000+03:00",
+    "PhysicalTableMap": {
+      "133a278f-daf1-41d7-b013-c7dfa1f15216": {
+        "RelationalTable": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/c4ce5d5b-bee7-40ea-9c27-8a5f75539c6f",
+          "Catalog": "AwsDataCatalog",
+          "Schema": "shippingbi",
+          "Name": "cmt_availability_history",
+          "InputColumns": [
+            {
+              "Name": "datasetcode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "typecode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "freqcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "period",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "reportercode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "reporteriso",
+              "Type": "STRING"
+            },
+            {
+              "Name": "reporterdesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "classificationcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "classificationsearchcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "isoriginalclassification",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedflowcode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedpartnercode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedpartner2code",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedcmdcode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedcustomscode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isextendedmotcode",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "totalrecords",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "datasetchecksum",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "firstreleased",
+              "Type": "STRING"
+            },
+            {
+              "Name": "lastreleased",
+              "Type": "STRING"
+            },
+            {
+              "Name": "totalrecords_prev",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "prev_periods",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "totalrecords_normalized",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      },
+      "43208fb3-d38e-4614-983e-9384d9d3a608": {
+        "RelationalTable": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/8124c642-7af3-463d-abf6-41c6f34b8440",
+          "Catalog": "AwsDataCatalog",
+          "Schema": "shippingbi",
+          "Name": "comtrade_world_exports",
+          "InputColumns": [
+            {
+              "Name": "typecode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "freqcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "refperiodid",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "refyear",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "refmonth",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "period",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "reportercode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "reporteriso",
+              "Type": "STRING"
+            },
+            {
+              "Name": "reporterdesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "flowcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "flowdesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "partnercode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "partneriso",
+              "Type": "STRING"
+            },
+            {
+              "Name": "partnerdesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "partner2code",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "partner2iso",
+              "Type": "STRING"
+            },
+            {
+              "Name": "partner2desc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "classificationcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "classificationsearchcode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "isoriginalclassification",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "cmdcode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "cmddesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "aggrlevel",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "isleaf",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "customscode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "customsdesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "moscode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "motcode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "motdesc",
+              "Type": "STRING"
+            },
+            {
+              "Name": "qtyunitcode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "qtyunitabbr",
+              "Type": "STRING"
+            },
+            {
+              "Name": "qty",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "isqtyestimated",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "altqtyunitcode",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "altqtyunitabbr",
+              "Type": "STRING"
+            },
+            {
+              "Name": "altqty",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "isaltqtyestimated",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "netwgt",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "isnetwgtestimated",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "grosswgt",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "isgrosswgtestimated",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "cifvalue",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "fobvalue",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "primaryvalue",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "legacyestimationflag",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "isreported",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "isaggregate",
+              "Type": "BOOLEAN"
+            },
+            {
+              "Name": "cmd_code",
+              "Type": "INTEGER"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "3ce435ae-48f2-428c-a288-e011fe2382b2": {
+        "Alias": "Intermediate Table",
+        "Source": {
+          "JoinInstruction": {
+            "LeftOperand": "d17294eb-5285-40c3-9011-b8565e7ce7a6",
+            "RightOperand": "c142fe3f-bb46-4165-815f-d941bc273290",
+            "Type": "LEFT",
+            "OnClause": "reportercode = {reportercode[cmt_availability_history]} AND period = {period[cmt_availability_history]}"
+          }
+        }
+      },
+      "a0f563a9-286b-4dc4-9ab9-f45d7416c413": {
+        "Alias": "Intermediate Table (2)",
+        "DataTransforms": [
+          {
+            "CreateColumnsOperation": {
+              "Columns": [
+                {
+                  "ColumnName": "Date",
+                  "ColumnId": "f1faa394-a519-4e1f-ab19-c77642479948",
+                  "Expression": "parseDate(refperiodid, 'yyyyMMdd')"
+                }
+              ]
+            }
+          },
+          {
+            "CreateColumnsOperation": {
+              "Columns": [
+                {
+                  "ColumnName": "Commodity",
+                  "ColumnId": "a27cee68-d8c8-4e28-aea6-38790f3c172c",
+                  "Expression": "ifelse(\r\n    cmdcode = 110319, 'Oats',\r\n    cmdcode = 100590, 'Corn',\r\n    cmdcode = 100630, 'Rice',\r\n    cmdcode = 100199, 'Wheat',\r\n    cmdcode = 151790, 'Sunflower Oil',\r\n    cmdcode = 230400, 'Soybeans',\r\n    cmdcode = 170199, 'Sugar',\r\n    cmdcode = 151411, 'Rapeseed',\r\n    cmdcode = 151419, 'Canola',\r\n    cmdcode = 150710, 'Soybeans',\r\n    cmdcode = 110100, 'Wheat',\r\n    cmdcode = 230800, 'Soybeans',\r\n    cmdcode = 230649, 'Rapeseed',\r\n    cmdcode = 230630, 'Sunflower Oil',\r\n    cmdcode = 230330, 'Corn',\r\n    cmdcode = 230310, 'Corn',\r\n    cmdcode = 230240, 'Wheat',\r\n    cmdcode = 230230, 'Wheat',\r\n    cmdcode = 230210, 'Corn',\r\n    cmdcode = 120810, 'Soybeans',\r\n    cmdcode = 120190, 'Soybeans',\r\n    cmdcode = 120110, 'Soybeans',\r\n    cmdcode = 110423, 'Corn',\r\n    cmdcode = 110320, 'Wheat',\r\n    cmdcode = 110313, 'Corn',\r\n    cmdcode = 110311, 'Wheat',\r\n    cmdcode = 110290, 'Oats',\r\n    cmdcode = 110220, 'Corn',\r\n    cmdcode = 271019, 'Gasoline',\r\n    cmdcode = 271012, 'Diesel',\r\n    cmdcode = 271020, 'Diesel',\r\n    cmdcode = 271119, 'Petroleum Gases',\r\n    cmdcode = 271112, 'LPG',\r\n    cmdcode = 271113, 'LPG',\r\n    cmdcode = 271114, 'Ethylene and Other Gases',\r\n    cmdcode = 270900, 'Crude Oil',\r\n    cmdcode = 100390, 'Barley',\r\n    'Other'\r\n)"
+                }
+              ]
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "typecode",
+                "freqcode",
+                "refperiodid",
+                "refyear",
+                "refmonth",
+                "period",
+                "reportercode",
+                "reporteriso",
+                "reporterdesc",
+                "flowcode",
+                "flowdesc",
+                "partnercode",
+                "partneriso",
+                "partnerdesc",
+                "partner2code",
+                "partner2iso",
+                "partner2desc",
+                "classificationcode",
+                "classificationsearchcode",
+                "isoriginalclassification",
+                "cmdcode",
+                "cmddesc",
+                "aggrlevel",
+                "isleaf",
+                "customscode",
+                "customsdesc",
+                "moscode",
+                "motcode",
+                "motdesc",
+                "qtyunitcode",
+                "qtyunitabbr",
+                "qty",
+                "isqtyestimated",
+                "altqtyunitcode",
+                "altqtyunitabbr",
+                "altqty",
+                "isaltqtyestimated",
+                "netwgt",
+                "isnetwgtestimated",
+                "grosswgt",
+                "isgrosswgtestimated",
+                "cifvalue",
+                "fobvalue",
+                "primaryvalue",
+                "legacyestimationflag",
+                "isreported",
+                "isaggregate",
+                "cmd_code",
+                "datasetcode",
+                "typecode[cmt_availability_history]",
+                "freqcode[cmt_availability_history]",
+                "period[cmt_availability_history]",
+                "reportercode[cmt_availability_history]",
+                "reporteriso[cmt_availability_history]",
+                "reporterdesc[cmt_availability_history]",
+                "classificationcode[cmt_availability_history]",
+                "classificationsearchcode[cmt_availability_history]",
+                "isoriginalclassification[cmt_availability_history]",
+                "isextendedflowcode",
+                "isextendedpartnercode",
+                "isextendedpartner2code",
+                "isextendedcmdcode",
+                "isextendedcustomscode",
+                "isextendedmotcode",
+                "totalrecords",
+                "datasetchecksum",
+                "firstreleased",
+                "lastreleased",
+                "totalrecords_prev",
+                "prev_periods",
+                "totalrecords_normalized",
+                "Sub-Commodity",
+                "Mapped Commodity Name",
+                "comtrade hs names",
+                "comtrade hs codes",
+                "Date",
+                "Commodity"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "JoinInstruction": {
+            "LeftOperand": "3ce435ae-48f2-428c-a288-e011fe2382b2",
+            "RightOperand": "af5d8a6a-461e-4713-ba63-3081e0cfa598",
+            "Type": "OUTER",
+            "OnClause": "cmdcode = {comtrade hs codes}"
+          }
+        }
+      },
+      "af5d8a6a-461e-4713-ba63-3081e0cfa598": {
+        "Alias": "AllCommodities",
+        "Source": {
+          "DataSetArn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9ee3bc06-2dc2-4272-961c-d5c18c8ea985"
+        }
+      },
+      "c142fe3f-bb46-4165-815f-d941bc273290": {
+        "Alias": "cmt_availability_history",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "typecode",
+              "NewColumnName": "typecode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "freqcode",
+              "NewColumnName": "freqcode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "period",
+              "NewColumnName": "period[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "reportercode",
+              "NewColumnName": "reportercode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "reporteriso",
+              "NewColumnName": "reporteriso[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "reporterdesc",
+              "NewColumnName": "reporterdesc[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "classificationcode",
+              "NewColumnName": "classificationcode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "classificationsearchcode",
+              "NewColumnName": "classificationsearchcode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "isoriginalclassification",
+              "NewColumnName": "isoriginalclassification[cmt_availability_history]"
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "133a278f-daf1-41d7-b013-c7dfa1f15216"
+        }
+      },
+      "d17294eb-5285-40c3-9011-b8565e7ce7a6": {
+        "Alias": "comtrade_world_exports",
+        "DataTransforms": [
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "refperiodid",
+              "NewColumnType": "STRING"
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "43208fb3-d38e-4614-983e-9384d9d3a608"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "typecode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "freqcode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "refperiodid",
+        "Type": "STRING"
+      },
+      {
+        "Name": "refyear",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "refmonth",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "period",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "reportercode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "reporteriso",
+        "Type": "STRING"
+      },
+      {
+        "Name": "reporterdesc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "flowcode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "flowdesc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "partnercode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "partneriso",
+        "Type": "STRING"
+      },
+      {
+        "Name": "partnerdesc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "partner2code",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "partner2iso",
+        "Type": "STRING"
+      },
+      {
+        "Name": "partner2desc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "classificationcode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "classificationsearchcode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "isoriginalclassification",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "cmdcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "cmddesc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "aggrlevel",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isleaf",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "customscode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "customsdesc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "moscode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "motcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "motdesc",
+        "Type": "STRING"
+      },
+      {
+        "Name": "qtyunitcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "qtyunitabbr",
+        "Type": "STRING"
+      },
+      {
+        "Name": "qty",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "isqtyestimated",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "altqtyunitcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "altqtyunitabbr",
+        "Type": "STRING"
+      },
+      {
+        "Name": "altqty",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "isaltqtyestimated",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "netwgt",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "isnetwgtestimated",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "grosswgt",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "isgrosswgtestimated",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "cifvalue",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "fobvalue",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "primaryvalue",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "legacyestimationflag",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isreported",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isaggregate",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "cmd_code",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "datasetcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "typecode[cmt_availability_history]",
+        "Type": "STRING"
+      },
+      {
+        "Name": "freqcode[cmt_availability_history]",
+        "Type": "STRING"
+      },
+      {
+        "Name": "period[cmt_availability_history]",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "reportercode[cmt_availability_history]",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "reporteriso[cmt_availability_history]",
+        "Type": "STRING"
+      },
+      {
+        "Name": "reporterdesc[cmt_availability_history]",
+        "Type": "STRING"
+      },
+      {
+        "Name": "classificationcode[cmt_availability_history]",
+        "Type": "STRING"
+      },
+      {
+        "Name": "classificationsearchcode[cmt_availability_history]",
+        "Type": "STRING"
+      },
+      {
+        "Name": "isoriginalclassification[cmt_availability_history]",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedflowcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedpartnercode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedpartner2code",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedcmdcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedcustomscode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "isextendedmotcode",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "totalrecords",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "datasetchecksum",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "firstreleased",
+        "Type": "STRING"
+      },
+      {
+        "Name": "lastreleased",
+        "Type": "STRING"
+      },
+      {
+        "Name": "totalrecords_prev",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "prev_periods",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "totalrecords_normalized",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "Sub-Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Mapped Commodity Name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "comtrade hs names",
+        "Type": "STRING"
+      },
+      {
+        "Name": "comtrade hs codes",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "Date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Commodity",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 80782376,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "73692225-51b9-4959-adc2-485a9dc80ef7"
+}

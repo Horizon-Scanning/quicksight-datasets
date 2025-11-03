@@ -1,0 +1,149 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/a3a69b4f-6770-43da-bee5-1aa7f26e2995",
+    "DataSetId": "a3a69b4f-6770-43da-bee5-1aa7f26e2995",
+    "Name": "te_shipping_forecast",
+    "CreatedTime": "2025-03-11 17:12:44.436000+02:00",
+    "LastUpdatedTime": "2025-11-03 08:01:29.361000+02:00",
+    "PhysicalTableMap": {
+      "7b783325-74f7-4b49-aa1b-dae90da981b6": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/2970835b-41f7-4b3f-ad11-496e42d10a6c",
+          "Name": "New custom SQL",
+          "SqlQuery": "SELECT\r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast1' as forecast_type,\r\n    forecast1 as forecast_value,\r\n    forecast1_perc_change as forecast_change,\r\n    date_parse(forecastdate1, '%d/%m/%Y') as forecast_date\r\nFROM shippingbi.te_shipping_index\r\nUNION ALL\r\n\r\nSELECT\r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast2' as forecast_type,\r\n    forecast2 as forecast_value,\r\n    forecast2_perc_change as forecast_change,\r\n    date_parse(forecastdate2, '%d/%m/%Y') as forecast_date\r\nFROM shippingbi.te_shipping_index\r\n\r\nUNION ALL\r\n\r\nSELECT\r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast3' as forecast_type,\r\n    forecast3 as forecast_value,\r\n    forecast3_perc_change as forecast_change,\r\n    date_parse(forecastdate3, '%d/%m/%Y') as forecast_date\r\nFROM shippingbi.te_shipping_index\r\n\r\nUNION ALL\r\n\r\nSELECT\r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast4' as forecast_type,\r\n    forecast4 as forecast_value,\r\n    forecast4_perc_change as forecast_change,\r\n    date_parse(forecastdate4, '%d/%m/%Y') as forecast_date\r\nFROM shippingbi.te_shipping_index",
+          "Columns": [
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "last",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "unit",
+              "Type": "STRING"
+            },
+            {
+              "Name": "url",
+              "Type": "STRING"
+            },
+            {
+              "Name": "importance",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "forecast_type",
+              "Type": "STRING"
+            },
+            {
+              "Name": "forecast_value",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecast_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecast_date",
+              "Type": "DATETIME"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "099fc75c-39a2-4797-90e5-8ff8b9ba0a8f": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "name",
+              "NewColumnName": "Index"
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "symbol",
+                "Index",
+                "last",
+                "unit",
+                "url",
+                "importance",
+                "forecast_type",
+                "forecast_value",
+                "forecast_change",
+                "forecast_date"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "7b783325-74f7-4b49-aa1b-dae90da981b6"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Index",
+        "Type": "STRING"
+      },
+      {
+        "Name": "last",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "unit",
+        "Type": "STRING"
+      },
+      {
+        "Name": "url",
+        "Type": "STRING"
+      },
+      {
+        "Name": "importance",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "forecast_type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "forecast_value",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecast_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecast_date",
+        "Type": "DATETIME"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 1080,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "7c32a5e1-066e-4f55-b172-04d7f5840beb"
+}

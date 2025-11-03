@@ -1,0 +1,136 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/b1ff77ff-0cd7-4238-adf0-9d3fae98ce82",
+    "DataSetId": "b1ff77ff-0cd7-4238-adf0-9d3fae98ce82",
+    "Name": "te_shipping_indexes_summary",
+    "CreatedTime": "2025-02-21 14:48:38.185000+02:00",
+    "LastUpdatedTime": "2025-11-03 08:00:49.358000+02:00",
+    "PhysicalTableMap": {
+      "42810be9-9ea0-4814-8424-99b8f4e51c46": {
+        "RelationalTable": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/b7616a57-74ce-47a9-88ad-4ca94319da25",
+          "Catalog": "AwsDataCatalog",
+          "Schema": "shippingbi",
+          "Name": "te_shipping_indexes_summary",
+          "InputColumns": [
+            {
+              "Name": "forecast_extracted",
+              "Type": "STRING"
+            },
+            {
+              "Name": "commodities",
+              "Type": "STRING"
+            },
+            {
+              "Name": "summaries",
+              "Type": "STRING"
+            },
+            {
+              "Name": "prompts",
+              "Type": "STRING"
+            },
+            {
+              "Name": "claude_answer",
+              "Type": "STRING"
+            },
+            {
+              "Name": "reason_type",
+              "Type": "STRING"
+            },
+            {
+              "Name": "reasons",
+              "Type": "STRING"
+            },
+            {
+              "Name": "countries",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "9ef604f5-4fc6-461a-84d4-03a487a56a74": {
+        "Alias": "te_shipping_indexes_summary",
+        "DataTransforms": [
+          {
+            "CreateColumnsOperation": {
+              "Columns": [
+                {
+                  "ColumnName": "Index",
+                  "ColumnId": "b60cc439-040d-4c6f-bafd-71290849711a",
+                  "Expression": "ifelse(\r\n    {commodities} = \"baltic\", \"Baltic Dry\",\r\n    {commodities} = \"containerized-freight-index\", \"Containerized Freight Index\",\r\n    {commodities} = \"crb\", \"CRB Index\",\r\n    {commodities}  // Default to original name if no match\r\n)"
+                }
+              ]
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "forecast_extracted",
+                "commodities",
+                "summaries",
+                "prompts",
+                "claude_answer",
+                "reason_type",
+                "reasons",
+                "countries",
+                "Index"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "42810be9-9ea0-4814-8424-99b8f4e51c46"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "forecast_extracted",
+        "Type": "STRING"
+      },
+      {
+        "Name": "commodities",
+        "Type": "STRING"
+      },
+      {
+        "Name": "summaries",
+        "Type": "STRING"
+      },
+      {
+        "Name": "prompts",
+        "Type": "STRING"
+      },
+      {
+        "Name": "claude_answer",
+        "Type": "STRING"
+      },
+      {
+        "Name": "reason_type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "reasons",
+        "Type": "STRING"
+      },
+      {
+        "Name": "countries",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Index",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 19063,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "606c09ab-621a-4517-8072-1758f33f6a47"
+}

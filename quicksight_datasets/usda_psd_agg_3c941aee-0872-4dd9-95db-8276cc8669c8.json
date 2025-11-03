@@ -1,0 +1,172 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/3c941aee-0872-4dd9-95db-8276cc8669c8",
+    "DataSetId": "3c941aee-0872-4dd9-95db-8276cc8669c8",
+    "Name": "usda_psd_agg",
+    "CreatedTime": "2025-04-03 18:23:43.227000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:23.578000+02:00",
+    "PhysicalTableMap": {
+      "87c8d2c4-f142-4462-921d-8c3be26ac295": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/72aec4fd-ddc1-4ef3-a63d-9379c8f70526",
+          "Name": "New custom SQL",
+          "SqlQuery": "-- Step 1.A: Prepare JODI data by selecting all necessary components for calculation.\r\nWITH jodi_prepared AS (\r\n    SELECT\r\n        CASE\r\n            WHEN energy_product = 'CRUDEOIL' THEN 'Crude Oil'\r\n            WHEN energy_product = 'JETKERO' THEN 'Jet Fuel'\r\n            WHEN energy_product = 'GASDIES' THEN 'Diesel'\r\n            WHEN energy_product = 'LPG' THEN 'LPG'\r\n            WHEN energy_product = 'GASOLINE' THEN 'Gasoline'\r\n        END AS commodity_description,\r\n        ref_area AS country_name,\r\n        TRY(CAST(date_parse(date, '%d/%m/%Y') AS DATE)) AS report_date,\r\n        flow_breakdown,\r\n        energy_product,\r\n        CAST(obs_value AS DOUBLE) AS value\r\n    FROM shippingbi.jodi_oil_data\r\n    WHERE\r\n        obs_value IS NOT NULL\r\n        AND unit_description LIKE 'Thousand Barrels per day%'\r\n        AND TRY(CAST(date_parse(date, '%d/%m/%Y') AS DATE)) >= DATE '2024-01-01'\r\n        AND energy_product IN ('CRUDEOIL', 'JETKERO', 'GASDIES', 'LPG', 'GASOLINE')\r\n        AND flow_breakdown IN (\r\n            'INDPROD',\r\n            'REFGROUT',\r\n            'TOTIMPSB',\r\n            'STOCKCH',\r\n            'OSOURCES',\r\n            'TOTDEMO'\r\n        )\r\n),\r\njodi_aggregated AS (\r\n    SELECT\r\n        commodity_description,\r\n        country_name,\r\n        report_date,\r\n        SUM(\r\n            CASE\r\n                WHEN energy_product = 'CRUDEOIL' AND flow_breakdown = 'INDPROD' THEN value\r\n                WHEN energy_product <> 'CRUDEOIL' AND flow_breakdown = 'REFGROUT' THEN value\r\n                ELSE 0\r\n            END\r\n        ) AS production_val,\r\n        SUM(CASE WHEN flow_breakdown = 'TOTDEMO' THEN value ELSE 0 END) AS domestic_consumption_val,\r\n        (\r\n            SUM(\r\n                CASE\r\n                    WHEN energy_product = 'CRUDEOIL' AND flow_breakdown = 'INDPROD' THEN value\r\n                    WHEN energy_product <> 'CRUDEOIL' AND flow_breakdown = 'REFGROUT' THEN value\r\n                    ELSE 0\r\n                END\r\n            ) +\r\n            SUM(CASE WHEN flow_breakdown = 'TOTIMPSB' THEN value ELSE 0 END) +\r\n            SUM(CASE WHEN flow_breakdown = 'STOCKCH' THEN value ELSE 0 END)\r\n        ) AS total_supply_val\r\n    FROM jodi_prepared\r\n    GROUP BY 1, 2, 3\r\n),\r\njodi_unpivoted AS (\r\n    SELECT commodity_description, country_name, report_date, 'Production' AS attribute_description, production_val AS value FROM jodi_aggregated\r\n    UNION ALL\r\n    SELECT commodity_description, country_name, report_date, 'Domestic Consumption' AS attribute_description, domestic_consumption_val AS value FROM jodi_aggregated\r\n    UNION ALL\r\n    SELECT commodity_description, country_name, report_date, 'Total Supply' AS attribute_description, total_supply_val AS value FROM jodi_aggregated\r\n),\r\nCombinedData AS (\r\n    SELECT \r\n        commodity_description, \r\n        country_name, \r\n        COALESCE(\r\n            TRY(CAST(date_parse(curr_date, '%Y-%m-%d') AS DATE)),\r\n            TRY(CAST(date_parse(curr_date, '%m/%d/%Y') AS DATE)),\r\n            TRY(CAST(date_parse(curr_date, '%d/%m/%Y') AS DATE))\r\n        ) as report_date, \r\n        attribute_description, \r\n        value\r\n    FROM shippingbi.usda_psd_table\r\n    WHERE attribute_description IN ('Domestic Consumption', 'Production', 'Total Supply')\r\n        AND COALESCE(\r\n            TRY(CAST(date_parse(curr_date, '%Y-%m-%d') AS DATE)),\r\n            TRY(CAST(date_parse(curr_date, '%m/%d/%Y') AS DATE)),\r\n            TRY(CAST(date_parse(curr_date, '%d/%m/%Y') AS DATE))\r\n        ) >= DATE '2024-01-01'\r\n    UNION ALL\r\n    SELECT \r\n        commodity_description, \r\n        country_name, \r\n        report_date, \r\n        attribute_description, \r\n        value\r\n    FROM jodi_unpivoted\r\n),\r\nDataWithRanking AS (\r\n    SELECT\r\n        *,\r\n        DENSE_RANK() OVER (PARTITION BY commodity_description ORDER BY report_date DESC) AS month_num\r\n    FROM CombinedData\r\n),\r\nAggregatedData AS (\r\n    SELECT\r\n        commodity_description,\r\n        report_date,\r\n        month_num,\r\n        SUM(CASE WHEN attribute_description = 'Domestic Consumption' THEN value ELSE 0 END) AS sum_domestic_consumption,\r\n        SUM(CASE WHEN attribute_description = 'Production' THEN value ELSE 0 END) AS sum_production,\r\n        SUM(CASE WHEN attribute_description = 'Total Supply' THEN value ELSE 0 END) AS sum_total_supply\r\n    FROM DataWithRanking\r\n    GROUP BY commodity_description, report_date, month_num\r\n),\r\nDataWithAvg AS (\r\n    SELECT\r\n        *,\r\n        AVG(sum_total_supply) OVER (\r\n            PARTITION BY commodity_description \r\n            ORDER BY report_date\r\n            ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING\r\n        ) AS avg_previous_3_months\r\n    FROM AggregatedData\r\n)\r\nSELECT\r\n    commodity_description,\r\n    month_num,\r\n    CAST(report_date AS TIMESTAMP) AS report_date,\r\n    sum_domestic_consumption AS domestic_consumption,\r\n    sum_production AS production,\r\n    sum_total_supply AS total_supply,\r\n    (sum_total_supply - sum_domestic_consumption) AS supply_consumption,\r\n    CASE\r\n        WHEN month_num = 1 AND avg_previous_3_months IS NOT NULL AND avg_previous_3_months <> 0 THEN\r\n            ((sum_total_supply / NULLIF(avg_previous_3_months, 0.0)) - 1) * 100\r\n        ELSE NULL\r\n    END AS score\r\nFROM \r\n    DataWithAvg\r\nORDER BY \r\n    commodity_description,\r\n    report_date DESC",
+          "Columns": [
+            {
+              "Name": "commodity_description",
+              "Type": "STRING"
+            },
+            {
+              "Name": "month_num",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "report_date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "domestic_consumption",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "production",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "total_supply",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "supply_consumption",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "score",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "0679f54a-520d-4ec4-bff9-d7bd66ee85cc": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "commodity_description",
+              "NewColumnName": "Sub-Commodity"
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "87c8d2c4-f142-4462-921d-8c3be26ac295"
+        }
+      },
+      "739c6619-48d3-4444-8b80-e1c4df9d4a36": {
+        "Alias": "Intermediate Table",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "Sub-Commodity",
+                "month_num",
+                "report_date",
+                "domestic_consumption",
+                "production",
+                "total_supply",
+                "supply_consumption",
+                "score",
+                "Sub-Commodity[AllCommodities]",
+                "Mapped Commodity Name"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "JoinInstruction": {
+            "LeftOperand": "0679f54a-520d-4ec4-bff9-d7bd66ee85cc",
+            "RightOperand": "a5d53045-1fd4-4c2a-9ffe-73fbcdfd772e",
+            "Type": "OUTER",
+            "OnClause": "{Sub-Commodity} = {usda psd sub-commodity}"
+          }
+        }
+      },
+      "a5d53045-1fd4-4c2a-9ffe-73fbcdfd772e": {
+        "Alias": "AllCommodities",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "Sub-Commodity",
+              "NewColumnName": "Sub-Commodity[AllCommodities]"
+            }
+          }
+        ],
+        "Source": {
+          "DataSetArn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9ee3bc06-2dc2-4272-961c-d5c18c8ea985"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Sub-Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "month_num",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "report_date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "domestic_consumption",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "production",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "total_supply",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "supply_consumption",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "score",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "Sub-Commodity[AllCommodities]",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Mapped Commodity Name",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 131835,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "22dc0ab9-47da-4cc1-b952-426a938b5661"
+}

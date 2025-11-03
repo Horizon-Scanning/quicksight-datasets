@@ -1,0 +1,118 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/18e93ac1-bbc8-4d63-b3df-67683c58f51d",
+    "DataSetId": "18e93ac1-bbc8-4d63-b3df-67683c58f51d",
+    "Name": "te_digital_history",
+    "CreatedTime": "2025-08-18 23:23:56.356000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:00:55.482000+02:00",
+    "PhysicalTableMap": {
+      "6ca28219-35ca-4234-9251-22b055626dbd": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/e9707f21-9eb1-460c-b14a-e677baf13710",
+          "Name": "New custom SQL",
+          "SqlQuery": "select symbol, \r\n    CAST(date_parse(date, '%d/%m/%Y') AS DATE) AS Date,\r\n    open,\r\n    high,\r\n    low,\r\n    close,\r\n    commodity\r\nfrom shippingbi.te_digital_history",
+          "Columns": [
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "Date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "open",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "high",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "low",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "close",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "commodity",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "3a4d75b8-0b5b-4d64-bc9c-b2636bd209ba": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "symbol",
+                "Date",
+                "open",
+                "high",
+                "low",
+                "close",
+                "commodity"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "6ca28219-35ca-4234-9251-22b055626dbd"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "open",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "high",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "low",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "close",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "commodity",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 628895,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "a8e13954-2a73-49f1-ab21-4eb8760815a9"
+}

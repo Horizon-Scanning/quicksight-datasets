@@ -1,0 +1,130 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/bbe658a1-5df1-4bb8-b038-cdc655cb1e7b",
+    "DataSetId": "bbe658a1-5df1-4bb8-b038-cdc655cb1e7b",
+    "Name": "mining_news_history",
+    "CreatedTime": "2025-08-25 16:53:28.331000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:26.083000+02:00",
+    "PhysicalTableMap": {
+      "dbc3d716-7730-4320-b970-120b09d70c5a": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/882cd428-e5ee-4980-9fba-dd8358bbe2e0",
+          "Name": "New custom SQL",
+          "SqlQuery": "SELECT \r\n    ROW_NUMBER() OVER (ORDER BY pub_date DESC) AS id,\r\n    title,\r\n    link,\r\n    description,\r\n    CAST(date_parse(pub_date, '%d/%m/%Y') AS DATE) AS date,\r\n    article_text,\r\n    commodity,\r\n    tag,\r\n    confidence as tag_confidence\r\nFROM shippingbi.mining_news_history",
+          "Columns": [
+            {
+              "Name": "id",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "title",
+              "Type": "STRING"
+            },
+            {
+              "Name": "link",
+              "Type": "STRING"
+            },
+            {
+              "Name": "description",
+              "Type": "STRING"
+            },
+            {
+              "Name": "date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "article_text",
+              "Type": "STRING"
+            },
+            {
+              "Name": "commodity",
+              "Type": "STRING"
+            },
+            {
+              "Name": "tag",
+              "Type": "STRING"
+            },
+            {
+              "Name": "tag_confidence",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "d107b360-3e2f-4877-9fc4-5e103218186c": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "id",
+                "title",
+                "link",
+                "description",
+                "date",
+                "article_text",
+                "commodity",
+                "tag",
+                "tag_confidence"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "dbc3d716-7730-4320-b970-120b09d70c5a"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "id",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "title",
+        "Type": "STRING"
+      },
+      {
+        "Name": "link",
+        "Type": "STRING"
+      },
+      {
+        "Name": "description",
+        "Type": "STRING"
+      },
+      {
+        "Name": "date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "article_text",
+        "Type": "STRING"
+      },
+      {
+        "Name": "commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "tag",
+        "Type": "STRING"
+      },
+      {
+        "Name": "tag_confidence",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 1307441,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "5b2fc501-a5b1-4b20-aa11-439d0c96e483"
+}

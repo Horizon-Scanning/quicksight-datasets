@@ -1,0 +1,102 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/ef5ded52-9abb-4d8d-bf6b-ccf3e72a2205",
+    "DataSetId": "ef5ded52-9abb-4d8d-bf6b-ccf3e72a2205",
+    "Name": "te_digital_summary",
+    "CreatedTime": "2025-08-24 22:00:36.102000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:01:11.320000+02:00",
+    "PhysicalTableMap": {
+      "4b8e3aed-5293-4810-ac85-5311b5dfb1c6": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/ad77d568-ca3c-4fc6-8b03-9c24a8553284",
+          "Name": "New custom SQL",
+          "SqlQuery": "SELECT\r\n    -- Correct format for \"2025-08-18\" is '%Y-%m-%d'\r\n    CAST(date_parse(forecast_extracted, '%Y-%m-%d') AS DATE) AS forecast_extracted, \r\n    CASE\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(commodities, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS Commodity,\r\n    reason_type,\r\n    reasons AS summaries,\r\n    countries\r\nFROM\r\n    shippingbi.te_digital_summary",
+          "Columns": [
+            {
+              "Name": "forecast_extracted",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "Commodity",
+              "Type": "STRING"
+            },
+            {
+              "Name": "reason_type",
+              "Type": "STRING"
+            },
+            {
+              "Name": "summaries",
+              "Type": "STRING"
+            },
+            {
+              "Name": "countries",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "4fa34db6-dd6e-4fa5-b8a2-664d0fd57a02": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "TagColumnOperation": {
+              "ColumnName": "countries",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "forecast_extracted",
+                "Commodity",
+                "reason_type",
+                "summaries",
+                "countries"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "4b8e3aed-5293-4810-ac85-5311b5dfb1c6"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "forecast_extracted",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "reason_type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "summaries",
+        "Type": "STRING"
+      },
+      {
+        "Name": "countries",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 4010,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "b31cd33d-7f0f-4f4c-b517-1ab273e4ca0f"
+}

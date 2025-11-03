@@ -1,0 +1,212 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/56902214-ca74-450a-9dbf-8a408092fde7",
+    "DataSetId": "56902214-ca74-450a-9dbf-8a408092fde7",
+    "Name": "te_commodity_history",
+    "CreatedTime": "2025-03-05 12:19:45.649000+02:00",
+    "LastUpdatedTime": "2025-11-03 08:01:47.413000+02:00",
+    "PhysicalTableMap": {
+      "9edd0e6f-63fb-4d66-be95-64bdbb09014b": {
+        "RelationalTable": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/20f2666c-ff6a-476d-bd01-03e56dcba539",
+          "Catalog": "AwsDataCatalog",
+          "Schema": "shippingbi",
+          "Name": "te_commodity_history",
+          "InputColumns": [
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "date",
+              "Type": "STRING"
+            },
+            {
+              "Name": "open",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "high",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "low",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "close",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "commodity",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "5c68593f-9545-43c1-af44-6615d4e2cb5d": {
+        "Alias": "Intermediate Table",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "Symbol",
+                "Date",
+                "Open",
+                "High",
+                "Low",
+                "Close",
+                "Commodities",
+                "Sub-Commodity",
+                "Mapped Commodity Name",
+                "comtrade hs names",
+                "comtrade hs codes",
+                "te news commodity"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "JoinInstruction": {
+            "LeftOperand": "d548121b-cccc-407c-9b7b-8280bcb188bb",
+            "RightOperand": "fd6f0698-423e-450b-98a6-15a49e24be20",
+            "Type": "OUTER",
+            "OnClause": "Commodities = {te commodity history}"
+          }
+        }
+      },
+      "d548121b-cccc-407c-9b7b-8280bcb188bb": {
+        "Alias": "te_commodity_history",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "symbol",
+              "NewColumnName": "Symbol"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "date",
+              "NewColumnName": "Date"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Date",
+              "NewColumnType": "DATETIME",
+              "Format": "dd/MM/yyyy"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "open",
+              "NewColumnName": "Open"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "high",
+              "NewColumnName": "High"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "low",
+              "NewColumnName": "Low"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "close",
+              "NewColumnName": "Close"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "commodity",
+              "NewColumnName": "Commodities"
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "9edd0e6f-63fb-4d66-be95-64bdbb09014b"
+        }
+      },
+      "fd6f0698-423e-450b-98a6-15a49e24be20": {
+        "Alias": "AllCommodities",
+        "Source": {
+          "DataSetArn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9ee3bc06-2dc2-4272-961c-d5c18c8ea985"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Open",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "High",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "Low",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "Close",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "Commodities",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Sub-Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Mapped Commodity Name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "comtrade hs names",
+        "Type": "STRING"
+      },
+      {
+        "Name": "comtrade hs codes",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "te news commodity",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 6045594,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "f7944478-7a77-4e07-98bf-aaf58a1ff511"
+}

@@ -1,0 +1,321 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9a245641-eb0a-42ea-a331-aaaff9d6758d",
+    "DataSetId": "9a245641-eb0a-42ea-a331-aaaff9d6758d",
+    "Name": "israel_customs_data",
+    "CreatedTime": "2025-08-07 17:15:45.492000+03:00",
+    "LastUpdatedTime": "2025-11-03 08:00:56.598000+02:00",
+    "PhysicalTableMap": {
+      "a56d4c40-2147-4ba4-98c8-3c399e3ea5f5": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/4a9e63cc-bf4c-4e10-88a4-cc6c4b38aa8e",
+          "Name": "New custom SQL",
+          "SqlQuery": "-- This CTE maps the 8-digit customs item codes to a clean, English commodity name.\r\nWITH hs_code_commodity_mapping AS (\r\n    -- Grains & Feeds\r\n    SELECT '10019910' as hs_code, 'Wheat' as Commodity\r\n    UNION ALL SELECT '10039000', 'Barley'\r\n    UNION ALL SELECT '10041000', 'Oats'\r\n    UNION ALL SELECT '10049000', 'Oats'\r\n    UNION ALL SELECT '10051000', 'Corn'\r\n    UNION ALL SELECT '10059010', 'Corn'\r\n    UNION ALL SELECT '11010020', 'Wheat'\r\n    UNION ALL SELECT '11010090', 'Wheat'\r\n    UNION ALL SELECT '11022000', 'Corn'\r\n    UNION ALL SELECT '11031100', 'Wheat'\r\n    UNION ALL SELECT '11031300', 'Corn'\r\n    UNION ALL SELECT '12011000', 'Soybeans'\r\n    UNION ALL SELECT '12019000', 'Soybeans'\r\n    UNION ALL SELECT '12081000', 'Soybeans'\r\n    UNION ALL SELECT '23023000', 'Wheat'\r\n    UNION ALL SELECT '23031000', 'Corn'\r\n    UNION ALL SELECT '23033000', 'DDG/DDGS'\r\n    UNION ALL SELECT '23040000', 'Soybeans'\r\n    UNION ALL SELECT '23063000', 'Sunflower Oil'\r\n    UNION ALL SELECT '23064900', 'Rapeseed'\r\n\r\n    -- Oils, Sugar, Pasta\r\n    UNION ALL SELECT '15079010', 'Soybeans'\r\n    UNION ALL SELECT '15121111', 'Sunflower Oil'\r\n    UNION ALL SELECT '15121990', 'Sunflower Oil'\r\n    UNION ALL SELECT '15121922', 'Sunflower Oil'\r\n    UNION ALL SELECT '15121929', 'Sunflower Oil'\r\n    UNION ALL SELECT '15141910', 'Canola'\r\n    UNION ALL SELECT '15149911', 'Canola'\r\n    UNION ALL SELECT '15149990', 'Canola'\r\n    UNION ALL SELECT '12051090', 'Rapeseed'\r\n    UNION ALL SELECT '17019910', 'Sugar'\r\n    UNION ALL SELECT '17011400', 'Sugar'\r\n    UNION ALL SELECT '19021900', 'Pasta'\r\n    UNION ALL SELECT '19023000', 'Pasta'\r\n    UNION ALL SELECT '19043000', 'Bulgur'\r\n\r\n    -- Energy Products\r\n    UNION ALL SELECT '27090090', 'Crude Oil'\r\n    -- UNION ALL SELECT '27090000', 'Brent'\r\n    UNION ALL SELECT '27101210', 'Gasoline' \r\n    UNION ALL SELECT '27101211', 'Gasoline'\r\n    UNION ALL SELECT '27101219', 'Gasoline'\r\n    UNION ALL SELECT '27101960', 'Diesel' \r\n    UNION ALL SELECT '27101963', 'Diesel'\r\n    UNION ALL SELECT '27101964', 'Diesel'\r\n    UNION ALL SELECT '27101965', 'Diesel'\r\n    UNION ALL SELECT '27101979', 'Diesel'\r\n    UNION ALL SELECT '27101930', 'Jet Fuel'\r\n    UNION ALL SELECT '27101939', 'Jet Fuel'\r\n    UNION ALL SELECT '27101931', 'Jet Fuel'\r\n    UNION ALL SELECT '27111200', 'LPG'\r\n    UNION ALL SELECT '27111300', 'LPG'\r\n    UNION ALL SELECT '27111900', 'LPG'\r\n    \r\n    -- Legumes\r\n    UNION ALL SELECT '07131000', 'Peas'\r\n    UNION ALL SELECT '07132000', 'Chickpeas'\r\n    UNION ALL SELECT '07134000', 'Lentils'\r\n    UNION ALL SELECT '07135000', 'Broad beans'\r\n)\r\n\r\nSELECT\r\n    d.*,\r\n    CAST(CAST(d.year AS VARCHAR) || '-' || CAST(d.month AS VARCHAR) || '-01' AS DATE) AS report_date,\r\n    \r\n    -- Combines mapping from the 'category' field and the hs_code CTE for a comprehensive Commodity field.\r\n    COALESCE(\r\n        CASE\r\n            WHEN d.category = 'sunflower' THEN 'Sunflower Oil'\r\n            WHEN d.category = 'other vegetable oils' THEN 'Other Vegetable Oils'\r\n            WHEN d.category = 'barley' THEN 'Barley'\r\n            WHEN d.category = 'buckwheat' THEN 'Buckwheat'\r\n            WHEN d.category = 'cereals' THEN 'Cereals'\r\n            WHEN d.category = 'corn' THEN 'Corn'\r\n            WHEN d.category = 'oats' THEN 'Oats'\r\n            WHEN d.category = 'pasta' THEN 'Pasta'\r\n            WHEN d.category = 'potato' THEN 'Potato'\r\n            WHEN d.category = 'rapeseed' THEN 'Rapeseed'\r\n            WHEN d.category = 'rice' THEN 'Rice'\r\n            WHEN d.category = 'sugar' THEN 'Sugar'\r\n            WHEN d.category = 'tuna' THEN 'Tuna'\r\n            WHEN d.category = 'wheat' THEN 'Wheat'\r\n            WHEN d.category = 'brent' THEN 'Brent'\r\n            WHEN d.category = 'crude_oil_wti' THEN 'Crude Oil (WTI)'\r\n            WHEN d.category = 'baby formula' THEN 'Baby Formula'\r\n            ELSE NULL\r\n        END,\r\n        hsm.Commodity\r\n    ) AS Commodity,\r\n    \r\n    -- Maps 2-digit country codes to full country names.\r\n    CASE d.origin_country\r\n        WHEN 'AF' THEN 'Afghanistan'\r\n        WHEN 'AX' THEN '\u00c5land Islands'\r\n        WHEN 'AL' THEN 'Albania'\r\n        WHEN 'DZ' THEN 'Algeria'\r\n        WHEN 'AS' THEN 'American Samoa'\r\n        WHEN 'AD' THEN 'Andorra'\r\n        WHEN 'AO' THEN 'Angola'\r\n        WHEN 'AI' THEN 'Anguilla'\r\n        WHEN 'AQ' THEN 'Antarctica'\r\n        WHEN 'AG' THEN 'Antigua and Barbuda'\r\n        WHEN 'AR' THEN 'Argentina'\r\n        WHEN 'AM' THEN 'Armenia'\r\n        WHEN 'AW' THEN 'Aruba'\r\n        WHEN 'AU' THEN 'Australia'\r\n        WHEN 'AT' THEN 'Austria'\r\n        WHEN 'AZ' THEN 'Azerbaijan'\r\n        WHEN 'BS' THEN 'Bahamas'\r\n        WHEN 'BH' THEN 'Bahrain'\r\n        WHEN 'BD' THEN 'Bangladesh'\r\n        WHEN 'BB' THEN 'Barbados'\r\n        WHEN 'BY' THEN 'Belarus'\r\n        WHEN 'BE' THEN 'Belgium'\r\n        WHEN 'BZ' THEN 'Belize'\r\n        WHEN 'BJ' THEN 'Benin'\r\n        WHEN 'BM' THEN 'Bermuda'\r\n        WHEN 'BT' THEN 'Bhutan'\r\n        WHEN 'BO' THEN 'Bolivia'\r\n        WHEN 'BQ' THEN 'Bonaire, Sint Eustatius and Saba'\r\n        WHEN 'BA' THEN 'Bosnia and Herzegovina'\r\n        WHEN 'BW' THEN 'Botswana'\r\n        WHEN 'BV' THEN 'Bouvet Island'\r\n        WHEN 'BR' THEN 'Brazil'\r\n        WHEN 'IO' THEN 'British Indian Ocean Territory'\r\n        WHEN 'BN' THEN 'Brunei Darussalam'\r\n        WHEN 'BG' THEN 'Bulgaria'\r\n        WHEN 'BF' THEN 'Burkina Faso'\r\n        WHEN 'BI' THEN 'Burundi'\r\n        WHEN 'CV' THEN 'Cabo Verde'\r\n        WHEN 'KH' THEN 'Cambodia'\r\n        WHEN 'CM' THEN 'Cameroon'\r\n        WHEN 'CA' THEN 'Canada'\r\n        WHEN 'KY' THEN 'Cayman Islands'\r\n        WHEN 'CF' THEN 'Central African Republic'\r\n        WHEN 'TD' THEN 'Chad'\r\n        WHEN 'CL' THEN 'Chile'\r\n        WHEN 'CN' THEN 'China'\r\n        WHEN 'CX' THEN 'Christmas Island'\r\n        WHEN 'CC' THEN 'Cocos (Keeling) Islands'\r\n        WHEN 'CO' THEN 'Colombia'\r\n        WHEN 'KM' THEN 'Comoros'\r\n        WHEN 'CG' THEN 'Congo'\r\n        WHEN 'CD' THEN 'Congo, Democratic Republic of the'\r\n        WHEN 'CK' THEN 'Cook Islands'\r\n        WHEN 'CR' THEN 'Costa Rica'\r\n        WHEN 'CI' THEN 'C\u00f4te d''Ivoire'\r\n        WHEN 'HR' THEN 'Croatia'\r\n        WHEN 'CU' THEN 'Cuba'\r\n        WHEN 'CW' THEN 'Cura\u00e7ao'\r\n        WHEN 'CY' THEN 'Cyprus'\r\n        WHEN 'CZ' THEN 'Czechia'\r\n        WHEN 'DK' THEN 'Denmark'\r\n        WHEN 'DJ' THEN 'Djibouti'\r\n        WHEN 'DM' THEN 'Dominica'\r\n        WHEN 'DO' THEN 'Dominican Republic'\r\n        WHEN 'EC' THEN 'Ecuador'\r\n        WHEN 'EG' THEN 'Egypt'\r\n        WHEN 'SV' THEN 'El Salvador'\r\n        WHEN 'GQ' THEN 'Equatorial Guinea'\r\n        WHEN 'ER' THEN 'Eritrea'\r\n        WHEN 'EE' THEN 'Estonia'\r\n        WHEN 'SZ' THEN 'Eswatini'\r\n        WHEN 'ET' THEN 'Ethiopia'\r\n        WHEN 'FK' THEN 'Falkland Islands (Malvinas)'\r\n        WHEN 'FO' THEN 'Faroe Islands'\r\n        WHEN 'FJ' THEN 'Fiji'\r\n        WHEN 'FI' THEN 'Finland'\r\n        WHEN 'FR' THEN 'France'\r\n        WHEN 'GF' THEN 'French Guiana'\r\n        WHEN 'PF' THEN 'French Polynesia'\r\n        WHEN 'TF' THEN 'French Southern Territories'\r\n        WHEN 'GA' THEN 'Gabon'\r\n        WHEN 'GM' THEN 'Gambia'\r\n        WHEN 'GE' THEN 'Georgia'\r\n        WHEN 'DE' THEN 'Germany'\r\n        WHEN 'GH' THEN 'Ghana'\r\n        WHEN 'GI' THEN 'Gibraltar'\r\n        WHEN 'GR' THEN 'Greece'\r\n        WHEN 'GL' THEN 'Greenland'\r\n        WHEN 'GD' THEN 'Grenada'\r\n        WHEN 'GP' THEN 'Guadeloupe'\r\n        WHEN 'GU' THEN 'Guam'\r\n        WHEN 'GT' THEN 'Guatemala'\r\n        WHEN 'GG' THEN 'Guernsey'\r\n        WHEN 'GN' THEN 'Guinea'\r\n        WHEN 'GW' THEN 'Guinea-Bissau'\r\n        WHEN 'GY' THEN 'Guyana'\r\n        WHEN 'HT' THEN 'Haiti'\r\n        WHEN 'HM' THEN 'Heard Island and McDonald Islands'\r\n        WHEN 'VA' THEN 'Holy See'\r\n        WHEN 'HN' THEN 'Honduras'\r\n        WHEN 'HK' THEN 'Hong Kong'\r\n        WHEN 'HU' THEN 'Hungary'\r\n        WHEN 'IS' THEN 'Iceland'\r\n        WHEN 'IN' THEN 'India'\r\n        WHEN 'ID' THEN 'Indonesia'\r\n        WHEN 'IR' THEN 'Iran'\r\n        WHEN 'IQ' THEN 'Iraq'\r\n        WHEN 'IE' THEN 'Ireland'\r\n        WHEN 'IM' THEN 'Isle of Man'\r\n        WHEN 'IL' THEN 'Israel'\r\n        WHEN 'IT' THEN 'Italy'\r\n        WHEN 'JM' THEN 'Jamaica'\r\n        WHEN 'JP' THEN 'Japan'\r\n        WHEN 'JE' THEN 'Jersey'\r\n        WHEN 'JO' THEN 'Jordan'\r\n        WHEN 'KZ' THEN 'Kazakhstan'\r\n        WHEN 'KE' THEN 'Kenya'\r\n        WHEN 'KI' THEN 'Kiribati'\r\n        WHEN 'KP' THEN 'Korea, Democratic People''s Republic of'\r\n        WHEN 'KR' THEN 'South Korea'\r\n        WHEN 'KW' THEN 'Kuwait'\r\n        WHEN 'KG' THEN 'Kyrgyzstan'\r\n        WHEN 'LA' THEN 'Lao People''s Democratic Republic'\r\n        WHEN 'LV' THEN 'Latvia'\r\n        WHEN 'LB' THEN 'Lebanon'\r\n        WHEN 'LS' THEN 'Lesotho'\r\n        WHEN 'LR' THEN 'Liberia'\r\n        WHEN 'LY' THEN 'Libya'\r\n        WHEN 'LI' THEN 'Liechtenstein'\r\n        WHEN 'LT' THEN 'Lithuania'\r\n        WHEN 'LU' THEN 'Luxembourg'\r\n        WHEN 'MO' THEN 'Macao'\r\n        WHEN 'MG' THEN 'Madagascar'\r\n        WHEN 'MW' THEN 'Malawi'\r\n        WHEN 'MY' THEN 'Malaysia'\r\n        WHEN 'MV' THEN 'Maldives'\r\n        WHEN 'ML' THEN 'Mali'\r\n        WHEN 'MT' THEN 'Malta'\r\n        WHEN 'MH' THEN 'Marshall Islands'\r\n        WHEN 'MQ' THEN 'Martinique'\r\n        WHEN 'MR' THEN 'Mauritania'\r\n        WHEN 'MU' THEN 'Mauritius'\r\n        WHEN 'YT' THEN 'Mayotte'\r\n        WHEN 'MX' THEN 'Mexico'\r\n        WHEN 'FM' THEN 'Micronesia (Federated States of)'\r\n        WHEN 'MD' THEN 'Moldova'\r\n        WHEN 'MC' THEN 'Monaco'\r\n        WHEN 'MN' THEN 'Mongolia'\r\n        WHEN 'ME' THEN 'Montenegro'\r\n        WHEN 'MS' THEN 'Montserrat'\r\n        WHEN 'MA' THEN 'Morocco'\r\n        WHEN 'MZ' THEN 'Mozambique'\r\n        WHEN 'MM' THEN 'Myanmar'\r\n        WHEN 'NA' THEN 'Namibia'\r\n        WHEN 'NR' THEN 'Nauru'\r\n        WHEN 'NP' THEN 'Nepal'\r\n        WHEN 'NL' THEN 'Netherlands'\r\n        WHEN 'NC' THEN 'New Caledonia'\r\n        WHEN 'NZ' THEN 'New Zealand'\r\n        WHEN 'NI' THEN 'Nicaragua'\r\n        WHEN 'NE' THEN 'Niger'\r\n        WHEN 'NG' THEN 'Nigeria'\r\n        WHEN 'NU' THEN 'Niue'\r\n        WHEN 'NF' THEN 'Norfolk Island'\r\n        WHEN 'MK' THEN 'North Macedonia'\r\n        WHEN 'MP' THEN 'Northern Mariana Islands'\r\n        WHEN 'NO' THEN 'Norway'\r\n        WHEN 'OM' THEN 'Oman'\r\n        WHEN 'PK' THEN 'Pakistan'\r\n        WHEN 'PW' THEN 'Palau'\r\n        WHEN 'PS' THEN 'Palestine, State of'\r\n        WHEN 'PA' THEN 'Panama'\r\n        WHEN 'PG' THEN 'Papua New Guinea'\r\n        WHEN 'PY' THEN 'Paraguay'\r\n        WHEN 'PE' THEN 'Peru'\r\n        WHEN 'PH' THEN 'Philippines'\r\n        WHEN 'PN' THEN 'Pitcairn'\r\n        WHEN 'PL' THEN 'Poland'\r\n        WHEN 'PT' THEN 'Portugal'\r\n        WHEN 'PR' THEN 'Puerto Rico'\r\n        WHEN 'QA' THEN 'Qatar'\r\n        WHEN 'RE' THEN 'R\u00e9union'\r\n        WHEN 'RO' THEN 'Romania'\r\n        WHEN 'RU' THEN 'Russia'\r\n        WHEN 'RW' THEN 'Rwanda'\r\n        WHEN 'BL' THEN 'Saint Barth\u00e9lemy'\r\n        WHEN 'SH' THEN 'Saint Helena, Ascension and Tristan da Cunha'\r\n        WHEN 'KN' THEN 'Saint Kitts and Nevis'\r\n        WHEN 'LC' THEN 'Saint Lucia'\r\n        WHEN 'MF' THEN 'Saint Martin (French part)'\r\n        WHEN 'PM' THEN 'Saint Pierre and Miquelon'\r\n        WHEN 'VC' THEN 'Saint Vincent and the Grenadines'\r\n        WHEN 'WS' THEN 'Samoa'\r\n        WHEN 'SM' THEN 'San Marino'\r\n        WHEN 'ST' THEN 'Sao Tome and Principe'\r\n        WHEN 'SA' THEN 'Saudi Arabia'\r\n        WHEN 'SN' THEN 'Senegal'\r\n        WHEN 'RS' THEN 'Serbia'\r\n        WHEN 'SC' THEN 'Seychelles'\r\n        WHEN 'SL' THEN 'Sierra Leone'\r\n        WHEN 'SG' THEN 'Singapore'\r\n        WHEN 'SX' THEN 'Sint Maarten (Dutch part)'\r\n        WHEN 'SK' THEN 'Slovakia'\r\n        WHEN 'SI' THEN 'Slovenia'\r\n        WHEN 'SB' THEN 'Solomon Islands'\r\n        WHEN 'SO' THEN 'Somalia'\r\n        WHEN 'ZA' THEN 'South Africa'\r\n        WHEN 'GS' THEN 'South Georgia and the South Sandwich Islands'\r\n        WHEN 'SS' THEN 'South Sudan'\r\n        WHEN 'ES' THEN 'Spain'\r\n        WHEN 'LK' THEN 'Sri Lanka'\r\n        WHEN 'SD' THEN 'Sudan'\r\n        WHEN 'SR' THEN 'Suriname'\r\n        WHEN 'SJ' THEN 'Svalbard and Jan Mayen'\r\n        WHEN 'SE' THEN 'Sweden'\r\n        WHEN 'CH' THEN 'Switzerland'\r\n        WHEN 'SY' THEN 'Syrian Arab Republic'\r\n        WHEN 'TW' THEN 'Taiwan'\r\n        WHEN 'TJ' THEN 'Tajikistan'\r\n        WHEN 'TZ' THEN 'Tanzania'\r\n        WHEN 'TH' THEN 'Thailand'\r\n        WHEN 'TL' THEN 'Timor-Leste'\r\n        WHEN 'TG' THEN 'Togo'\r\n        WHEN 'TK' THEN 'Tokelau'\r\n        WHEN 'TO' THEN 'Tonga'\r\n        WHEN 'TT' THEN 'Trinidad and Tobago'\r\n        WHEN 'TN' THEN 'Tunisia'\r\n        WHEN 'TR' THEN 'Turkey'\r\n        WHEN 'TM' THEN 'Turkmenistan'\r\n        WHEN 'TC' THEN 'Turks and Caicos Islands'\r\n        WHEN 'TV' THEN 'Tuvalu'\r\n        WHEN 'UG' THEN 'Uganda'\r\n        WHEN 'UA' THEN 'Ukraine'\r\n        WHEN 'AE' THEN 'United Arab Emirates'\r\n        WHEN 'GB' THEN 'United Kingdom'\r\n        WHEN 'US' THEN 'United States'\r\n        WHEN 'UM' THEN 'United States Minor Outlying Islands'\r\n        WHEN 'UY' THEN 'Uruguay'\r\n        WHEN 'UZ' THEN 'Uzbekistan'\r\n        WHEN 'VU' THEN 'Vanuatu'\r\n        WHEN 'VE' THEN 'Venezuela'\r\n        WHEN 'VN' THEN 'Vietnam'\r\n        WHEN 'VG' THEN 'Virgin Islands (British)'\r\n        WHEN 'VI' THEN 'Virgin Islands (U.S.)'\r\n        WHEN 'WF' THEN 'Wallis and Futuna'\r\n        WHEN 'EH' THEN 'Western Sahara'\r\n        WHEN 'YE' THEN 'Yemen'\r\n        WHEN 'ZM' THEN 'Zambia'\r\n        WHEN 'ZW' THEN 'Zimbabwe'\r\n        ELSE d.origin_country\r\n    END AS Country\r\nFROM\r\n    shippingbi.israel_customs_data AS d\r\nLEFT JOIN\r\n    hs_code_commodity_mapping AS hsm ON CAST(d.customsitem_8_digits AS VARCHAR) = hsm.hs_code",
+          "Columns": [
+            {
+              "Name": "year",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "month",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "origin_country",
+              "Type": "STRING"
+            },
+            {
+              "Name": "customsitem_2_digits",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "customsitem_8_digits",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "exempt_customsitem",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "customshouse",
+              "Type": "STRING"
+            },
+            {
+              "Name": "quantity",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "quantity_measurementunitid",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "quantity_measurementunitname",
+              "Type": "STRING"
+            },
+            {
+              "Name": "tradeagreementname",
+              "Type": "STRING"
+            },
+            {
+              "Name": "termsofsale",
+              "Type": "STRING"
+            },
+            {
+              "Name": "istradeagreementwithquota",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "niscurrencyamount",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "currencycode",
+              "Type": "STRING"
+            },
+            {
+              "Name": "autonomytypeid",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "autonomytype",
+              "Type": "STRING"
+            },
+            {
+              "Name": "governmentproceduretypename",
+              "Type": "STRING"
+            },
+            {
+              "Name": "governmentproceduretypeenglishname",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ispreferencedocument",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "generalcustomstax",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "purchasetax",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "vat",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "date",
+              "Type": "STRING"
+            },
+            {
+              "Name": "customsitem_6_digits",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "description",
+              "Type": "STRING"
+            },
+            {
+              "Name": "category",
+              "Type": "STRING"
+            },
+            {
+              "Name": "report_date",
+              "Type": "DATETIME"
+            },
+            {
+              "Name": "Commodity",
+              "Type": "STRING"
+            },
+            {
+              "Name": "Country",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "b1fb6918-46af-46bd-8894-8bd99b83149b": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "year",
+                "month",
+                "origin_country",
+                "customsitem_2_digits",
+                "customsitem_8_digits",
+                "exempt_customsitem",
+                "customshouse",
+                "quantity",
+                "quantity_measurementunitid",
+                "quantity_measurementunitname",
+                "tradeagreementname",
+                "termsofsale",
+                "istradeagreementwithquota",
+                "niscurrencyamount",
+                "currencycode",
+                "autonomytypeid",
+                "autonomytype",
+                "governmentproceduretypename",
+                "governmentproceduretypeenglishname",
+                "ispreferencedocument",
+                "generalcustomstax",
+                "purchasetax",
+                "vat",
+                "date",
+                "customsitem_6_digits",
+                "description",
+                "category",
+                "report_date",
+                "Commodity",
+                "Country"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "a56d4c40-2147-4ba4-98c8-3c399e3ea5f5"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "year",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "month",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "origin_country",
+        "Type": "STRING"
+      },
+      {
+        "Name": "customsitem_2_digits",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "customsitem_8_digits",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "exempt_customsitem",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "customshouse",
+        "Type": "STRING"
+      },
+      {
+        "Name": "quantity",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "quantity_measurementunitid",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "quantity_measurementunitname",
+        "Type": "STRING"
+      },
+      {
+        "Name": "tradeagreementname",
+        "Type": "STRING"
+      },
+      {
+        "Name": "termsofsale",
+        "Type": "STRING"
+      },
+      {
+        "Name": "istradeagreementwithquota",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "niscurrencyamount",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "currencycode",
+        "Type": "STRING"
+      },
+      {
+        "Name": "autonomytypeid",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "autonomytype",
+        "Type": "STRING"
+      },
+      {
+        "Name": "governmentproceduretypename",
+        "Type": "STRING"
+      },
+      {
+        "Name": "governmentproceduretypeenglishname",
+        "Type": "STRING"
+      },
+      {
+        "Name": "ispreferencedocument",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "generalcustomstax",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "purchasetax",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "vat",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "date",
+        "Type": "STRING"
+      },
+      {
+        "Name": "customsitem_6_digits",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "description",
+        "Type": "STRING"
+      },
+      {
+        "Name": "category",
+        "Type": "STRING"
+      },
+      {
+        "Name": "report_date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Commodity",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Country",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 11725042,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "f296640d-ad6b-4ee0-a9b9-dba72adb2e70"
+}

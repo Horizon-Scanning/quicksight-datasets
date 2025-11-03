@@ -1,0 +1,132 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/297a5bb9-9720-4097-a33e-d4387d6a7a8b",
+    "DataSetId": "297a5bb9-9720-4097-a33e-d4387d6a7a8b",
+    "Name": "te_digital_forecast",
+    "CreatedTime": "2025-08-24 22:14:24.237000+03:00",
+    "LastUpdatedTime": "2025-08-24 22:15:09.154000+03:00",
+    "PhysicalTableMap": {
+      "cf41af6e-3cf7-48fb-a312-e21cc300b12e": {
+        "CustomSql": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/2ce620d5-e1ee-4ccd-8e28-ceea3715357b",
+          "Name": "New custom SQL",
+          "SqlQuery": "SELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast1' as forecast_type,\r\n    forecast1 as forecast_value,\r\n    -- forecast1_perc_change as forecast_change,\r\n    forecastdate1 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast2' as forecast_type,\r\n    forecast2 as forecast_value,\r\n    -- forecast2_perc_change as forecast_change,\r\n    forecastdate2 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast3' as forecast_type,\r\n    forecast3 as forecast_value,\r\n    -- forecast3_perc_change as forecast_change,\r\n    forecastdate3 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast4' as forecast_type,\r\n    forecast4 as forecast_value,\r\n    -- forecast4_perc_change as forecast_change,\r\n    forecastdate4 as forecast_date\r\nFROM shippingbi.te_digital_forecast",
+          "Columns": [
+            {
+              "Name": "symbol",
+              "Type": "STRING"
+            },
+            {
+              "Name": "name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "last",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "unit",
+              "Type": "STRING"
+            },
+            {
+              "Name": "url",
+              "Type": "STRING"
+            },
+            {
+              "Name": "importance",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "forecast_type",
+              "Type": "STRING"
+            },
+            {
+              "Name": "forecast_value",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "forecast_date",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "0890d96f-e578-4eaf-9c66-6d5a4f4439ea": {
+        "Alias": "New custom SQL",
+        "DataTransforms": [
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "symbol",
+                "name",
+                "last",
+                "unit",
+                "url",
+                "importance",
+                "forecast_type",
+                "forecast_value",
+                "forecast_date"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "cf41af6e-3cf7-48fb-a312-e21cc300b12e"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "symbol",
+        "Type": "STRING"
+      },
+      {
+        "Name": "name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "last",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "unit",
+        "Type": "STRING"
+      },
+      {
+        "Name": "url",
+        "Type": "STRING"
+      },
+      {
+        "Name": "importance",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "forecast_type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "forecast_value",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "forecast_date",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 3764,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "4e70c3a6-b35c-4579-9f72-9742b2f6dfa8"
+}

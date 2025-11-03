@@ -1,0 +1,293 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/27433964-39b6-4935-b8ab-67964a0a534c",
+    "DataSetId": "27433964-39b6-4935-b8ab-67964a0a534c",
+    "Name": "People Overview",
+    "CreatedTime": "2025-02-11 15:02:54.355000+02:00",
+    "LastUpdatedTime": "2025-02-11 15:03:08.214000+02:00",
+    "PhysicalTableMap": {
+      "s3PhysicalTable": {
+        "S3Source": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/8304a819-5e76-48b8-83d4-8e77a6d278b7",
+          "UploadSettings": {
+            "Format": "CSV",
+            "StartFromRow": 1,
+            "ContainsHeader": true,
+            "TextQualifier": "DOUBLE_QUOTE",
+            "Delimiter": ","
+          },
+          "InputColumns": [
+            {
+              "Name": "ColumnId-1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-2",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-3",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-4",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-5",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-6",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-7",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-8",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-9",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-10",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-11",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-12",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-13",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-14",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-15",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "s3PhysicalTable": {
+        "Alias": "Group 1",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-2",
+              "NewColumnName": "Employee Name"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-3",
+              "NewColumnName": "Employee ID"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-1",
+              "NewColumnName": "Date"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-12",
+              "NewColumnName": "Job Family"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-6",
+              "NewColumnName": "Date of Birth"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-11",
+              "NewColumnName": "Business Function"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-7",
+              "NewColumnName": "Gender"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-14",
+              "NewColumnName": "Notes"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-4",
+              "NewColumnName": "Tenure"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-13",
+              "NewColumnName": "Job Level"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-5",
+              "NewColumnName": "Monthly Compensation"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-10",
+              "NewColumnName": "Region"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-8",
+              "NewColumnName": "Education"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-9",
+              "NewColumnName": "Event Type"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-15",
+              "NewColumnName": "isUnique"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Monthly Compensation",
+              "NewColumnType": "DECIMAL",
+              "SubType": "FIXED"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Tenure",
+              "NewColumnType": "INTEGER"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Date of Birth",
+              "NewColumnType": "DATETIME",
+              "Format": "yyyy-MM-dd"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Date",
+              "NewColumnType": "DATETIME",
+              "Format": "yyyy-MM-dd"
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "Region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "STATE"
+                }
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "s3PhysicalTable"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Employee Name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Employee ID",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Tenure",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "Monthly Compensation",
+        "Type": "DECIMAL",
+        "SubType": "FIXED"
+      },
+      {
+        "Name": "Date of Birth",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Gender",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Education",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Event Type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Business Function",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Job Family",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Job Level",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Notes",
+        "Type": "STRING"
+      },
+      {
+        "Name": "isUnique",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 768786,
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "b884bb91-c778-4514-ab89-a8505577285e"
+}

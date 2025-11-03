@@ -1,0 +1,223 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/631f5b03-1c4f-4a9d-bb9e-0810d150fbba",
+    "DataSetId": "631f5b03-1c4f-4a9d-bb9e-0810d150fbba",
+    "Name": "usda_psd_table",
+    "CreatedTime": "2025-07-06 09:29:39.654000+03:00",
+    "LastUpdatedTime": "2025-07-06 09:30:24.410000+03:00",
+    "PhysicalTableMap": {
+      "5c25226f-0aca-401d-a024-a19f575f6fbd": {
+        "RelationalTable": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/2e1750ee-1406-4e3a-9021-e6b5b208a38f",
+          "Catalog": "AwsDataCatalog",
+          "Schema": "shippingbi",
+          "Name": "usda_psd_table",
+          "InputColumns": [
+            {
+              "Name": "commodity_code",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "country_code",
+              "Type": "STRING"
+            },
+            {
+              "Name": "commodity_description",
+              "Type": "STRING"
+            },
+            {
+              "Name": "country_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "unit_id",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "unit_description",
+              "Type": "STRING"
+            },
+            {
+              "Name": "attribute_id",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "attribute_description",
+              "Type": "STRING"
+            },
+            {
+              "Name": "month",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "calendar_year",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "value",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "curr_date",
+              "Type": "STRING"
+            },
+            {
+              "Name": "prev_date",
+              "Type": "STRING"
+            },
+            {
+              "Name": "prev_month",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "prev_year",
+              "Type": "INTEGER"
+            },
+            {
+              "Name": "value_prev",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "monthly_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "percent_change",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            },
+            {
+              "Name": "converted_value",
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "bd32b4d1-d2f8-4eee-addc-b4743a1e2f3b": {
+        "Alias": "usda_psd_table",
+        "DataTransforms": [
+          {
+            "TagColumnOperation": {
+              "ColumnName": "country_code",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "country_name",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "5c25226f-0aca-401d-a024-a19f575f6fbd"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "commodity_code",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "country_code",
+        "Type": "STRING"
+      },
+      {
+        "Name": "commodity_description",
+        "Type": "STRING"
+      },
+      {
+        "Name": "country_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "unit_id",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "unit_description",
+        "Type": "STRING"
+      },
+      {
+        "Name": "attribute_id",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "attribute_description",
+        "Type": "STRING"
+      },
+      {
+        "Name": "month",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "calendar_year",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "value",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "curr_date",
+        "Type": "STRING"
+      },
+      {
+        "Name": "prev_date",
+        "Type": "STRING"
+      },
+      {
+        "Name": "prev_month",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "prev_year",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "value_prev",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "monthly_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "percent_change",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      },
+      {
+        "Name": "converted_value",
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 79627345,
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "912ee2df-6b7b-44d0-bd72-0cf85a578722"
+}

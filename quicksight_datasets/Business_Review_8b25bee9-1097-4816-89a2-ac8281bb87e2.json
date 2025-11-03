@@ -1,0 +1,246 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/8b25bee9-1097-4816-89a2-ac8281bb87e2",
+    "DataSetId": "8b25bee9-1097-4816-89a2-ac8281bb87e2",
+    "Name": "Business Review",
+    "CreatedTime": "2024-12-11 11:21:19.366000+02:00",
+    "LastUpdatedTime": "2024-12-11 11:21:44.299000+02:00",
+    "PhysicalTableMap": {
+      "s3PhysicalTable": {
+        "S3Source": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/52fcdcf1-2bec-4509-aaa1-6daa5575b7af",
+          "UploadSettings": {
+            "Format": "CSV",
+            "StartFromRow": 1,
+            "ContainsHeader": true,
+            "TextQualifier": "DOUBLE_QUOTE",
+            "Delimiter": ","
+          },
+          "InputColumns": [
+            {
+              "Name": "ColumnId-1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-2",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-3",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-4",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-5",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-6",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-7",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-8",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-9",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-10",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-11",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "s3PhysicalTable": {
+        "Alias": "Group 1",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-2",
+              "NewColumnName": "Customer ID"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-3",
+              "NewColumnName": "Customer Name"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-1",
+              "NewColumnName": "Date"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-6",
+              "NewColumnName": "Service Line"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-11",
+              "NewColumnName": "Distinct ID"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-7",
+              "NewColumnName": "Revenue Goal"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-4",
+              "NewColumnName": "Customer Region"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-5",
+              "NewColumnName": "Segment"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-10",
+              "NewColumnName": "Channel"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-8",
+              "NewColumnName": "Billed Amount"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-9",
+              "NewColumnName": "Cost"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Cost",
+              "NewColumnType": "DECIMAL",
+              "SubType": "FIXED"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Billed Amount",
+              "NewColumnType": "DECIMAL",
+              "SubType": "FIXED"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Revenue Goal",
+              "NewColumnType": "DECIMAL",
+              "SubType": "FIXED"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Distinct ID",
+              "NewColumnType": "INTEGER"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Date",
+              "NewColumnType": "DATETIME",
+              "Format": "M/d/yyyy"
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "Customer Region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "STATE"
+                }
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "s3PhysicalTable"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Customer ID",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Customer Name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Customer Region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Segment",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Service Line",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Revenue Goal",
+        "Type": "DECIMAL",
+        "SubType": "FIXED"
+      },
+      {
+        "Name": "Billed Amount",
+        "Type": "DECIMAL",
+        "SubType": "FIXED"
+      },
+      {
+        "Name": "Cost",
+        "Type": "DECIMAL",
+        "SubType": "FIXED"
+      },
+      {
+        "Name": "Channel",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Distinct ID",
+        "Type": "INTEGER"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 8212257,
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "566d8a30-e33a-462f-a4ce-042c811b61b8"
+}

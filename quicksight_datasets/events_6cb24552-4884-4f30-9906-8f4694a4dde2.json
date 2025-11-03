@@ -1,0 +1,964 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/6cb24552-4884-4f30-9906-8f4694a4dde2",
+    "DataSetId": "6cb24552-4884-4f30-9906-8f4694a4dde2",
+    "Name": "events",
+    "CreatedTime": "2024-12-11 11:54:04.984000+02:00",
+    "LastUpdatedTime": "2024-12-11 11:54:04.984000+02:00",
+    "PhysicalTableMap": {
+      "5667603f-5fc3-467b-b032-f8090d527237": {
+        "RelationalTable": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/edfb3f45-b54f-4999-ac68-e916a4f19323",
+          "Catalog": "AwsDataCatalog",
+          "Schema": "testing_db",
+          "Name": "events",
+          "InputColumns": [
+            {
+              "Name": "location_country",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location_country_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "loc_lon",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_code_level_0",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country_region",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_name_full",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_cameo_code_level_0_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "event_count",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_full_cameo_code",
+              "Type": "STRING"
+            },
+            {
+              "Name": "category",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_type",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_full_cameo_code_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "data_source",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_cameo_code_level_0",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_type",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location",
+              "Type": "STRING"
+            },
+            {
+              "Name": "loc_lat",
+              "Type": "STRING"
+            },
+            {
+              "Name": "pub_date",
+              "Type": "STRING"
+            },
+            {
+              "Name": "fuzzy_category",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_code_level_0_name_full",
+              "Type": "STRING"
+            },
+            {
+              "Name": "title",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country_region",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cluster_all",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location_country_sub_region",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country_sub_region",
+              "Type": "STRING"
+            },
+            {
+              "Name": "snippet",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location_country_region",
+              "Type": "STRING"
+            },
+            {
+              "Name": "combined_column",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country_sub_region",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_cameo_code_level_0_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_cameo_code_level_0_name_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_full_cameo_code_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "action_full_cameo_code_name_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "source",
+              "Type": "STRING"
+            },
+            {
+              "Name": "loc_lat_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "loc_lon_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location_country_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_type_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "pub_date_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_type_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "fuzzy_category_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_name_full_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_code",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_code_level_0_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_code_level_0_name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cameo_code_level_0_name_full_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location_country_region_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location_country_sub_region_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "location_country_name_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country_region_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country_sub_region_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "subject_country_name_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country_region_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country_sub_region_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "object_country_name_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "cluster_all_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "combined_column_1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "event_count_1",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "18a22da6-f355-4d3f-bec6-d1fd4efe20ba": {
+        "Alias": "events",
+        "DataTransforms": [
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "loc_lon",
+              "NewColumnType": "DECIMAL"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "loc_lat",
+              "NewColumnType": "DECIMAL"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "loc_lat_1",
+              "NewColumnType": "DECIMAL"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "loc_lon_1",
+              "NewColumnType": "DECIMAL"
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country_name",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "loc_lon",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "LONGITUDE"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country_region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country_name",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "loc_lat",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "LATITUDE"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country_region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country_name",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country_sub_region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country_sub_region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country_region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country_sub_region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "loc_lat_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "LATITUDE"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "loc_lon_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "LONGITUDE"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country_region_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country_sub_region_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "location_country_name_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country_region_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country_sub_region_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "subject_country_name_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country_region_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country_sub_region_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "object_country_name_1",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "COUNTRY"
+                }
+              ]
+            }
+          },
+          {
+            "ProjectOperation": {
+              "ProjectedColumns": [
+                "location_country",
+                "location_country_name",
+                "loc_lon",
+                "cameo_code_level_0",
+                "subject_country_region",
+                "cameo_name_full",
+                "action_cameo_code_level_0_name",
+                "event_count",
+                "object",
+                "action_full_cameo_code",
+                "category",
+                "object_country",
+                "object_country_name",
+                "object_type",
+                "action_full_cameo_code_name",
+                "data_source",
+                "action_cameo_code_level_0",
+                "subject_type",
+                "subject",
+                "location",
+                "loc_lat",
+                "pub_date",
+                "fuzzy_category",
+                "cameo_code_level_0_name_full",
+                "title",
+                "object_country_region",
+                "cluster_all",
+                "action",
+                "subject_country",
+                "subject_country_name",
+                "location_country_sub_region",
+                "subject_country_sub_region",
+                "snippet",
+                "location_country_region",
+                "combined_column",
+                "object_country_sub_region",
+                "action_cameo_code_level_0_1",
+                "action_cameo_code_level_0_name_1",
+                "action_full_cameo_code_1",
+                "action_full_cameo_code_name_1",
+                "source",
+                "loc_lat_1",
+                "loc_lon_1",
+                "location_country_1",
+                "object_country_1",
+                "object_type_1",
+                "pub_date_1",
+                "subject_country_1",
+                "subject_type_1",
+                "fuzzy_category_1",
+                "cameo_name_full_1",
+                "cameo_code",
+                "cameo_name",
+                "cameo_code_level_0_1",
+                "cameo_code_level_0_name",
+                "cameo_code_level_0_name_full_1",
+                "location_country_region_1",
+                "location_country_sub_region_1",
+                "location_country_name_1",
+                "subject_country_region_1",
+                "subject_country_sub_region_1",
+                "subject_country_name_1",
+                "object_country_region_1",
+                "object_country_sub_region_1",
+                "object_country_name_1",
+                "cluster_all_1",
+                "combined_column_1",
+                "event_count_1"
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "5667603f-5fc3-467b-b032-f8090d527237"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "location_country",
+        "Type": "STRING"
+      },
+      {
+        "Name": "location_country_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "loc_lon",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "cameo_code_level_0",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country_region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_name_full",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_cameo_code_level_0_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "event_count",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_full_cameo_code",
+        "Type": "STRING"
+      },
+      {
+        "Name": "category",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_full_cameo_code_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "data_source",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_cameo_code_level_0",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_type",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject",
+        "Type": "STRING"
+      },
+      {
+        "Name": "location",
+        "Type": "STRING"
+      },
+      {
+        "Name": "loc_lat",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "pub_date",
+        "Type": "STRING"
+      },
+      {
+        "Name": "fuzzy_category",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_code_level_0_name_full",
+        "Type": "STRING"
+      },
+      {
+        "Name": "title",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country_region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cluster_all",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "location_country_sub_region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country_sub_region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "snippet",
+        "Type": "STRING"
+      },
+      {
+        "Name": "location_country_region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "combined_column",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country_sub_region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_cameo_code_level_0_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_cameo_code_level_0_name_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_full_cameo_code_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "action_full_cameo_code_name_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "source",
+        "Type": "STRING"
+      },
+      {
+        "Name": "loc_lat_1",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "loc_lon_1",
+        "Type": "DECIMAL"
+      },
+      {
+        "Name": "location_country_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_type_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "pub_date_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_type_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "fuzzy_category_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_name_full_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_code",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_code_level_0_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_code_level_0_name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cameo_code_level_0_name_full_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "location_country_region_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "location_country_sub_region_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "location_country_name_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country_region_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country_sub_region_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "subject_country_name_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country_region_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country_sub_region_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "object_country_name_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "cluster_all_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "combined_column_1",
+        "Type": "STRING"
+      },
+      {
+        "Name": "event_count_1",
+        "Type": "STRING"
+      }
+    ],
+    "ImportMode": "DIRECT_QUERY",
+    "ConsumedSpiceCapacityInBytes": 0,
+    "FieldFolders": {},
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "232e6d5e-29a0-480e-96cf-f1cc2b49f6db"
+}

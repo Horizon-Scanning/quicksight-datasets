@@ -1,0 +1,255 @@
+{
+  "Status": 200,
+  "DataSet": {
+    "Arn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/4b33cd33-54fe-45ef-8210-d59ed6016595",
+    "DataSetId": "4b33cd33-54fe-45ef-8210-d59ed6016595",
+    "Name": "Sales Pipeline",
+    "CreatedTime": "2025-07-08 15:45:01.884000+03:00",
+    "LastUpdatedTime": "2025-07-08 15:45:15.782000+03:00",
+    "PhysicalTableMap": {
+      "s3PhysicalTable": {
+        "S3Source": {
+          "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/30abbda1-13e1-4f1a-93f6-8472adae1deb",
+          "UploadSettings": {
+            "Format": "CSV",
+            "StartFromRow": 1,
+            "ContainsHeader": true,
+            "TextQualifier": "DOUBLE_QUOTE",
+            "Delimiter": ","
+          },
+          "InputColumns": [
+            {
+              "Name": "ColumnId-1",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-2",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-3",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-4",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-5",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-6",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-7",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-8",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-9",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-10",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-11",
+              "Type": "STRING"
+            },
+            {
+              "Name": "ColumnId-12",
+              "Type": "STRING"
+            }
+          ]
+        }
+      }
+    },
+    "LogicalTableMap": {
+      "s3PhysicalTable": {
+        "Alias": "Group 1",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-2",
+              "NewColumnName": "Salesperson"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-3",
+              "NewColumnName": "Lead Name"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-1",
+              "NewColumnName": "Date"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-12",
+              "NewColumnName": "IsLatest"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-6",
+              "NewColumnName": "Target Close"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-11",
+              "NewColumnName": "ActiveItem"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-7",
+              "NewColumnName": "Forecasted Monthly Revenue"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-4",
+              "NewColumnName": "Segment"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-5",
+              "NewColumnName": "Region"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-10",
+              "NewColumnName": "Is Closed"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-8",
+              "NewColumnName": "Opportunity Stage"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "ColumnId-9",
+              "NewColumnName": "Weighted Revenue"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Weighted Revenue",
+              "NewColumnType": "INTEGER"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Forecasted Monthly Revenue",
+              "NewColumnType": "INTEGER"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Target Close",
+              "NewColumnType": "DATETIME",
+              "Format": "M/d/yyyy"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "IsLatest",
+              "NewColumnType": "INTEGER"
+            }
+          },
+          {
+            "CastColumnTypeOperation": {
+              "ColumnName": "Date",
+              "NewColumnType": "DATETIME",
+              "Format": "M/d/yyyy"
+            }
+          },
+          {
+            "TagColumnOperation": {
+              "ColumnName": "Region",
+              "Tags": [
+                {
+                  "ColumnGeographicRole": "STATE"
+                }
+              ]
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "s3PhysicalTable"
+        }
+      }
+    },
+    "OutputColumns": [
+      {
+        "Name": "Date",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Salesperson",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Lead Name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Segment",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Region",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Target Close",
+        "Type": "DATETIME"
+      },
+      {
+        "Name": "Forecasted Monthly Revenue",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "Opportunity Stage",
+        "Type": "STRING"
+      },
+      {
+        "Name": "Weighted Revenue",
+        "Type": "INTEGER"
+      },
+      {
+        "Name": "Is Closed",
+        "Type": "STRING"
+      },
+      {
+        "Name": "ActiveItem",
+        "Type": "STRING"
+      },
+      {
+        "Name": "IsLatest",
+        "Type": "INTEGER"
+      }
+    ],
+    "ImportMode": "SPICE",
+    "ConsumedSpiceCapacityInBytes": 5825324,
+    "DataSetUsageConfiguration": {
+      "DisableUseAsDirectQuerySource": false,
+      "DisableUseAsImportedSource": false
+    }
+  },
+  "RequestId": "47f197e0-c699-447d-8249-acccb890d21b"
+}
