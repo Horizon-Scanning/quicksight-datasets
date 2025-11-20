@@ -5,13 +5,13 @@
     "DataSetId": "ebf834bc-20fc-4c01-90cc-df01bf6e5fd5",
     "Name": "commodity_summary",
     "CreatedTime": "2025-06-18 17:58:06.578000+03:00",
-    "LastUpdatedTime": "2025-11-03 08:00:38.439000+02:00",
+    "LastUpdatedTime": "2025-11-20 08:01:22.554000+02:00",
     "PhysicalTableMap": {
       "6e9d64bd-f664-4544-a169-28c815d1e7bd": {
         "CustomSql": {
           "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/63bb5074-e9cc-4b4a-a6e5-6a304d1c2dd6",
           "Name": "New custom SQL",
-          "SqlQuery": "-- Select from the first table, which has the 'YYYY-MM-DD' format\r\nSELECT\r\n    -- Correct format for \"2025-08-18\" is '%Y-%m-%d'\r\n    CAST(date_parse(forecast_extracted, '%Y-%m-%d') AS DATE) AS forecast_extracted, \r\n    CASE\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'crb' THEN 'CRB Index'\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'brent crude oil' THEN 'Brent'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(commodities, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS Commodity,\r\n    reason_type,\r\n    reasons AS summaries,\r\n    countries\r\nFROM\r\n    shippingbi.te_commodity_summary\r\n\r\nUNION ALL\r\n\r\n-- Select from the second table, which has the 'dd/mm/yyyy' format\r\nSELECT\r\n    -- Correct format for \"18/08/2025\" is '%d/%m/%Y'\r\n    CAST(date_parse(date, '%d/%m/%Y') AS DATE) AS forecast_extracted,\r\n        CASE\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'lpg' THEN 'LPG'\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'crb' THEN 'CRB Index'\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'brent crude oil' THEN 'Brent'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(\"id\", '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS Commodity,\r\n    reason_type,\r\n    opinion AS summaries,\r\n    CAST(NULL AS VARCHAR) AS countries\r\nFROM\r\n    shippingbi.energy_news_llm_expert_overviews\r\nWHERE\r\n    opinion IS NOT NULL\r\n    AND date IS NOT NULL",
+          "SqlQuery": "-- Select from the first table, which has the 'YYYY-MM-DD' format\r\nSELECT\r\n    -- Correct format for \"2025-08-18\" is '%Y-%m-%d'\r\n    CAST(date_parse(forecast_extracted, '%Y-%m-%d') AS DATE) AS forecast_extracted, \r\n    CASE\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'crb' THEN 'CRB Index'\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'brent crude oil' THEN 'Brent'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(commodities, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS Commodity,\r\n    reason_type,\r\n    reasons AS summaries,\r\n    countries\r\nFROM\r\n    shippingbi.te_commodity_summary\r\n\r\nUNION ALL\r\n\r\n-- Select from the second table, which has the 'dd/mm/yyyy' format\r\nSELECT\r\n    -- Correct format for \"18/08/2025\" is '%d/%m/%Y'\r\n    CAST(date_parse(date, '%d/%m/%Y') AS DATE) AS forecast_extracted,\r\n        CASE\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'lpg' THEN 'LPG'\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'crb' THEN 'CRB Index'\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'\r\n        WHEN LOWER(REPLACE(\"id\", '-', ' ')) = 'brent crude oil' THEN 'Brent'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(\"id\", '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS Commodity,\r\n    reason_type,\r\n    opinion AS summaries,\r\n    CAST(NULL AS VARCHAR) AS countries\r\nFROM\r\n    shippingbi.all_news_overviews_today_llm\r\nWHERE\r\n    opinion IS NOT NULL\r\n    AND date IS NOT NULL",
           "Columns": [
             {
               "Name": "forecast_extracted",
@@ -91,12 +91,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 19841,
+    "ConsumedSpiceCapacityInBytes": 21020,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "a229db86-7054-4172-928f-792b2610827a"
+  "RequestId": "57b4a42e-e9b7-44ae-8308-00621c25975b"
 }

@@ -5,9 +5,9 @@
     "DataSetId": "9ee3bc06-2dc2-4272-961c-d5c18c8ea985",
     "Name": "AllCommodities",
     "CreatedTime": "2025-05-21 18:23:38.145000+03:00",
-    "LastUpdatedTime": "2025-10-31 00:05:35.458000+02:00",
+    "LastUpdatedTime": "2025-11-19 18:03:42.261000+02:00",
     "PhysicalTableMap": {
-      "ffc75172-e30c-406a-8356-46d4e072b916": {}
+      "f857da66-637a-44ba-b22f-6410d2d0fa6a": {}
     },
     "LogicalTableMap": {
       "742732ab-7f44-4ac2-9c02-021f02c9fccf": {
@@ -35,7 +35,7 @@
           }
         ],
         "Source": {
-          "PhysicalTableId": "ffc75172-e30c-406a-8356-46d4e072b916"
+          "PhysicalTableId": "f857da66-637a-44ba-b22f-6410d2d0fa6a"
         }
       }
     },
@@ -74,12 +74,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 11378,
+    "ConsumedSpiceCapacityInBytes": 23845,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "09e7db13-78f1-4b87-82bd-0199cdeec1a2"
+  "RequestId": "1a0d9a4d-efba-4d27-8c87-82a4bb3fe1a4"
 }

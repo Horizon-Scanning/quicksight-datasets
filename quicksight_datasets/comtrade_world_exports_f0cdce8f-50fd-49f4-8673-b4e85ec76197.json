@@ -5,7 +5,7 @@
     "DataSetId": "f0cdce8f-50fd-49f4-8673-b4e85ec76197",
     "Name": "comtrade_world_exports",
     "CreatedTime": "2025-03-13 10:26:44.237000+02:00",
-    "LastUpdatedTime": "2025-10-08 18:53:18.001000+03:00",
+    "LastUpdatedTime": "2025-11-17 10:11:13.738000+02:00",
     "PhysicalTableMap": {
       "133a278f-daf1-41d7-b013-c7dfa1f15216": {
         "RelationalTable": {
@@ -287,8 +287,7 @@
             },
             {
               "Name": "cifvalue",
-              "Type": "DECIMAL",
-              "SubType": "FLOAT"
+              "Type": "INTEGER"
             },
             {
               "Name": "fobvalue",
@@ -321,18 +320,7 @@
       }
     },
     "LogicalTableMap": {
-      "3ce435ae-48f2-428c-a288-e011fe2382b2": {
-        "Alias": "Intermediate Table",
-        "Source": {
-          "JoinInstruction": {
-            "LeftOperand": "d17294eb-5285-40c3-9011-b8565e7ce7a6",
-            "RightOperand": "c142fe3f-bb46-4165-815f-d941bc273290",
-            "Type": "LEFT",
-            "OnClause": "reportercode = {reportercode[cmt_availability_history]} AND period = {period[cmt_availability_history]}"
-          }
-        }
-      },
-      "a0f563a9-286b-4dc4-9ab9-f45d7416c413": {
+      "7b18052e-727e-42e1-a300-3da6dbd97c07": {
         "Alias": "Intermediate Table (2)",
         "DataTransforms": [
           {
@@ -352,7 +340,7 @@
                 {
                   "ColumnName": "Commodity",
                   "ColumnId": "a27cee68-d8c8-4e28-aea6-38790f3c172c",
-                  "Expression": "ifelse(\r\n    cmdcode = 110319, 'Oats',\r\n    cmdcode = 100590, 'Corn',\r\n    cmdcode = 100630, 'Rice',\r\n    cmdcode = 100199, 'Wheat',\r\n    cmdcode = 151790, 'Sunflower Oil',\r\n    cmdcode = 230400, 'Soybeans',\r\n    cmdcode = 170199, 'Sugar',\r\n    cmdcode = 151411, 'Rapeseed',\r\n    cmdcode = 151419, 'Canola',\r\n    cmdcode = 150710, 'Soybeans',\r\n    cmdcode = 110100, 'Wheat',\r\n    cmdcode = 230800, 'Soybeans',\r\n    cmdcode = 230649, 'Rapeseed',\r\n    cmdcode = 230630, 'Sunflower Oil',\r\n    cmdcode = 230330, 'Corn',\r\n    cmdcode = 230310, 'Corn',\r\n    cmdcode = 230240, 'Wheat',\r\n    cmdcode = 230230, 'Wheat',\r\n    cmdcode = 230210, 'Corn',\r\n    cmdcode = 120810, 'Soybeans',\r\n    cmdcode = 120190, 'Soybeans',\r\n    cmdcode = 120110, 'Soybeans',\r\n    cmdcode = 110423, 'Corn',\r\n    cmdcode = 110320, 'Wheat',\r\n    cmdcode = 110313, 'Corn',\r\n    cmdcode = 110311, 'Wheat',\r\n    cmdcode = 110290, 'Oats',\r\n    cmdcode = 110220, 'Corn',\r\n    cmdcode = 271019, 'Gasoline',\r\n    cmdcode = 271012, 'Diesel',\r\n    cmdcode = 271020, 'Diesel',\r\n    cmdcode = 271119, 'Petroleum Gases',\r\n    cmdcode = 271112, 'LPG',\r\n    cmdcode = 271113, 'LPG',\r\n    cmdcode = 271114, 'Ethylene and Other Gases',\r\n    cmdcode = 270900, 'Crude Oil',\r\n    cmdcode = 100390, 'Barley',\r\n    'Other'\r\n)"
+                  "Expression": "ifelse(\r\n    cmdcode = 110319, 'Oats',\r\n    cmdcode = 100590, 'Corn',\r\n    cmdcode = 100630, 'Rice',\r\n    cmdcode = 100199, 'Wheat',\r\n    cmdcode = 151790, 'Sunflower Oil',\r\n    cmdcode = 230400, 'Soybeans',\r\n    cmdcode = 170199, 'Sugar',\r\n    cmdcode = 151411, 'Rapeseed',\r\n    cmdcode = 151419, 'Canola',\r\n    cmdcode = 150710, 'Soybeans',\r\n    cmdcode = 110100, 'Wheat',\r\n    cmdcode = 230800, 'Soybeans',\r\n    cmdcode = 230649, 'Rapeseed',\r\n    cmdcode = 230630, 'Sunflower Oil',\r\n    cmdcode = 230330, 'Corn',\r\n    cmdcode = 230310, 'Corn',\r\n    cmdcode = 230240, 'Wheat',\r\n    cmdcode = 230230, 'Wheat',\r\n    cmdcode = 230210, 'Corn',\r\n    cmdcode = 120810, 'Soybeans',\r\n    cmdcode = 120190, 'Soybeans',\r\n    cmdcode = 120110, 'Soybeans',\r\n    cmdcode = 110423, 'Corn',\r\n    cmdcode = 110320, 'Wheat',\r\n    cmdcode = 110313, 'Corn',\r\n    cmdcode = 110311, 'Wheat',\r\n    cmdcode = 110290, 'Oats',\r\n    cmdcode = 110220, 'Corn',\r\n    cmdcode = 271019, 'Gasoline',\r\n    cmdcode = 271012, 'Diesel',\r\n    cmdcode = 271020, 'Diesel',\r\n    cmdcode = 271119, 'Petroleum Gases',\r\n    cmdcode = 271112, 'LPG',\r\n    cmdcode = 271113, 'LPG',\r\n    cmdcode = 271114, 'Ethylene and Other Gases',\r\n    cmdcode = 270900, 'Crude Oil',\r\n    cmdcode = 100390, 'Barley',\r\n    cmdcode = 271320, 'Bitumen',\r\n    cmdcode = 271490, 'Bitumen',\r\n    cmdcode = 271500, 'Bitumen',\r\n    cmdcode = 271410, 'Bitumen',\r\n    cmdcode = 252310, 'Cement',\r\n    cmdcode = 252321, 'Cement',\r\n    cmdcode = 252329, 'Cement',\r\n    cmdcode = 252330, 'Cement',\r\n    cmdcode = 252390, 'Cement',\r\n    cmdcode = 720110, 'Iron Ore',\r\n    cmdcode = 720120, 'Iron Ore',\r\n    cmdcode = 720310, 'Iron Ore',\r\n    cmdcode = 720150, 'Iron Ore',\r\n    cmdcode = 720211, 'Iron Ore',\r\n    cmdcode = 720219, 'Iron Ore',\r\n    cmdcode = 720221, 'Iron Ore',\r\n    cmdcode = 720229, 'Iron Ore',\r\n    cmdcode = 720241, 'Iron Ore',\r\n    cmdcode = 720299, 'Iron Ore',\r\n    cmdcode = 720390, 'Iron Ore',\r\n    cmdcode = 310210, 'Urea',\r\n    cmdcode = 721590, 'Steel',\r\n    cmdcode = 721610, 'Steel',\r\n    cmdcode = 721631, 'Steel',\r\n    cmdcode = 721632, 'Steel',\r\n    cmdcode = 721633, 'Steel',\r\n    cmdcode = 721691, 'Steel',\r\n    cmdcode = 721699, 'Steel',\r\n    cmdcode = 722530, 'Steel',\r\n    cmdcode = 720851, 'Steel',\r\n    cmdcode = 720890, 'Steel',\r\n    cmdcode = 721420, 'Steel',\r\n    cmdcode = 730300, 'Steel',\r\n    cmdcode = 732510, 'Steel',\r\n    cmdcode = 732591, 'Steel',\r\n    cmdcode = 732599, 'Steel',\r\n    cmdcode = 681011, 'Concrete',\r\n    cmdcode = 681019, 'Concrete',\r\n    cmdcode = 150790, 'Soybeans',\r\n    cmdcode = 071310, 'Legumes',\r\n    cmdcode = 071320, 'Legumes',\r\n    cmdcode = 071331, 'Legumes',\r\n    cmdcode = 071332, 'Legumes',\r\n    cmdcode = 071333, 'Legumes',\r\n    cmdcode = 071334, 'Legumes',\r\n    cmdcode = 071335, 'Legumes',\r\n    cmdcode = 071339, 'Legumes',\r\n    cmdcode = 071340, 'Legumes',\r\n    cmdcode = 071350, 'Legumes',\r\n    cmdcode = 071360, 'Legumes',\r\n    cmdcode = 071390, 'Legumes',\r\n    cmdcode = 160414, 'Tuna',\r\n    cmdcode = 190211, 'Pasta',\r\n    cmdcode = 190219, 'Pasta',\r\n    cmdcode = 190220, 'Pasta',\r\n    cmdcode = 190230, 'Pasta',\r\n    cmdcode = 190240, 'Couscous',\r\n    cmdcode = 190110, 'Infant Formula',\r\n    cmdcode = 210210, 'Yeast',\r\n    cmdcode = 210220, 'Yeast',\r\n    'Other'\r\n)"
                 }
               ]
             }
@@ -443,7 +431,7 @@
         ],
         "Source": {
           "JoinInstruction": {
-            "LeftOperand": "3ce435ae-48f2-428c-a288-e011fe2382b2",
+            "LeftOperand": "c5e42aa4-5ad6-4066-b8b8-75aef98a94e9",
             "RightOperand": "af5d8a6a-461e-4713-ba63-3081e0cfa598",
             "Type": "OUTER",
             "OnClause": "cmdcode = {comtrade hs codes}"
@@ -516,6 +504,17 @@
         ],
         "Source": {
           "PhysicalTableId": "133a278f-daf1-41d7-b013-c7dfa1f15216"
+        }
+      },
+      "c5e42aa4-5ad6-4066-b8b8-75aef98a94e9": {
+        "Alias": "Intermediate Table",
+        "Source": {
+          "JoinInstruction": {
+            "LeftOperand": "d17294eb-5285-40c3-9011-b8565e7ce7a6",
+            "RightOperand": "c142fe3f-bb46-4165-815f-d941bc273290",
+            "Type": "LEFT",
+            "OnClause": "reportercode = {reportercode[cmt_availability_history]} AND period = {period[cmt_availability_history]}"
+          }
         }
       },
       "d17294eb-5285-40c3-9011-b8565e7ce7a6": {
@@ -704,8 +703,7 @@
       },
       {
         "Name": "cifvalue",
-        "Type": "DECIMAL",
-        "SubType": "FLOAT"
+        "Type": "INTEGER"
       },
       {
         "Name": "fobvalue",
@@ -852,12 +850,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 80782376,
+    "ConsumedSpiceCapacityInBytes": 82561534,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "73692225-51b9-4959-adc2-485a9dc80ef7"
+  "RequestId": "87ba2e75-8c37-4aba-92cc-90b76e783f10"
 }

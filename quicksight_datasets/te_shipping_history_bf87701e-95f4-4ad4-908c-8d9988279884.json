@@ -5,7 +5,7 @@
     "DataSetId": "bf87701e-95f4-4ad4-908c-8d9988279884",
     "Name": "te_shipping_history",
     "CreatedTime": "2025-05-29 19:01:48.549000+03:00",
-    "LastUpdatedTime": "2025-11-03 08:01:22.214000+02:00",
+    "LastUpdatedTime": "2025-11-20 08:01:10.861000+02:00",
     "PhysicalTableMap": {
       "82158f7e-1682-45a1-ad45-0c69daab5ce1": {
         "CustomSql": {
@@ -119,12 +119,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 1444488,
+    "ConsumedSpiceCapacityInBytes": 1452555,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "78588b4b-5e5f-4363-8139-211bf743871e"
+  "RequestId": "2bc80da4-6ff9-4667-ab75-d23f1e81bb2d"
 }

@@ -5,7 +5,7 @@
     "DataSetId": "b1ff77ff-0cd7-4238-adf0-9d3fae98ce82",
     "Name": "te_shipping_indexes_summary",
     "CreatedTime": "2025-02-21 14:48:38.185000+02:00",
-    "LastUpdatedTime": "2025-11-03 08:00:49.358000+02:00",
+    "LastUpdatedTime": "2025-11-20 08:01:34.319000+02:00",
     "PhysicalTableMap": {
       "42810be9-9ea0-4814-8424-99b8f4e51c46": {
         "RelationalTable": {
@@ -125,12 +125,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 19063,
+    "ConsumedSpiceCapacityInBytes": 18842,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "606c09ab-621a-4517-8072-1758f33f6a47"
+  "RequestId": "ecb97c48-b37f-49ac-9868-5b209a24e777"
 }

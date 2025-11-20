@@ -5,9 +5,9 @@
     "DataSetId": "b78fd067-d1e1-4aea-82f0-6e7a48b911c0",
     "Name": "transportation_types",
     "CreatedTime": "2025-03-09 20:00:57.095000+02:00",
-    "LastUpdatedTime": "2025-08-28 09:01:22.998000+03:00",
+    "LastUpdatedTime": "2025-11-13 11:18:38.698000+02:00",
     "PhysicalTableMap": {
-      "ca896244-479d-4e4a-b562-a2082882cb76": {}
+      "e08d89ef-786e-4fef-b605-8c365e522a7b": {}
     },
     "LogicalTableMap": {
       "c7351f69-3282-4a6c-ad6a-0b3844abb3f7": {
@@ -27,7 +27,7 @@
           }
         ],
         "Source": {
-          "PhysicalTableId": "ca896244-479d-4e4a-b562-a2082882cb76"
+          "PhysicalTableId": "e08d89ef-786e-4fef-b605-8c365e522a7b"
         }
       }
     },
@@ -58,12 +58,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 3878,
+    "ConsumedSpiceCapacityInBytes": 4921,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "7f84fffe-2f1c-462b-a553-ad1d1ab47614"
+  "RequestId": "28fda610-73b0-4eb3-9e5d-0890072c5e5b"
 }

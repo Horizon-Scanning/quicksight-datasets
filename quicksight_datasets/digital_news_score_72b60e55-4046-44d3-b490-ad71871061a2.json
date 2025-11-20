@@ -5,7 +5,7 @@
     "DataSetId": "72b60e55-4046-44d3-b490-ad71871061a2",
     "Name": "digital_news_score",
     "CreatedTime": "2025-08-27 11:49:55.433000+03:00",
-    "LastUpdatedTime": "2025-11-03 08:01:32.718000+02:00",
+    "LastUpdatedTime": "2025-11-20 08:01:33+02:00",
     "PhysicalTableMap": {
       "61765867-94f8-4c2d-bd34-e70eceea3aea": {
         "CustomSql": {
@@ -136,12 +136,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 708,
+    "ConsumedSpiceCapacityInBytes": 846,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "176d7dc5-361d-409d-a4a8-cf4aa8c68d21"
+  "RequestId": "ea11de25-a8fd-4a6b-bce8-4456d2d77e8e"
 }

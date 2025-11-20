@@ -5,7 +5,7 @@
     "DataSetId": "7240ffab-b445-4fb2-9cf7-7112f5987acb",
     "Name": "comtrade_availability",
     "CreatedTime": "2025-04-10 14:43:46.734000+03:00",
-    "LastUpdatedTime": "2025-11-03 08:01:05.591000+02:00",
+    "LastUpdatedTime": "2025-11-20 08:01:06.168000+02:00",
     "PhysicalTableMap": {
       "9a38f914-5727-468c-8ad9-8dc49fc5aea6": {
         "CustomSql": {
@@ -272,12 +272,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 964719,
+    "ConsumedSpiceCapacityInBytes": 1020510,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "7fac02e2-9de9-4434-946a-269de34f5e22"
+  "RequestId": "a67cf23e-112e-489b-9169-b2ec0e522daf"
 }
