@@ -19,6 +19,12 @@ combined_news AS (
             WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'lpg' THEN 'LPG'
             WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'
             WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'brent crude oil' THEN 'Brent'
+            WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'brent crude oil' THEN 'Brent'
+            WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'cement' THEN 'Cement'
+            WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'steel' THEN 'Steel'
+            WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'iron-ore' THEN 'Iron Ore'
+            WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'bitumen' THEN 'Bitumen'
+            WHEN LOWER(REPLACE(commodity, '-', ' ')) = 'urea' THEN 'Urea'
             ELSE ARRAY_JOIN(
                 TRANSFORM(
                     SPLIT(REPLACE(commodity, '-', ' '), ' '),
@@ -49,13 +55,18 @@ combined_news AS (
         'Commodity' AS category,
         NULL AS symbol,
         url,
-        importance AS importance,
+        CAST(importance AS BIGINT) AS importance,
         tag,
-        confidence AS tag_confidence,
+        CAST(confidence AS DOUBLE) AS tag_confidence,
         CASE
             WHEN LOWER(REPLACE(id, '-', ' ')) = 'lpg' THEN 'LPG'
             WHEN LOWER(REPLACE(id, '-', ' ')) = 'rapeseed oil' THEN 'Rapeseed'
             WHEN LOWER(REPLACE(id, '-', ' ')) = 'brent crude oil' THEN 'Brent'
+            WHEN LOWER(REPLACE(id, '-', ' ')) = 'cement' THEN 'Cement'
+            WHEN LOWER(REPLACE(id, '-', ' ')) = 'steel' THEN 'Steel'
+            WHEN LOWER(REPLACE(id, '-', ' ')) = 'iron-ore' THEN 'Iron Ore'
+            WHEN LOWER(REPLACE(id, '-', ' ')) = 'bitumen' THEN 'Bitumen'
+            WHEN LOWER(REPLACE(id, '-', ' ')) = 'urea' THEN 'Urea'
             ELSE ARRAY_JOIN(
                 TRANSFORM(
                     SPLIT(REPLACE(id, '-', ' '), ' '),
@@ -65,7 +76,7 @@ combined_news AS (
             )
         END AS commodity
     FROM
-        shippingbi.energy_news_items_history
+        shippingbi.all_news_items_history_llm
     -- Add all filtering conditions to the WHERE clause
     WHERE
         id NOT IN ('BAID', 'BCTI')

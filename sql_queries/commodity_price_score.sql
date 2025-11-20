@@ -16,7 +16,13 @@ WITH commodity_mapping AS (
     UNION ALL SELECT 'Wheat', 'wheat'
     UNION ALL SELECT 'Brent', 'Brent'
     UNION ALL SELECT 'Jet Fuel', 'jet-fuel'
-),
+    UNION ALL SELECT 'Bitumen', 'bitumen'
+    UNION ALL SELECT 'Cement', 'cement'
+    UNION ALL SELECT 'Iron Ore', 'iron-ore'
+    UNION ALL SELECT 'Urea', 'urea'
+    UNION ALL SELECT 'Steel', 'steel'
+    UNION ALL SELECT 'Concrete', 'concrete'
+    ),
 -- Add commodities with null values (Diesel)
 all_commodities AS (
     SELECT DISTINCT mapped_commodity_name FROM commodity_mapping

@@ -1,4 +1,5 @@
--- This CTE maps the 8-digit customs item codes to a clean, English commodity name.
+-- SIMPLE FIX: Just create complete monthly data with 0s, then calculate average of previous 12 months
+
 WITH hs_code_commodity_mapping AS (
     -- Grains & Feeds
     SELECT '10019910' as hs_code, 'Wheat' as Commodity
@@ -17,13 +18,18 @@ WITH hs_code_commodity_mapping AS (
     UNION ALL SELECT '12081000', 'Soybeans'
     UNION ALL SELECT '23023000', 'Wheat'
     UNION ALL SELECT '23031000', 'Corn'
+    UNION ALL SELECT '23032000', 'Feed Flours'
     UNION ALL SELECT '23033000', 'DDG/DDGS'
     UNION ALL SELECT '23040000', 'Soybeans'
     UNION ALL SELECT '23063000', 'Sunflower Oil'
     UNION ALL SELECT '23064900', 'Rapeseed'
+    UNION ALL SELECT '10029000', 'Rye'
+    UNION ALL SELECT '10079000', 'Sorghum'
 
     -- Oils, Sugar, Pasta
+    UNION ALL SELECT '15071000', 'Soybeans'
     UNION ALL SELECT '15079010', 'Soybeans'
+    UNION ALL SELECT '15079090', 'Soybeans'
     UNION ALL SELECT '15121111', 'Sunflower Oil'
     UNION ALL SELECT '15121990', 'Sunflower Oil'
     UNION ALL SELECT '15121922', 'Sunflower Oil'
@@ -35,17 +41,32 @@ WITH hs_code_commodity_mapping AS (
     UNION ALL SELECT '12051090', 'Rapeseed'
     UNION ALL SELECT '17019910', 'Sugar'
     UNION ALL SELECT '17011400', 'Sugar'
+    UNION ALL SELECT '19021100', 'Pasta'
     UNION ALL SELECT '19021900', 'Pasta'
+    UNION ALL SELECT '19021910', 'Pasta'
+    UNION ALL SELECT '19021990', 'Pasta'
+    UNION ALL SELECT '19022010', 'Pasta'
+    UNION ALL SELECT '19022030', 'Pasta'
+    UNION ALL SELECT '19022091', 'Pasta'
+    UNION ALL SELECT '19022099', 'Pasta'
     UNION ALL SELECT '19023000', 'Pasta'
+    UNION ALL SELECT '19023010', 'Pasta'
+    UNION ALL SELECT '19023090', 'Pasta'
+    UNION ALL SELECT '19024010', 'Couscous'
+    UNION ALL SELECT '19024090', 'Couscous'
     UNION ALL SELECT '19043000', 'Bulgur'
 
     -- Energy Products
     UNION ALL SELECT '27090090', 'Crude Oil (WTI)'
     UNION ALL SELECT '27090000', 'Brent'
-    UNION ALL SELECT '27101210', 'Gasoline'
+    UNION ALL SELECT '27101210', 'Gasoline' 
     UNION ALL SELECT '27101211', 'Gasoline'
     UNION ALL SELECT '27101219', 'Gasoline'
-    UNION ALL SELECT '27101960', 'Diesel'
+    UNION ALL SELECT '27101943', 'Diesel'
+    UNION ALL SELECT '27101946', 'Diesel'
+    UNION ALL SELECT '27101947', 'Diesel'
+    UNION ALL SELECT '27101948', 'Diesel'
+    UNION ALL SELECT '27101960', 'Diesel' 
     UNION ALL SELECT '27101963', 'Diesel'
     UNION ALL SELECT '27101964', 'Diesel'
     UNION ALL SELECT '27101965', 'Diesel'
@@ -56,49 +77,219 @@ WITH hs_code_commodity_mapping AS (
     UNION ALL SELECT '27111200', 'LPG'
     UNION ALL SELECT '27111300', 'LPG'
     UNION ALL SELECT '27111900', 'LPG'
+    
+    -- Bitumen
+    UNION ALL SELECT '27132010', 'Bitumen'
+    UNION ALL SELECT '27132090', 'Bitumen'
+    UNION ALL SELECT '27149010', 'Bitumen'
+    UNION ALL SELECT '27149090', 'Bitumen'
+    UNION ALL SELECT '27150010', 'Bitumen'
+    UNION ALL SELECT '27150020', 'Bitumen'
+    UNION ALL SELECT '27150090', 'Bitumen'
+    UNION ALL SELECT '27150000', 'Bitumen'
+    UNION ALL SELECT '27141000', 'Bitumen'
+    
+    -- Urea
+    UNION ALL SELECT '31021010', 'Urea'
+    UNION ALL SELECT '31021090', 'Urea'
+    UNION ALL SELECT '31021000', 'Urea'
+    
+    -- Cement
+    UNION ALL SELECT '25231010', 'Cement'
+    UNION ALL SELECT '25231090', 'Cement'
+    UNION ALL SELECT '25232100', 'Cement'
+    UNION ALL SELECT '25232910', 'Cement'
+    UNION ALL SELECT '25232990', 'Cement'
+    UNION ALL SELECT '25233010', 'Cement'
+    UNION ALL SELECT '25239010', 'Cement'
+    UNION ALL SELECT '25239020', 'Cement'
+    UNION ALL SELECT '25239030', 'Cement'
+    UNION ALL SELECT '25239090', 'Cement'
+    UNION ALL SELECT '25232900', 'Cement'
+    UNION ALL SELECT '25233000', 'Cement'
+    
+    -- Concrete
+    UNION ALL SELECT '68101110', 'Concrete'
+    UNION ALL SELECT '68101190', 'Concrete'
+    UNION ALL SELECT '68101910', 'Concrete'
+    UNION ALL SELECT '68101920', 'Concrete'
+    UNION ALL SELECT '68101930', 'Concrete'
+    UNION ALL SELECT '68101940', 'Concrete'
+    UNION ALL SELECT '68101950', 'Concrete'
+    UNION ALL SELECT '68101990', 'Concrete'
+    UNION ALL SELECT '68101100', 'Concrete'
+    
+    -- Iron
+    UNION ALL SELECT '72011010', 'Iron'
+    UNION ALL SELECT '72011090', 'Iron'
+    UNION ALL SELECT '72012010', 'Iron'
+    UNION ALL SELECT '72012090', 'Iron'
+    UNION ALL SELECT '72015010', 'Iron'
+    UNION ALL SELECT '72015090', 'Iron'
+    UNION ALL SELECT '72021110', 'Iron'
+    UNION ALL SELECT '72021190', 'Iron'
+    UNION ALL SELECT '72021910', 'Iron'
+    UNION ALL SELECT '72021990', 'Iron'
+    UNION ALL SELECT '72022110', 'Iron'
+    UNION ALL SELECT '72022190', 'Iron'
+    UNION ALL SELECT '72022910', 'Iron'
+    UNION ALL SELECT '72022990', 'Iron'
+    UNION ALL SELECT '72024110', 'Iron'
+    UNION ALL SELECT '72024190', 'Iron'
+    UNION ALL SELECT '72024910', 'Iron'
+    UNION ALL SELECT '72024990', 'Iron'
+    UNION ALL SELECT '72027010', 'Iron'
+    UNION ALL SELECT '72027090', 'Iron'
+    UNION ALL SELECT '72029110', 'Iron'
+    UNION ALL SELECT '72029190', 'Iron'
+    UNION ALL SELECT '72029910', 'Iron'
+    UNION ALL SELECT '72029990', 'Iron'
+    UNION ALL SELECT '72031010', 'Iron'
+    UNION ALL SELECT '72031090', 'Iron'
+    UNION ALL SELECT '72039010', 'Iron'
+    UNION ALL SELECT '72039090', 'Iron'
+    UNION ALL SELECT '73030010', 'Iron'
+    UNION ALL SELECT '73030090', 'Iron'
+    UNION ALL SELECT '73071010', 'Iron'
+    UNION ALL SELECT '73071090', 'Iron'
+    UNION ALL SELECT '73251010', 'Iron'
+    UNION ALL SELECT '73251090', 'Iron'
+    UNION ALL SELECT '73259110', 'Iron'
+    UNION ALL SELECT '73259910', 'Iron'
+    UNION ALL SELECT '73259990', 'Iron'
+    
+    -- Steel
+    UNION ALL SELECT '72159010', 'Steel'
+    UNION ALL SELECT '72159020', 'Steel'
+    UNION ALL SELECT '72159030', 'Steel'
+    UNION ALL SELECT '72159090', 'Steel'
+    UNION ALL SELECT '72161010', 'Steel'
+    UNION ALL SELECT '72161090', 'Steel'
+    UNION ALL SELECT '72163110', 'Steel'
+    UNION ALL SELECT '72163190', 'Steel'
+    UNION ALL SELECT '72163210', 'Steel'
+    UNION ALL SELECT '72163290', 'Steel'
+    UNION ALL SELECT '72163310', 'Steel'
+    UNION ALL SELECT '72163390', 'Steel'
+    UNION ALL SELECT '72169110', 'Steel'
+    UNION ALL SELECT '72169120', 'Steel'
+    UNION ALL SELECT '72169190', 'Steel'
+    UNION ALL SELECT '72169910', 'Steel'
+    UNION ALL SELECT '72169920', 'Steel'
+    UNION ALL SELECT '72169990', 'Steel'
+    UNION ALL SELECT '72253010', 'Steel'
+    UNION ALL SELECT '72253090', 'Steel'
+    UNION ALL SELECT '72169100', 'Steel'
+    UNION ALL SELECT '72159099', 'Steel'
+    UNION ALL SELECT '72169900', 'Steel'
+    UNION ALL SELECT '72085100', 'Steel'
+    UNION ALL SELECT '72089000', 'Steel'
+    UNION ALL SELECT '72142000', 'Steel'
+    
     -- Legumes
     UNION ALL SELECT '07131000', 'Peas'
+    UNION ALL SELECT '07131010', 'Peas'
+    UNION ALL SELECT '07131090', 'Peas'
+    UNION ALL SELECT '7131000', 'Peas'
+    UNION ALL SELECT '7133500', 'Cow Peas'
     UNION ALL SELECT '07132000', 'Chickpeas'
+    UNION ALL SELECT '7132000', 'Chickpeas'
+    UNION ALL SELECT '07132010', 'Chickpeas'
+    UNION ALL SELECT '07132091', 'Chickpeas'
+    UNION ALL SELECT '07132099', 'Chickpeas'
+    UNION ALL SELECT '07133110', 'Beans'
+    UNION ALL SELECT '07133190', 'Beans'
+    UNION ALL SELECT '07133210', 'Beans'
+    UNION ALL SELECT '07133290', 'Beans'
+    UNION ALL SELECT '07133311', 'Beans'
+    UNION ALL SELECT '07133319', 'Beans'
+    UNION ALL SELECT '07133391', 'Beans'
+    UNION ALL SELECT '07133392', 'Beans'
+    UNION ALL SELECT '07133393', 'Beans'
+    UNION ALL SELECT '07133399', 'Beans'
+    UNION ALL SELECT '07133400', 'Beans'
+    UNION ALL SELECT '07133500', 'Beans'
+    UNION ALL SELECT '07133910', 'Beans'
+    UNION ALL SELECT '7133900', 'Beans'
+    UNION ALL SELECT '07133991', 'Beans'
+    UNION ALL SELECT '07133992', 'Beans'
+    UNION ALL SELECT '07133993', 'Beans'
+    UNION ALL SELECT '07133999', 'Beans'
+    UNION ALL SELECT '07133100', 'Beans'
+    UNION ALL SELECT '07133300', 'Beans'
+    UNION ALL SELECT '7135000', 'Beans'
+    UNION ALL SELECT '7133100', 'Beans'
+    UNION ALL SELECT '7133200', 'Beans'
+    UNION ALL SELECT '7133300', 'Beans'
     UNION ALL SELECT '07134000', 'Lentils'
+    UNION ALL SELECT '7134000', 'Lentils'
     UNION ALL SELECT '07135000', 'Broad beans'
+    UNION ALL SELECT '07136000', 'Pigeon peas'
+    UNION ALL SELECT '07139000', 'Other Legumes'
+    UNION ALL SELECT '7139000', 'Other Legumes'
+    
+    -- Tuna
+    UNION ALL SELECT '16041410', 'Tuna'
+    UNION ALL SELECT '16041421', 'Tuna'
+    UNION ALL SELECT '16041422', 'Tuna'
+    UNION ALL SELECT '16041426', 'Tuna'
+    UNION ALL SELECT '16041430', 'Tuna'
+    UNION ALL SELECT '16041431', 'Tuna'
+    UNION ALL SELECT '16041438', 'Tuna'
+    UNION ALL SELECT '16041440', 'Tuna'
+    UNION ALL SELECT '16041441', 'Tuna'
+    UNION ALL SELECT '16041446', 'Tuna'
+    UNION ALL SELECT '16041448', 'Tuna'
+    UNION ALL SELECT '16041450', 'Tuna'
+    
+    -- Infant Formula / Milk Replacer
+    UNION ALL SELECT '19011000', 'Baby Formula'
+    UNION ALL SELECT '19011010', 'Baby Formula'
+    UNION ALL SELECT '19011030', 'Baby Formula'
+    UNION ALL SELECT '19011090', 'Baby Formula'
+    
+    -- Yeast
+    UNION ALL SELECT '21021031', 'Yeast'
+    UNION ALL SELECT '21021000', 'Yeast'
 ),
 
--- Step 1: Create a definitive list of ALL commodities.
 AllCommodities AS (
-    SELECT 'Sunflower Oil' as Commodity
-    UNION SELECT 'Other Vegetable Oils'
-    UNION SELECT 'Barley'
-    UNION SELECT 'Buckwheat'
-    UNION SELECT 'Cereals'
-    UNION SELECT 'Corn'
-    UNION SELECT 'Oats'
-    UNION SELECT 'Pasta'
-    UNION SELECT 'Potato'
-    UNION SELECT 'Rapeseed'
-    UNION SELECT 'Rice'
+    SELECT 'Rice' as Commodity
+    UNION SELECT 'Canola'
+    UNION SELECT 'Soybeans'
     UNION SELECT 'Sugar'
-    UNION SELECT 'Tuna'
     UNION SELECT 'Wheat'
     UNION SELECT 'Brent'
     UNION SELECT 'Crude Oil (WTI)'
     UNION SELECT 'Gasoline'
-    UNION SELECT Commodity FROM hs_code_commodity_mapping
+    UNION SELECT 'LPG'
+    UNION SELECT 'Diesel'
+    UNION SELECT 'Jet Fuel'
+    UNION SELECT 'Barley'
+    UNION SELECT 'Corn'
+    UNION SELECT 'Oats'
+    UNION SELECT 'Rapeseed'
+    UNION SELECT 'Sunflower Oil'
+    UNION SELECT 'Steel'
+    UNION SELECT 'Cement'
+    UNION SELECT 'Concrete'
+    UNION SELECT 'Urea'
+    UNION SELECT 'Bitumen'
+    UNION SELECT 'Iron'
+    UNION SELECT 'Pasta'
+    UNION SELECT 'Other Vegetable Oils'
+    UNION SELECT 'Buckwheat'
+    UNION SELECT 'Cereals'
+    UNION SELECT 'Potato'
+    UNION SELECT 'Tuna'
+    UNION SELECT 'Baby Formula'
 ),
 
--- Step 2: Get all unique year/month periods from the data.
 AllMonths AS (
     SELECT DISTINCT year, month
     FROM shippingbi.israel_customs_data
 ),
 
--- Step 3: Create a scaffold: a row for every commodity for every month.
-CommodityMonthScaffold AS (
-    SELECT c.Commodity, m.year, m.month
-    FROM AllCommodities c
-    CROSS JOIN AllMonths m
-),
-
--- Step 4 (Original): Calculate the actual import quantities by month.
 AggregatedImports AS (
     SELECT
         d.year,
@@ -119,6 +310,7 @@ AggregatedImports AS (
                 WHEN d.category = 'sugar' THEN 'Sugar'
                 WHEN d.category = 'tuna' THEN 'Tuna'
                 WHEN d.category = 'wheat' THEN 'Wheat'
+                WHEN d.category = 'brent' THEN 'Brent'
                 WHEN d.category = 'crude_oil_wti' THEN 'Crude Oil (WTI)'
                 WHEN d.category = 'baby formula' THEN 'Baby Formula'
                 ELSE NULL
@@ -146,7 +338,9 @@ AggregatedImports AS (
                 WHEN d.category = 'sugar' THEN 'Sugar'
                 WHEN d.category = 'tuna' THEN 'Tuna'
                 WHEN d.category = 'wheat' THEN 'Wheat'
+                WHEN d.category = 'brent' THEN 'Brent'
                 WHEN d.category = 'crude_oil_wti' THEN 'Crude Oil (WTI)'
+                WHEN d.category = 'baby formula' THEN 'Baby Formula'
                 ELSE NULL
             END,
             hsm.Commodity
@@ -154,64 +348,54 @@ AggregatedImports AS (
     GROUP BY 1, 2, 3
 ),
 
--- Step 4 (New): Use the aggregated data and duplicate WTI data for Brent
-MonthlyImports AS (
-    SELECT
-        year,
-        month,
-        Commodity,
-        total_quantity
-    FROM
-        AggregatedImports
-    UNION ALL
-    SELECT
-        year,
-        month,
-        'Brent' as Commodity,
-        total_quantity
-    FROM
-        AggregatedImports
-    WHERE
-        Commodity = 'Crude Oil (WTI)'
+CompleteMonthlyData AS (
+    SELECT 
+        c.Commodity,
+        CAST(m.year AS INTEGER)  AS year,
+        CAST(m.month AS INTEGER) AS month,
+        COALESCE(a.total_quantity, 0) AS quantity
+    FROM 
+        AllCommodities c
+    CROSS JOIN 
+        AllMonths m
+    LEFT JOIN 
+        AggregatedImports a 
+        ON c.Commodity = a.Commodity 
+        AND m.year = a.year 
+        AND m.month = a.month
 ),
 
--- Step 5: Join the scaffold with the actual data and calculate the 12-month moving average.
-ComparisonData AS (
+MonthlyWithAverage AS (
     SELECT
-        s.year,
-        s.month,
-        s.Commodity,
-        COALESCE(i.total_quantity, 0) AS current_month_quantity,
-        -- Calculate the average of the previous 12 months
-        AVG(COALESCE(i.total_quantity, 0)) OVER (
-            PARTITION BY s.Commodity
-            ORDER BY s.year, s.month
+        Commodity,
+        year,
+        month,
+        quantity,
+        AVG(quantity) OVER (
+            PARTITION BY Commodity
+            ORDER BY year, month
             ROWS BETWEEN 12 PRECEDING AND 1 PRECEDING
-        ) AS avg_previous_12_months_quantity
+        ) AS avg_previous_12_months
     FROM
-        CommodityMonthScaffold s
-    LEFT JOIN
-        MonthlyImports i ON s.Commodity = i.Commodity AND s.year = i.year AND s.month = i.month
+        CompleteMonthlyData
 )
 
--- Final step: Calculate the Score against the 12-month average and add the month number.
 SELECT
     year,
     month,
     DENSE_RANK() OVER (ORDER BY year DESC, month DESC) as month_number,
     Commodity,
-    CAST(current_month_quantity AS BIGINT) AS current_month_quantity,
-    CAST(avg_previous_12_months_quantity AS BIGINT) AS avg_previous_12_months_quantity,
+    CAST(quantity AS BIGINT) AS current_month_quantity,
+    CAST(avg_previous_12_months AS BIGINT) AS avg_previous_12_months_quantity,
     CASE
-        -- Check if the average is not null and is large enough
-        WHEN avg_previous_12_months_quantity IS NOT NULL AND avg_previous_12_months_quantity >= 10000
-        THEN ((current_month_quantity - avg_previous_12_months_quantity) * 100.0 / avg_previous_12_months_quantity)
+        WHEN avg_previous_12_months IS NOT NULL AND avg_previous_12_months >= 100000
+        THEN ((quantity - avg_previous_12_months) * 100.0 / avg_previous_12_months)
         ELSE 0
     END AS "Israel Imports Score (vs 12m Avg %)"
 FROM
-    ComparisonData
+    MonthlyWithAverage
 WHERE
-    avg_previous_12_months_quantity IS NOT NULL -- Only include rows where an average could be calculated
+    avg_previous_12_months IS NOT NULL
 ORDER BY
     Commodity,
     year DESC,

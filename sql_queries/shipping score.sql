@@ -69,6 +69,12 @@ commodity_weights AS (
     UNION ALL SELECT 'Gallium', 0.0, 0.0, 0.0, 1.0
     UNION ALL SELECT 'Lithium', 0.0, 0.0, 0.2, 0.8
     UNION ALL SELECT 'Nickel', 0.0, 0.0, 0.5, 0.5
+    UNION ALL SELECT 'Urea', 0.0, 0.0, 0.7, 0.3
+    UNION ALL SELECT 'Bitumen', 0.9, 0.1, 0.0, 0.0
+    UNION ALL SELECT 'Cement', 0.0, 0.0, 0.7, 0.3
+    UNION ALL SELECT 'Concrete', 0.0, 0.0, 1.0, 0.0
+    UNION ALL SELECT 'Steel', 0.0, 0.0, 0.5, 0.5
+    UNION ALL SELECT 'Iron Ore', 0.0, 0.0, 0.9, 0.1 
 ),
 
 raw_index_averages AS (
