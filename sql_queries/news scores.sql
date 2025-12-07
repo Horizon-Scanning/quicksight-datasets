@@ -193,7 +193,7 @@ SELECT
             ELSE 0.6 + (0.4 * POWER((s.last_30_days_total - 3) / NULLIF((nfs.max_news_count - 3), 1), 0.5))
         END,
         1
-    ) * -1 AS score
+    ) AS score
 FROM 
     score_data s
 CROSS JOIN

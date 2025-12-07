@@ -118,7 +118,7 @@ SELECT
     w.week_over_week_difference,
     CASE 
         WHEN ac.mapped_commodity_name = 'Diesel' THEN NULL
-        ELSE w.week_over_week_percent_change * -10
+        ELSE w.week_over_week_percent_change
     END as score
 FROM all_commodities ac
 LEFT JOIN commodity_mapping cm 
