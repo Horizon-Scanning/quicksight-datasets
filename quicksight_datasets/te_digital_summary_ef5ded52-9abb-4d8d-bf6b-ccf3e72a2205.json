@@ -5,7 +5,7 @@
     "DataSetId": "ef5ded52-9abb-4d8d-bf6b-ccf3e72a2205",
     "Name": "te_digital_summary",
     "CreatedTime": "2025-08-24 22:00:36.102000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:01:12.433000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:23.855000+02:00",
     "PhysicalTableMap": {
       "4b8e3aed-5293-4810-ac85-5311b5dfb1c6": {
         "CustomSql": {
@@ -98,5 +98,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "5728d747-6d2d-4fa7-9a57-7ef961207f6a"
+  "RequestId": "57130491-ae9c-4435-8026-2645bbdf2c05"
 }

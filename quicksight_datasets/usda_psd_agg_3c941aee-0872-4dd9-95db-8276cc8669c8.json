@@ -5,7 +5,7 @@
     "DataSetId": "3c941aee-0872-4dd9-95db-8276cc8669c8",
     "Name": "usda_psd_agg",
     "CreatedTime": "2025-04-03 18:23:43.227000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:01:00.894000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:41.742000+02:00",
     "PhysicalTableMap": {
       "87c8d2c4-f142-4462-921d-8c3be26ac295": {
         "CustomSql": {
@@ -139,12 +139,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 69062,
+    "ConsumedSpiceCapacityInBytes": 55646,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "050d269d-4f72-4cc6-85d8-a17073f5daaa"
+  "RequestId": "69d7ce67-20e0-49b4-8e5b-19a996bd28ea"
 }

@@ -5,7 +5,7 @@
     "DataSetId": "08499345-8db7-40e6-b869-da3db91dfdbe",
     "Name": "digital_commodity_score",
     "CreatedTime": "2025-08-28 11:03:34.229000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:00:48.640000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:00:50.519000+02:00",
     "PhysicalTableMap": {
       "c8cfefe2-527f-4207-9ff0-e41a686648b4": {
         "CustomSql": {
@@ -165,5 +165,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "9e48c3db-c256-4516-a0d5-aea2943fde08"
+  "RequestId": "61b71ac5-425c-4a21-afee-d1e9023e0f7a"
 }

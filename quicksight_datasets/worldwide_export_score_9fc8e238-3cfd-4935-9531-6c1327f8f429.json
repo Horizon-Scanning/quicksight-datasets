@@ -5,7 +5,7 @@
     "DataSetId": "9fc8e238-3cfd-4935-9531-6c1327f8f429",
     "Name": "worldwide_export_score",
     "CreatedTime": "2025-06-05 17:18:23.052000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:01:51.954000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:39.938000+02:00",
     "PhysicalTableMap": {
       "868a6d21-24c9-4b1b-a085-caa8cc7a48b3": {
         "CustomSql": {
@@ -187,5 +187,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "affd4d45-ac48-4920-b149-b17b1b78f2d2"
+  "RequestId": "ecc27494-f2db-4294-80c7-129facfb5565"
 }

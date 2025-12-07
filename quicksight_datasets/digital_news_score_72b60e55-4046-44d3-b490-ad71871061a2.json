@@ -5,7 +5,7 @@
     "DataSetId": "72b60e55-4046-44d3-b490-ad71871061a2",
     "Name": "digital_news_score",
     "CreatedTime": "2025-08-27 11:49:55.433000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:01:33+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:43.658000+02:00",
     "PhysicalTableMap": {
       "61765867-94f8-4c2d-bd34-e70eceea3aea": {
         "CustomSql": {
@@ -143,5 +143,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "ba270724-b1ed-47b4-885e-84b5c98a3967"
+  "RequestId": "8b96ca09-f5df-46d9-b46a-5323a95f0025"
 }

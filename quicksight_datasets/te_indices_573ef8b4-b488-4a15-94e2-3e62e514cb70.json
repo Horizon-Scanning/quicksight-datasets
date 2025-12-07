@@ -5,7 +5,7 @@
     "DataSetId": "573ef8b4-b488-4a15-94e2-3e62e514cb70",
     "Name": "te_indices",
     "CreatedTime": "2025-02-21 14:48:08.609000+02:00",
-    "LastUpdatedTime": "2025-11-19 20:00:59.314000+02:00",
+    "LastUpdatedTime": "2025-12-06 20:01:00.380000+02:00",
     "PhysicalTableMap": {
       "65bed39b-bcb1-4c8b-af39-3f6968b86c13": {
         "RelationalTable": {
@@ -273,12 +273,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 19557,
+    "ConsumedSpiceCapacityInBytes": 22543,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "35bee02e-81e4-432a-83eb-f1b8bad5b5d8"
+  "RequestId": "1cbb75b5-1a6d-4444-88ca-5f44bf30b89d"
 }

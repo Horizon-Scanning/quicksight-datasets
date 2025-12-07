@@ -5,7 +5,7 @@
     "DataSetId": "bbe658a1-5df1-4bb8-b038-cdc655cb1e7b",
     "Name": "mining_news_history",
     "CreatedTime": "2025-08-25 16:53:28.331000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:01:14.469000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:15.471000+02:00",
     "PhysicalTableMap": {
       "dbc3d716-7730-4320-b970-120b09d70c5a": {
         "CustomSql": {
@@ -126,5 +126,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "25b1f862-d5b9-47f9-8198-6a68996ee86f"
+  "RequestId": "7c8b49bb-2e3f-467e-a383-121394907b63"
 }

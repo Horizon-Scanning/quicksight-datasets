@@ -5,7 +5,7 @@
     "DataSetId": "18e93ac1-bbc8-4d63-b3df-67683c58f51d",
     "Name": "te_digital_history",
     "CreatedTime": "2025-08-18 23:23:56.356000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:00:55.525000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:00:55.646000+02:00",
     "PhysicalTableMap": {
       "6ca28219-35ca-4234-9251-22b055626dbd": {
         "CustomSql": {
@@ -114,5 +114,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "bc25c898-aa0a-4f38-947d-80a84628b4f9"
+  "RequestId": "e504119e-ba5e-465f-af7d-823797a51cc0"
 }

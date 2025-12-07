@@ -5,7 +5,7 @@
     "DataSetId": "7a2f7c52-1d90-4f73-8d06-d76d1b36d46d",
     "Name": "te_news",
     "CreatedTime": "2025-03-06 10:21:49.502000+02:00",
-    "LastUpdatedTime": "2025-11-20 08:01:34.101000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:33.473000+02:00",
     "PhysicalTableMap": {
       "c0787841-96ad-4f9b-a881-9c76be55c04f": {
         "CustomSql": {
@@ -156,12 +156,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 1874512,
+    "ConsumedSpiceCapacityInBytes": 2145361,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "6ba0526c-7c56-4778-91f7-0d90a2637dac"
+  "RequestId": "35bccff2-0a90-4912-82e5-d4ac001cc7c1"
 }

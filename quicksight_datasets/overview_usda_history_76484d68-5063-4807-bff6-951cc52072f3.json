@@ -5,7 +5,7 @@
     "DataSetId": "76484d68-5063-4807-bff6-951cc52072f3",
     "Name": "overview_usda_history",
     "CreatedTime": "2025-08-14 09:12:57.186000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:01:14.663000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:14.540000+02:00",
     "PhysicalTableMap": {
       "2df55c8c-4a3b-4277-86b7-5cde1f5a7f03": {
         "CustomSql": {
@@ -107,5 +107,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "521b2871-1689-4f02-9b79-6738d7fa1826"
+  "RequestId": "289c211a-c899-44fb-88a3-a533c4ff17fc"
 }

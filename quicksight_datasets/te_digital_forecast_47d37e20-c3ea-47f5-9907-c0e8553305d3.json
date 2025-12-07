@@ -5,7 +5,7 @@
     "DataSetId": "47d37e20-c3ea-47f5-9907-c0e8553305d3",
     "Name": "te_digital_forecast",
     "CreatedTime": "2025-08-27 12:25:36.457000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:00:48.254000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:00:48.202000+02:00",
     "PhysicalTableMap": {
       "9b16dc9b-5609-4f98-ad15-f3e67119189b": {
         "CustomSql": {
@@ -143,5 +143,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "20232137-1ba0-4fad-983c-c0b73d21e527"
+  "RequestId": "27afd6ad-6bd7-4410-97a3-20d053b83445"
 }

@@ -5,7 +5,7 @@
     "DataSetId": "e8ca5a4c-1f00-4eae-837a-1f7dc0b8289b",
     "Name": "shipping score",
     "CreatedTime": "2025-03-09 13:36:51.313000+02:00",
-    "LastUpdatedTime": "2025-11-20 08:01:18.466000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:19.458000+02:00",
     "PhysicalTableMap": {
       "29ad40a0-9dff-423e-8a05-cdf792f193a0": {
         "CustomSql": {
@@ -96,5 +96,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "c0f99c51-3457-44fb-a33c-38d206e06ea0"
+  "RequestId": "78c747fb-1c0b-4e07-8274-31dca193041c"
 }

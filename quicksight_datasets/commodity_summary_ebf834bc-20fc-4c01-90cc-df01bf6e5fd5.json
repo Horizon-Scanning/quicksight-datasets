@@ -5,7 +5,7 @@
     "DataSetId": "ebf834bc-20fc-4c01-90cc-df01bf6e5fd5",
     "Name": "commodity_summary",
     "CreatedTime": "2025-06-18 17:58:06.578000+03:00",
-    "LastUpdatedTime": "2025-11-20 08:01:22.554000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:22.767000+02:00",
     "PhysicalTableMap": {
       "6e9d64bd-f664-4544-a169-28c815d1e7bd": {
         "CustomSql": {
@@ -91,12 +91,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 21020,
+    "ConsumedSpiceCapacityInBytes": 21156,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "df1e6d3e-1fd3-454f-9bcc-3cb9471de444"
+  "RequestId": "8fbf2eef-1458-4ae3-b063-332cdae7f885"
 }

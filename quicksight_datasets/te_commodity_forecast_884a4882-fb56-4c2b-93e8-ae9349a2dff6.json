@@ -5,7 +5,7 @@
     "DataSetId": "884a4882-fb56-4c2b-93e8-ae9349a2dff6",
     "Name": "te_commodity_forecast",
     "CreatedTime": "2025-03-10 16:23:50.556000+02:00",
-    "LastUpdatedTime": "2025-11-20 08:01:17.186000+02:00",
+    "LastUpdatedTime": "2025-12-07 08:01:17.349000+02:00",
     "PhysicalTableMap": {
       "c843c59a-5e74-4342-ab2d-3386225ddea3": {
         "CustomSql": {
@@ -145,5 +145,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "79d9682b-eba4-4114-8858-d6ea1da3e90c"
+  "RequestId": "3c2768f6-79f6-402f-98dc-359470745588"
 }
