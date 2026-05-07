@@ -119,7 +119,15 @@ SELECT
     CASE 
         WHEN ac.mapped_commodity_name = 'Diesel' THEN NULL
         ELSE w.week_over_week_percent_change
-    END as score
+    END as score,
+    CASE
+        WHEN ac.mapped_commodity_name = 'Diesel'        THEN NULL
+        WHEN w.week_over_week_percent_change IS NULL     THEN NULL
+        WHEN w.week_over_week_percent_change < 0         THEN 'Green'
+        WHEN w.week_over_week_percent_change < 5         THEN 'Yellow'
+        WHEN w.week_over_week_percent_change < 10        THEN 'Red'
+        ELSE                                                  'Red Node'
+    END as status_color
 FROM all_commodities ac
 LEFT JOIN commodity_mapping cm 
     ON ac.mapped_commodity_name = cm.mapped_commodity_name
