@@ -5,7 +5,7 @@
     "DataSetId": "b1ff77ff-0cd7-4238-adf0-9d3fae98ce82",
     "Name": "te_shipping_indexes_summary",
     "CreatedTime": "2025-02-21 14:48:38.185000+02:00",
-    "LastUpdatedTime": "2025-12-07 08:01:34.241000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:01:35.291000+03:00",
     "PhysicalTableMap": {
       "42810be9-9ea0-4814-8424-99b8f4e51c46": {
         "RelationalTable": {
@@ -45,6 +45,10 @@
             {
               "Name": "countries",
               "Type": "STRING"
+            },
+            {
+              "Name": "source",
+              "Type": "STRING"
             }
           ]
         }
@@ -76,6 +80,7 @@
                 "reason_type",
                 "reasons",
                 "countries",
+                "source",
                 "Index"
               ]
             }
@@ -120,17 +125,21 @@
         "Type": "STRING"
       },
       {
+        "Name": "source",
+        "Type": "STRING"
+      },
+      {
         "Name": "Index",
         "Type": "STRING"
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 22061,
+    "ConsumedSpiceCapacityInBytes": 27721,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "65ba1584-0392-4215-9cee-485cb2158258"
+  "RequestId": "fcdb04cc-ba6b-4498-9aab-acb09d5678ca"
 }

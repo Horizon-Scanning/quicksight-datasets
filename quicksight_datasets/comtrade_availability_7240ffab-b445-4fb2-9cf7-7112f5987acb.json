@@ -5,7 +5,7 @@
     "DataSetId": "7240ffab-b445-4fb2-9cf7-7112f5987acb",
     "Name": "comtrade_availability",
     "CreatedTime": "2025-04-10 14:43:46.734000+03:00",
-    "LastUpdatedTime": "2025-12-07 08:01:05.281000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:01:05.977000+03:00",
     "PhysicalTableMap": {
       "9a38f914-5727-468c-8ad9-8dc49fc5aea6": {
         "CustomSql": {
@@ -27,7 +27,7 @@
             },
             {
               "Name": "period",
-              "Type": "INTEGER"
+              "Type": "STRING"
             },
             {
               "Name": "reportercode",
@@ -179,7 +179,7 @@
       },
       {
         "Name": "period",
-        "Type": "INTEGER"
+        "Type": "STRING"
       },
       {
         "Name": "reportercode",
@@ -272,12 +272,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 1365970,
+    "ConsumedSpiceCapacityInBytes": 1902574,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "2d540676-7794-4d26-a790-9ee425f9accc"
+  "RequestId": "967f60e7-4f35-46ae-aace-a1f3d1c1fe23"
 }

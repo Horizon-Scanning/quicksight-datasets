@@ -5,7 +5,7 @@
     "DataSetId": "fa6a681b-5336-4e34-94df-a15794aa7323",
     "Name": "Business Review",
     "CreatedTime": "2025-09-18 11:59:50.659000+03:00",
-    "LastUpdatedTime": "2025-09-18 12:00:04.384000+03:00",
+    "LastUpdatedTime": "2026-01-06 16:26:12.199000+02:00",
     "PhysicalTableMap": {
       "s3PhysicalTable": {
         "S3Source": {
@@ -242,5 +242,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "f8248145-db79-464c-b2d5-d214d5c244a0"
+  "RequestId": "ad9a46cc-1ca0-4f46-b237-238eef81d384"
 }

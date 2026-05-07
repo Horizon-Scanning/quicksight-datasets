@@ -5,7 +5,7 @@
     "DataSetId": "08499345-8db7-40e6-b869-da3db91dfdbe",
     "Name": "digital_commodity_score",
     "CreatedTime": "2025-08-28 11:03:34.229000+03:00",
-    "LastUpdatedTime": "2025-12-07 08:00:50.519000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:00:49.219000+03:00",
     "PhysicalTableMap": {
       "c8cfefe2-527f-4207-9ff0-e41a686648b4": {
         "CustomSql": {
@@ -158,12 +158,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 214695,
+    "ConsumedSpiceCapacityInBytes": 211846,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "8c446389-b01e-42f9-85f9-0a6117b717db"
+  "RequestId": "3be1f635-7e36-42d8-b736-3089255adb36"
 }

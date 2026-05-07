@@ -5,7 +5,7 @@
     "DataSetId": "a3a69b4f-6770-43da-bee5-1aa7f26e2995",
     "Name": "te_shipping_forecast",
     "CreatedTime": "2025-03-11 17:12:44.436000+02:00",
-    "LastUpdatedTime": "2025-12-07 08:01:17.492000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:01:18.379000+03:00",
     "PhysicalTableMap": {
       "7b783325-74f7-4b49-aa1b-dae90da981b6": {
         "CustomSql": {
@@ -145,5 +145,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "07059689-ed0c-41d4-86f9-395d6cb26ced"
+  "RequestId": "371964c0-bdae-4338-b616-81c9bf5727e4"
 }

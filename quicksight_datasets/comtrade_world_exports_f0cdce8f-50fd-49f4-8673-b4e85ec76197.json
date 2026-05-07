@@ -5,7 +5,7 @@
     "DataSetId": "f0cdce8f-50fd-49f4-8673-b4e85ec76197",
     "Name": "comtrade_world_exports",
     "CreatedTime": "2025-03-13 10:26:44.237000+02:00",
-    "LastUpdatedTime": "2025-11-17 10:11:13.738000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:03:06.836000+03:00",
     "PhysicalTableMap": {
       "133a278f-daf1-41d7-b013-c7dfa1f15216": {
         "RelationalTable": {
@@ -28,7 +28,7 @@
             },
             {
               "Name": "period",
-              "Type": "INTEGER"
+              "Type": "STRING"
             },
             {
               "Name": "reportercode",
@@ -139,7 +139,7 @@
             },
             {
               "Name": "period",
-              "Type": "INTEGER"
+              "Type": "STRING"
             },
             {
               "Name": "reportercode",
@@ -287,7 +287,8 @@
             },
             {
               "Name": "cifvalue",
-              "Type": "INTEGER"
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
             },
             {
               "Name": "fobvalue",
@@ -320,7 +321,86 @@
       }
     },
     "LogicalTableMap": {
-      "7b18052e-727e-42e1-a300-3da6dbd97c07": {
+      "aca5d893-2129-4250-9d59-0dce120ce6c4": {
+        "Alias": "Intermediate Table",
+        "Source": {
+          "JoinInstruction": {
+            "LeftOperand": "d17294eb-5285-40c3-9011-b8565e7ce7a6",
+            "RightOperand": "c142fe3f-bb46-4165-815f-d941bc273290",
+            "Type": "LEFT",
+            "OnClause": "reportercode = {reportercode[cmt_availability_history]} AND period = {period[cmt_availability_history]}"
+          }
+        }
+      },
+      "af5d8a6a-461e-4713-ba63-3081e0cfa598": {
+        "Alias": "AllCommodities",
+        "Source": {
+          "DataSetArn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9ee3bc06-2dc2-4272-961c-d5c18c8ea985"
+        }
+      },
+      "c142fe3f-bb46-4165-815f-d941bc273290": {
+        "Alias": "cmt_availability_history",
+        "DataTransforms": [
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "typecode",
+              "NewColumnName": "typecode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "freqcode",
+              "NewColumnName": "freqcode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "period",
+              "NewColumnName": "period[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "reportercode",
+              "NewColumnName": "reportercode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "reporteriso",
+              "NewColumnName": "reporteriso[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "reporterdesc",
+              "NewColumnName": "reporterdesc[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "classificationcode",
+              "NewColumnName": "classificationcode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "classificationsearchcode",
+              "NewColumnName": "classificationsearchcode[cmt_availability_history]"
+            }
+          },
+          {
+            "RenameColumnOperation": {
+              "ColumnName": "isoriginalclassification",
+              "NewColumnName": "isoriginalclassification[cmt_availability_history]"
+            }
+          }
+        ],
+        "Source": {
+          "PhysicalTableId": "133a278f-daf1-41d7-b013-c7dfa1f15216"
+        }
+      },
+      "d168269a-0bec-4b85-83d1-d72789e9f26a": {
         "Alias": "Intermediate Table (2)",
         "DataTransforms": [
           {
@@ -431,89 +511,10 @@
         ],
         "Source": {
           "JoinInstruction": {
-            "LeftOperand": "c5e42aa4-5ad6-4066-b8b8-75aef98a94e9",
+            "LeftOperand": "aca5d893-2129-4250-9d59-0dce120ce6c4",
             "RightOperand": "af5d8a6a-461e-4713-ba63-3081e0cfa598",
             "Type": "OUTER",
             "OnClause": "cmdcode = {comtrade hs codes}"
-          }
-        }
-      },
-      "af5d8a6a-461e-4713-ba63-3081e0cfa598": {
-        "Alias": "AllCommodities",
-        "Source": {
-          "DataSetArn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/9ee3bc06-2dc2-4272-961c-d5c18c8ea985"
-        }
-      },
-      "c142fe3f-bb46-4165-815f-d941bc273290": {
-        "Alias": "cmt_availability_history",
-        "DataTransforms": [
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "typecode",
-              "NewColumnName": "typecode[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "freqcode",
-              "NewColumnName": "freqcode[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "period",
-              "NewColumnName": "period[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "reportercode",
-              "NewColumnName": "reportercode[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "reporteriso",
-              "NewColumnName": "reporteriso[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "reporterdesc",
-              "NewColumnName": "reporterdesc[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "classificationcode",
-              "NewColumnName": "classificationcode[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "classificationsearchcode",
-              "NewColumnName": "classificationsearchcode[cmt_availability_history]"
-            }
-          },
-          {
-            "RenameColumnOperation": {
-              "ColumnName": "isoriginalclassification",
-              "NewColumnName": "isoriginalclassification[cmt_availability_history]"
-            }
-          }
-        ],
-        "Source": {
-          "PhysicalTableId": "133a278f-daf1-41d7-b013-c7dfa1f15216"
-        }
-      },
-      "c5e42aa4-5ad6-4066-b8b8-75aef98a94e9": {
-        "Alias": "Intermediate Table",
-        "Source": {
-          "JoinInstruction": {
-            "LeftOperand": "d17294eb-5285-40c3-9011-b8565e7ce7a6",
-            "RightOperand": "c142fe3f-bb46-4165-815f-d941bc273290",
-            "Type": "LEFT",
-            "OnClause": "reportercode = {reportercode[cmt_availability_history]} AND period = {period[cmt_availability_history]}"
           }
         }
       },
@@ -555,7 +556,7 @@
       },
       {
         "Name": "period",
-        "Type": "INTEGER"
+        "Type": "STRING"
       },
       {
         "Name": "reportercode",
@@ -703,7 +704,8 @@
       },
       {
         "Name": "cifvalue",
-        "Type": "INTEGER"
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
       },
       {
         "Name": "fobvalue",
@@ -745,7 +747,7 @@
       },
       {
         "Name": "period[cmt_availability_history]",
-        "Type": "INTEGER"
+        "Type": "STRING"
       },
       {
         "Name": "reportercode[cmt_availability_history]",
@@ -850,12 +852,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 82561534,
+    "ConsumedSpiceCapacityInBytes": 278870076,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "996eb979-83f2-4146-9387-993628b864bd"
+  "RequestId": "1d23a7e9-f5dc-4670-8b83-e8498081f050"
 }

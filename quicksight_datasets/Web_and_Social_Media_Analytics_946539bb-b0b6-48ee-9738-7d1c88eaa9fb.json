@@ -5,7 +5,7 @@
     "DataSetId": "946539bb-b0b6-48ee-9738-7d1c88eaa9fb",
     "Name": "Web and Social Media Analytics",
     "CreatedTime": "2025-09-18 11:59:50.787000+03:00",
-    "LastUpdatedTime": "2025-09-18 12:00:04.433000+03:00",
+    "LastUpdatedTime": "2026-01-06 16:26:11.882000+02:00",
     "PhysicalTableMap": {
       "s3PhysicalTable": {
         "S3Source": {
@@ -416,5 +416,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "f21327ee-7b49-421e-a66c-60b318f6fa88"
+  "RequestId": "4f7d9214-1b5d-4528-b01a-b2771b7a961b"
 }

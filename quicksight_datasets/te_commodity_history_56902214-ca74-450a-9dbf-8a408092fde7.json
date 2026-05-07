@@ -5,7 +5,7 @@
     "DataSetId": "56902214-ca74-450a-9dbf-8a408092fde7",
     "Name": "te_commodity_history",
     "CreatedTime": "2025-03-05 12:19:45.649000+02:00",
-    "LastUpdatedTime": "2025-12-07 08:02:26.022000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:01:05.054000+03:00",
     "PhysicalTableMap": {
       "9edd0e6f-63fb-4d66-be95-64bdbb09014b": {
         "RelationalTable": {
@@ -51,7 +51,7 @@
       }
     },
     "LogicalTableMap": {
-      "5c68593f-9545-43c1-af44-6615d4e2cb5d": {
+      "57acc20d-8202-4a7b-8ff4-a5d85da99478": {
         "Alias": "Intermediate Table",
         "DataTransforms": [
           {
@@ -201,12 +201,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 10558528,
+    "ConsumedSpiceCapacityInBytes": 10553938,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "b26c86c8-d760-466f-9d13-b99b847550da"
+  "RequestId": "05683168-434b-43a3-a1ea-e6e8b1a8002b"
 }

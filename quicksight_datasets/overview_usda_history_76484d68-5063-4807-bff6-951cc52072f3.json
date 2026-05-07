@@ -5,7 +5,7 @@
     "DataSetId": "76484d68-5063-4807-bff6-951cc52072f3",
     "Name": "overview_usda_history",
     "CreatedTime": "2025-08-14 09:12:57.186000+03:00",
-    "LastUpdatedTime": "2025-12-07 08:01:14.540000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:01:15.083000+03:00",
     "PhysicalTableMap": {
       "2df55c8c-4a3b-4277-86b7-5cde1f5a7f03": {
         "CustomSql": {
@@ -13,10 +13,6 @@
           "Name": "New custom SQL",
           "SqlQuery": "select *,\r\ndate_parse(report_date, '%d/%m/%Y') as Date\r\nfrom shippingbi.overview_usda_history",
           "Columns": [
-            {
-              "Name": "report_date",
-              "Type": "STRING"
-            },
             {
               "Name": "countries",
               "Type": "STRING"
@@ -27,6 +23,10 @@
             },
             {
               "Name": "outlook",
+              "Type": "STRING"
+            },
+            {
+              "Name": "report_date",
               "Type": "STRING"
             },
             {
@@ -58,10 +58,10 @@
           {
             "ProjectOperation": {
               "ProjectedColumns": [
-                "report_date",
                 "countries",
                 "change_type",
                 "outlook",
+                "report_date",
                 "commodity",
                 "Date"
               ]
@@ -75,10 +75,6 @@
     },
     "OutputColumns": [
       {
-        "Name": "report_date",
-        "Type": "STRING"
-      },
-      {
         "Name": "countries",
         "Type": "STRING"
       },
@@ -91,6 +87,10 @@
         "Type": "STRING"
       },
       {
+        "Name": "report_date",
+        "Type": "STRING"
+      },
+      {
         "Name": "commodity",
         "Type": "STRING"
       },
@@ -100,12 +100,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 335661,
+    "ConsumedSpiceCapacityInBytes": 477517,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "39f05df4-4a9f-4fd6-8aab-19ae67b67ca7"
+  "RequestId": "d5feb9dd-d851-4a22-83bb-2daa9cb0ed6d"
 }

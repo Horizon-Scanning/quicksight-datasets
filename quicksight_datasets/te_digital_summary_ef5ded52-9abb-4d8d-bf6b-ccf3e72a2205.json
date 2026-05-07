@@ -5,13 +5,13 @@
     "DataSetId": "ef5ded52-9abb-4d8d-bf6b-ccf3e72a2205",
     "Name": "te_digital_summary",
     "CreatedTime": "2025-08-24 22:00:36.102000+03:00",
-    "LastUpdatedTime": "2025-12-07 08:01:23.855000+02:00",
+    "LastUpdatedTime": "2026-05-07 12:02:30.996000+03:00",
     "PhysicalTableMap": {
       "4b8e3aed-5293-4810-ac85-5311b5dfb1c6": {
         "CustomSql": {
           "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/ad77d568-ca3c-4fc6-8b03-9c24a8553284",
           "Name": "New custom SQL",
-          "SqlQuery": "SELECT\r\n    -- Correct format for \"2025-08-18\" is '%Y-%m-%d'\r\n    CAST(date_parse(forecast_extracted, '%Y-%m-%d') AS DATE) AS forecast_extracted, \r\n    CASE\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(commodities, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS Commodity,\r\n    reason_type,\r\n    reasons AS summaries,\r\n    countries\r\nFROM\r\n    shippingbi.te_digital_summary",
+          "SqlQuery": "SELECT\r\n    COALESCE(\r\n        TRY(CAST(date_parse(forecast_extracted, '%Y-%m-%d') AS DATE)),\r\n        TRY(CAST(date_parse(forecast_extracted, '%d/%m/%Y') AS DATE)),\r\n        TRY(CAST(date_parse(forecast_extracted, '%m/%d/%Y') AS DATE)),\r\n        TRY(CAST(date_parse(forecast_extracted, '%d/%m/%Y %H:%i:%s') AS DATE)),\r\n        TRY(CAST(date_parse(forecast_extracted, '%Y-%m-%d %H:%i:%s') AS DATE)),\r\n        TRY(CAST(forecast_extracted AS DATE))\r\n    ) AS forecast_extracted,\r\n    CASE\r\n        WHEN LOWER(REPLACE(commodities, '-', ' ')) = 'lpg' THEN 'LPG'\r\n        ELSE ARRAY_JOIN(\r\n            TRANSFORM(\r\n                SPLIT(REPLACE(commodities, '-', ' '), ' '),\r\n                word -> UPPER(SUBSTRING(word, 1, 1)) || LOWER(SUBSTRING(word, 2))\r\n            ),\r\n            ' '\r\n        )\r\n    END AS Commodity,\r\n    reason_type,\r\n    reasons AS summaries,\r\n    countries\r\nFROM\r\n    shippingbi.te_digital_summary",
           "Columns": [
             {
               "Name": "forecast_extracted",
@@ -91,12 +91,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 4010,
+    "ConsumedSpiceCapacityInBytes": 5228,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "c432ccaf-5ef7-409d-b843-31b5c74d1a7e"
+  "RequestId": "bd55e2ea-c638-426f-94a7-8e6287ce4cd1"
 }

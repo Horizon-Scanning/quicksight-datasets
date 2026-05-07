@@ -5,7 +5,7 @@
     "DataSetId": "18e93ac1-bbc8-4d63-b3df-67683c58f51d",
     "Name": "te_digital_history",
     "CreatedTime": "2025-08-18 23:23:56.356000+03:00",
-    "LastUpdatedTime": "2025-12-07 08:00:55.646000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:00:55.958000+03:00",
     "PhysicalTableMap": {
       "6ca28219-35ca-4234-9251-22b055626dbd": {
         "CustomSql": {
@@ -107,12 +107,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 628895,
+    "ConsumedSpiceCapacityInBytes": 618443,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "5fe849cb-1ae8-427d-a3db-3a0ba8dcc8db"
+  "RequestId": "c2a31b8a-3ee1-45b8-a0cd-da4964ed9c71"
 }

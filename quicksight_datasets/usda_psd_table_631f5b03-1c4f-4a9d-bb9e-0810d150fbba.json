@@ -5,7 +5,7 @@
     "DataSetId": "631f5b03-1c4f-4a9d-bb9e-0810d150fbba",
     "Name": "usda_psd_table",
     "CreatedTime": "2025-07-06 09:29:39.654000+03:00",
-    "LastUpdatedTime": "2025-07-06 09:30:24.410000+03:00",
+    "LastUpdatedTime": "2026-04-20 12:15:28.551000+03:00",
     "PhysicalTableMap": {
       "5c25226f-0aca-401d-a024-a19f575f6fbd": {
         "RelationalTable": {
@@ -219,5 +219,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "0232a418-5910-43c2-9cea-27318d030947"
+  "RequestId": "932f59d2-8ec7-48c3-a3d8-04bb20c054d3"
 }

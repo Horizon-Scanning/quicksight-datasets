@@ -5,7 +5,7 @@
     "DataSetId": "f12282db-199b-4d37-ba3f-1300f6f6fa51",
     "Name": "commodity_history",
     "CreatedTime": "2025-06-25 21:47:05.517000+03:00",
-    "LastUpdatedTime": "2025-08-10 16:57:58.236000+03:00",
+    "LastUpdatedTime": "2026-04-23 12:52:05.834000+03:00",
     "PhysicalTableMap": {
       "d8000608-dd93-4012-8e46-fd8f8b8e8dc3": {
         "CustomSql": {
@@ -106,5 +106,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "58be0af9-a137-46aa-8dbc-a78cdcdcfdd9"
+  "RequestId": "0d68bded-5039-4a52-8d39-792fb2c27669"
 }

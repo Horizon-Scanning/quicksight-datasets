@@ -5,13 +5,13 @@
     "DataSetId": "47d37e20-c3ea-47f5-9907-c0e8553305d3",
     "Name": "te_digital_forecast",
     "CreatedTime": "2025-08-27 12:25:36.457000+03:00",
-    "LastUpdatedTime": "2025-12-07 08:00:48.202000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:00:48.322000+03:00",
     "PhysicalTableMap": {
       "9b16dc9b-5609-4f98-ad15-f3e67119189b": {
         "CustomSql": {
           "DataSourceArn": "arn:aws:quicksight:eu-central-1:046214330769:datasource/7fb45a78-8851-4da0-aa81-104810eced6b",
           "Name": "New custom SQL",
-          "SqlQuery": "SELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast1' as forecast_type,\r\n    forecast1 as forecast_value,\r\n    null as forecast_change,\r\n    forecastdate1 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast2' as forecast_type,\r\n    forecast2 as forecast_value,\r\n    null as forecast_change,\r\n    forecastdate2 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast3' as forecast_type,\r\n    forecast3 as forecast_value,\r\n    null as forecast_change,\r\n    forecastdate3 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast4' as forecast_type,\r\n    forecast4 as forecast_value,\r\n    null as forecast_change,\r\n    forecastdate4 as forecast_date\r\nFROM shippingbi.te_digital_forecast",
+          "SqlQuery": "SELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast1' as forecast_type,\r\n    forecast1 as forecast_value,\r\n    forecast1_perc_change as forecast_change,\r\n    forecastdate1 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast2' as forecast_type,\r\n    forecast2 as forecast_value,\r\n    forecast2_perc_change as forecast_change,\r\n    forecastdate2 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast3' as forecast_type,\r\n    forecast3 as forecast_value,\r\n    forecast3_perc_change as forecast_change,\r\n    forecastdate3 as forecast_date\r\nFROM shippingbi.te_digital_forecast\r\n\r\nUNION ALL\r\n\r\nSELECT \r\n    symbol,\r\n    name,\r\n    last,\r\n    unit,\r\n    url,\r\n    importance,\r\n    'forecast4' as forecast_type,\r\n    forecast4 as forecast_value,\r\n    forecast4_perc_change as forecast_change,\r\n    forecastdate4 as forecast_date\r\nFROM shippingbi.te_digital_forecast",
           "Columns": [
             {
               "Name": "symbol",
@@ -49,7 +49,8 @@
             },
             {
               "Name": "forecast_change",
-              "Type": "STRING"
+              "Type": "DECIMAL",
+              "SubType": "FLOAT"
             },
             {
               "Name": "forecast_date",
@@ -128,7 +129,8 @@
       },
       {
         "Name": "forecast_change",
-        "Type": "STRING"
+        "Type": "DECIMAL",
+        "SubType": "FLOAT"
       },
       {
         "Name": "forecast_date",
@@ -136,12 +138,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 4148,
+    "ConsumedSpiceCapacityInBytes": 3956,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "16bafd80-a30a-4666-b172-cf7c316f1d59"
+  "RequestId": "2f591248-dee2-4e6d-a083-471198e9fdb1"
 }

@@ -5,7 +5,7 @@
     "DataSetId": "4ef0d96b-5e1d-4074-8ab7-a66bb91234c6",
     "Name": "People Overview",
     "CreatedTime": "2025-09-18 11:59:50.766000+03:00",
-    "LastUpdatedTime": "2025-09-18 12:00:04.599000+03:00",
+    "LastUpdatedTime": "2026-01-06 16:26:12.095000+02:00",
     "PhysicalTableMap": {
       "s3PhysicalTable": {
         "S3Source": {
@@ -289,5 +289,5 @@
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "f4ee7ec2-e6a8-4db1-b8fb-7f87feb1b4a1"
+  "RequestId": "2a9957a7-a86f-438f-93b9-a5339884686a"
 }

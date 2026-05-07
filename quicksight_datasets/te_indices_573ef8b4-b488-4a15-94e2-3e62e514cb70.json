@@ -5,7 +5,7 @@
     "DataSetId": "573ef8b4-b488-4a15-94e2-3e62e514cb70",
     "Name": "te_indices",
     "CreatedTime": "2025-02-21 14:48:08.609000+02:00",
-    "LastUpdatedTime": "2025-12-06 20:01:00.380000+02:00",
+    "LastUpdatedTime": "2026-05-06 20:00:59.615000+03:00",
     "PhysicalTableMap": {
       "65bed39b-bcb1-4c8b-af39-3f6968b86c13": {
         "RelationalTable": {
@@ -20,6 +20,10 @@
             },
             {
               "Name": "name",
+              "Type": "STRING"
+            },
+            {
+              "Name": "date",
               "Type": "STRING"
             },
             {
@@ -115,13 +119,7 @@
           "DataSetArn": "arn:aws:quicksight:eu-central-1:046214330769:dataset/b1ff77ff-0cd7-4238-adf0-9d3fae98ce82"
         }
       },
-      "87673e77-9bd1-49f7-9f51-6d518ba3b0b0": {
-        "Alias": "te_shipping_index",
-        "Source": {
-          "PhysicalTableId": "65bed39b-bcb1-4c8b-af39-3f6968b86c13"
-        }
-      },
-      "c52ae475-5bb3-461c-b698-a264978ff21d": {
+      "332aeb2e-3626-42b4-b5e0-e8a3c8790ff6": {
         "Alias": "Intermediate Table",
         "DataTransforms": [
           {
@@ -129,6 +127,7 @@
               "ProjectedColumns": [
                 "symbol",
                 "name",
+                "date",
                 "last",
                 "unit",
                 "url",
@@ -163,6 +162,12 @@
             "OnClause": "name = Index"
           }
         }
+      },
+      "87673e77-9bd1-49f7-9f51-6d518ba3b0b0": {
+        "Alias": "te_shipping_index",
+        "Source": {
+          "PhysicalTableId": "65bed39b-bcb1-4c8b-af39-3f6968b86c13"
+        }
       }
     },
     "OutputColumns": [
@@ -172,6 +177,10 @@
       },
       {
         "Name": "name",
+        "Type": "STRING"
+      },
+      {
+        "Name": "date",
         "Type": "STRING"
       },
       {
@@ -273,12 +282,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 22543,
+    "ConsumedSpiceCapacityInBytes": 26460,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "ae665745-b2fa-4289-bcaa-c52791a92c89"
+  "RequestId": "6f0f2d24-cca1-4817-9269-08e7bf2ebcf4"
 }

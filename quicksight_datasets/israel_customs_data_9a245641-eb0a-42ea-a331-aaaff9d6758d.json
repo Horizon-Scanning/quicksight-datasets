@@ -5,7 +5,7 @@
     "DataSetId": "9a245641-eb0a-42ea-a331-aaaff9d6758d",
     "Name": "israel_customs_data",
     "CreatedTime": "2025-08-07 17:15:45.492000+03:00",
-    "LastUpdatedTime": "2025-12-07 14:12:05.313000+02:00",
+    "LastUpdatedTime": "2026-05-07 08:00:58.176000+03:00",
     "PhysicalTableMap": {
       "a56d4c40-2147-4ba4-98c8-3c399e3ea5f5": {
         "CustomSql": {
@@ -299,12 +299,12 @@
       }
     ],
     "ImportMode": "SPICE",
-    "ConsumedSpiceCapacityInBytes": 30076549,
+    "ConsumedSpiceCapacityInBytes": 31941738,
     "FieldFolders": {},
     "DataSetUsageConfiguration": {
       "DisableUseAsDirectQuerySource": false,
       "DisableUseAsImportedSource": false
     }
   },
-  "RequestId": "98adeadb-0fee-4a17-aca9-93f0441af7d0"
+  "RequestId": "64addd81-c7ce-491c-83bc-0e787ede4ca9"
 }
